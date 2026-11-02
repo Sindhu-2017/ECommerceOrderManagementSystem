@@ -1,15 +1,21 @@
 from functools import lru_cache
-from pydantic_settings import BaseSettings,SettingConfigDict
+from pydantic_settings import BaseSettings,SettingsConfigDict
 from sqlalchemy import URL
 
 class Settings(BaseSettings):
+    PROJECT_NAME:str
     DB_HOST:str
     DB_PORT:int
     DB_NAME:str
     DB_USER:str
     DB_PASSWORD:str
 
-    model_config = SettingConfigDict(
+    SECRET_KEY: str
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    REFRESH_TOKEN_EXPIRE_DAYS: int = 7
+
+    model_config = SettingsConfigDict(
         env_file = ".env",
         extra = "ignore"
     )
