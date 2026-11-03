@@ -151,3 +151,58 @@ WHERE users.username = $1::VARCHAR
 2026-11-03 15:10:06,768 - app.middleware.observability - INFO - POST /api/auth/login | Status: 200 | Duration: 0.081 seconds | Correlation ID: b1336d29-23fc-4169-962e-9b0adcfd02b6
 2026-11-03 15:11:38,975 - app.services.product_service - INFO - Product image uploaded successfully: 1
 2026-11-03 15:11:38,984 - app.middleware.observability - INFO - POST /api/products/1/image | Status: 200 | Duration: 0.226 seconds | Correlation ID: 88e6bdbb-79e6-4923-8a08-7f0e4a926bf3
+2026-11-03 15:39:16,022 - app.middleware.observability - INFO - GET /docs | Status: 200 | Duration: 0.001 seconds | Correlation ID: 7fb9b10c-00dc-4318-b8e3-b6d10ad95709
+2026-11-03 15:39:16,172 - app.middleware.observability - INFO - GET /openapi.json | Status: 200 | Duration: 0.063 seconds | Correlation ID: 52719832-47c4-435f-854b-6c6ed40b77e8
+2026-11-03 15:41:33,164 - app.middleware.observability - INFO - GET /docs | Status: 200 | Duration: 0.000 seconds | Correlation ID: 36e694f2-83c4-429f-b3bb-075385947558
+2026-11-03 15:41:33,279 - app.middleware.observability - INFO - GET /openapi.json | Status: 200 | Duration: 0.057 seconds | Correlation ID: 11831f69-d158-4d2e-815d-d4dbd12e58a8
+2026-11-03 15:41:38,883 - app.middleware.observability - WARNING - GET /orders/ | Status: 401 | Duration: 0.003 seconds | Correlation ID: 6a32672c-75fc-4f76-97a7-98d4d2512e48
+2026-11-03 15:42:18,494 - app.services.auth_service - INFO - Login successful. user_id=2
+2026-11-03 15:42:18,495 - app.middleware.observability - INFO - POST /api/auth/login | Status: 200 | Duration: 0.285 seconds | Correlation ID: f8ee97ad-6b50-4dc0-91ae-9cd4e3f42bb1
+2026-11-03 15:42:47,370 - app.middleware.observability - WARNING - GET /orders/ | Status: 404 | Duration: 0.023 seconds | Correlation ID: 903483e3-0dcd-4b1f-a0b0-b3cad07f1cf2
+2026-11-03 15:43:15,999 - app.middleware.observability - WARNING - GET /orders/1 | Status: 404 | Duration: 0.015 seconds | Correlation ID: 4edce788-e31f-46d3-b5da-4c848c391585
+2026-11-03 15:43:48,973 - app.middleware.observability - WARNING - GET /orders/1 | Status: 404 | Duration: 0.008 seconds | Correlation ID: 43103ad2-5c98-4a2b-a1d5-eb2f23336b39
+2026-11-03 15:44:30,981 - app.services.auth_service - INFO - Login successful. user_id=1
+2026-11-03 15:44:30,982 - app.middleware.observability - INFO - POST /api/auth/login | Status: 200 | Duration: 0.087 seconds | Correlation ID: 3fb0b762-7546-4553-83a5-1fd73db4a440
+2026-11-03 15:44:51,148 - app.middleware.observability - WARNING - GET /orders/1 | Status: 404 | Duration: 0.035 seconds | Correlation ID: e3edd622-6a87-44bf-ad8b-96111390186b
+2026-11-03 15:44:57,869 - app.middleware.observability - WARNING - POST /orders/ | Status: 400 | Duration: 0.023 seconds | Correlation ID: 67d9c426-a912-43de-b648-6d78e17abe46
+2026-11-03 16:01:08,724 - app.middleware.observability - INFO - GET /docs | Status: 200 | Duration: 0.001 seconds | Correlation ID: f230deb5-60d3-44b4-a560-aa8931556cfd
+2026-11-03 16:01:08,930 - app.middleware.observability - INFO - GET /openapi.json | Status: 200 | Duration: 0.120 seconds | Correlation ID: 4e61e119-11cf-43a7-b6bd-a52188cb8da3
+2026-11-03 16:01:22,724 - app.middleware.observability - INFO - GET /docs | Status: 200 | Duration: 0.001 seconds | Correlation ID: 1585c153-97ef-4292-b054-5521af2fee1b
+2026-11-03 16:01:22,872 - app.middleware.observability - INFO - GET /openapi.json | Status: 200 | Duration: 0.085 seconds | Correlation ID: bfd9376d-94d4-4351-b914-aea3fc92c032
+2026-11-03 16:01:44,164 - app.services.auth_service - INFO - Login successful. user_id=1
+2026-11-03 16:01:44,164 - app.middleware.observability - INFO - POST /api/auth/login | Status: 200 | Duration: 0.321 seconds | Correlation ID: 2af6d325-f84e-4f05-ba33-49df40e211bc
+2026-11-03 16:02:24,559 - app.middleware.observability - INFO - GET /docs | Status: 200 | Duration: 0.001 seconds | Correlation ID: 699a98fc-b43f-4ee4-95ae-6b98ab8998b6
+2026-11-03 16:02:24,745 - app.middleware.observability - INFO - GET /openapi.json | Status: 200 | Duration: 0.111 seconds | Correlation ID: 1ae3807e-ec73-4208-9478-ed4b66fce589
+2026-11-03 16:02:41,733 - app.services.auth_service - INFO - Login successful. user_id=1
+2026-11-03 16:02:41,734 - app.middleware.observability - INFO - POST /api/auth/login | Status: 200 | Duration: 0.256 seconds | Correlation ID: ef1a59ac-f355-4719-8694-21f5794581bf
+2026-11-03 16:03:00,911 - app.middleware.observability - INFO - GET /api/shipping/ | Status: 200 | Duration: 0.042 seconds | Correlation ID: 8ee22355-6dbc-454e-8dca-92dea792f817
+2026-11-03 16:03:37,635 - app.services.shipping_service - INFO - Shipping address created. shipping_id=1
+2026-11-03 16:03:37,636 - app.middleware.observability - INFO - POST /api/shipping/ | Status: 201 | Duration: 0.040 seconds | Correlation ID: 56b1ddd1-53fd-4997-a594-454293c4acb6
+2026-11-03 16:03:58,384 - app.services.order_service - INFO - Order created successfully: order_id=1
+2026-11-03 16:03:58,393 - app.middleware.observability - INFO - POST /orders/ | Status: 201 | Duration: 0.060 seconds | Correlation ID: 4431c5f7-5b4d-4dd6-8e56-bb4320f2bf0e
+2026-11-03 16:04:30,308 - app.middleware.observability - INFO - GET /orders/ | Status: 200 | Duration: 0.011 seconds | Correlation ID: 6ae05e25-f3d3-4098-8e3d-19d108630994
+2026-11-03 16:04:41,740 - app.middleware.observability - WARNING - GET /orders/2 | Status: 404 | Duration: 0.009 seconds | Correlation ID: 5abc5228-72d1-4b04-942e-9154136c37f7
+2026-11-03 16:04:46,389 - app.middleware.observability - INFO - GET /orders/1 | Status: 200 | Duration: 0.010 seconds | Correlation ID: 447c9787-c516-4e36-9ab8-fdf5b8577922
+2026-11-03 16:05:12,267 - app.middleware.observability - INFO - PATCH /api/shipping/1 | Status: 200 | Duration: 0.030 seconds | Correlation ID: 310f40aa-2785-4851-a835-7c1d0ee32fe6
+2026-11-03 16:05:20,811 - app.middleware.observability - WARNING - DELETE /api/shipping/4 | Status: 404 | Duration: 0.011 seconds | Correlation ID: 39551809-32a0-4d96-a973-8b10a2f2bcef
+2026-11-03 16:56:22,195 - app.middleware.observability - WARNING - DELETE /api/shipping/1 | Status: 409 | Duration: 0.244 seconds | Correlation ID: 267d9090-4611-4421-b41e-fed88a6e2f0e
+2026-11-03 16:56:27,657 - app.middleware.observability - INFO - GET /docs | Status: 200 | Duration: 0.000 seconds | Correlation ID: 1e2a79c1-3f1f-4d46-8536-900526c73377
+2026-11-03 16:56:27,830 - app.middleware.observability - INFO - GET /openapi.json | Status: 200 | Duration: 0.065 seconds | Correlation ID: 03de4dd4-d043-46bd-8dc6-cf793cf2ab79
+2026-11-03 18:26:38,014 - app.middleware.observability - INFO - GET /docs | Status: 200 | Duration: 0.001 seconds | Correlation ID: 4cf418f2-378a-4d48-9a14-322326674537
+2026-11-03 18:26:38,334 - app.middleware.observability - INFO - GET /openapi.json | Status: 200 | Duration: 0.181 seconds | Correlation ID: 706ecc89-9527-4b33-a721-56e425b052a1
+2026-11-03 18:26:39,371 - app.middleware.observability - INFO - GET /docs | Status: 200 | Duration: 0.000 seconds | Correlation ID: cb8c64d2-9cd6-4379-8ff7-ffb2daa58b6e
+2026-11-03 18:26:39,489 - app.middleware.observability - INFO - GET /openapi.json | Status: 200 | Duration: 0.001 seconds | Correlation ID: d95adace-d4a0-4a38-986a-d033cd5474fe
+2026-11-03 18:27:05,117 - app.services.auth_service - INFO - Login successful. user_id=1
+2026-11-03 18:27:05,119 - app.middleware.observability - INFO - POST /api/auth/login | Status: 200 | Duration: 0.700 seconds | Correlation ID: 8fbf9286-06c2-484f-a1c3-c37a0008bc14
+2026-11-03 18:47:39,030 - app.services.email_service - INFO - Order confirmation email sent successfully for order_id=6
+2026-11-03 18:47:39,031 - app.services.order_service - INFO - Order confirmation email sent. Order ID: 6
+2026-11-03 18:47:39,032 - app.middleware.observability - INFO - POST /orders/ | Status: 201 | Duration: 4.865 seconds | Correlation ID: 0de2f0e3-1bad-45e0-b7a7-0bdff4451f25
+2026-11-03 18:51:31,905 - app.services.email_service - INFO - Order confirmation email sent successfully for order_id=7
+2026-11-03 18:51:31,906 - app.services.order_service - INFO - Order confirmation email sent. Order ID: 7
+2026-11-03 18:51:31,908 - app.middleware.observability - INFO - POST /orders/ | Status: 201 | Duration: 3.243 seconds | Correlation ID: 737de1ac-dd1f-48cb-bf14-6c04e57fe029
+2026-11-03 19:04:57,657 - app.middleware.observability - WARNING - POST /api/categories/ | Status: 403 | Duration: 0.186 seconds | Correlation ID: f4665ca3-4af5-43e0-8a2b-0e32cf6cedfc
+2026-11-03 19:05:13,043 - app.services.auth_service - INFO - Login successful. user_id=2
+2026-11-03 19:05:13,043 - app.middleware.observability - INFO - POST /api/auth/login | Status: 200 | Duration: 0.110 seconds | Correlation ID: 2a2ae963-470e-4318-90eb-c69a80364729
+2026-11-03 19:06:56,790 - app.services.category_service - INFO - Category created. category_id=3
+2026-11-03 19:06:56,790 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.023 seconds | Correlation ID: 1c89b21b-8bed-4995-8972-657253323f9a
+2026-11-03 19:07:10,055 - app.middleware.observability - WARNING - POST /orders/ | Status: 403 | Duration: 0.024 seconds | Correlation ID: 8801bcbe-75e7-41eb-8d4a-c5c20980bd37

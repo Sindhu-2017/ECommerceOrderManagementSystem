@@ -7,6 +7,8 @@ import app.core.logging_config
 from app.api.routers.auth_router import router as auth_router
 from app.api.routers.category_router import router as category_router
 from app.api.routers.product_router import router as product_router
+from app.api.routers.order_router import router as order_router 
+from app.api.routers.shipping_router import router as shipping_router
 
 from app.core.exceptions import (
     AppError,
@@ -22,7 +24,10 @@ from app.core.exceptions import (
     RefreshTokenNotFoundError,
     ProductAlreadyExistsError,
     ProductNotFoundError,
-    InvalidProductDataError
+    InvalidProductDataError,
+    OrderNotFoundError,
+    InvalidOrderOperationError,
+    CustomerNotFoundError
 )
 from app.middleware.observability import ObservabilityMiddleware
 
@@ -54,7 +59,10 @@ async def app_exception_handler(
         CategoryAlreadyExistsError:409,
         ProductNotFoundError:404,
         ProductAlreadyExistsError:409,
-        InvalidProductDataError:400        
+        InvalidProductDataError:400 ,
+        CustomerNotFoundError:404,
+        OrderNotFoundError:404,
+        InvalidOrderOperationError:409       
     }
 
     status_code = status_codes.get(type(exc), 400)
@@ -68,6 +76,8 @@ async def app_exception_handler(
 app.include_router(auth_router)
 app.include_router(category_router)
 app.include_router(product_router)
+app.include_router(shipping_router)
+app.include_router(order_router)
 app.add_middleware(ObservabilityMiddleware)
 
 

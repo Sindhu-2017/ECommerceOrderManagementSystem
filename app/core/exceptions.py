@@ -51,3 +51,18 @@ class ProductAlreadyExistsError(AppError):
 
 class InvalidProductDataError(AppError):
     pass
+
+
+class OrderNotFoundError(Exception):
+    pass
+
+
+class CustomerNotFoundError(Exception):
+    pass
+
+
+class InvalidOrderOperationError(Exception):
+    pass
+
+class ShippingInUseError(Exception):
+    pass

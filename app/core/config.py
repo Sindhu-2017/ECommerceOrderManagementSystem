@@ -1,5 +1,7 @@
 from functools import lru_cache
 
+from pydantic import SecretStr
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy import URL
 
@@ -16,6 +18,9 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
+
+    EMAIL_SENDER: str | None = None
+    EMAIL_PASSWORD: SecretStr | None = None
 
     LOG_LEVEL: str = "INFO"
 

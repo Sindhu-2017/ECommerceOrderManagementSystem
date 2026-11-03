@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import select,text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.category import Category
@@ -53,9 +53,29 @@ class CategoryRepository(CategoryRepositoryInterface):
         category: Category
     ) -> Category:
 
-        db.add(category)
-        await db.flush()
-        return category
+        # db.add(category)
+        # await db.flush()
+        # return category
+        await db.execute(
+            text("""
+                CALL insert_category(
+                    :category_name,
+                    :description
+                )
+            """),
+            {
+                "category_name":category.category_name,
+                "description": category.description
+            }
+        )
+
+        result = await db.execute(
+            select(Category).where(
+                Category.category_name == category.category_name
+            )
+        )
+
+        return result.scalar_one()
 
 
     async def update(

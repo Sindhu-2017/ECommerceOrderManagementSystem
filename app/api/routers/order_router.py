@@ -1,0 +1,113 @@
+import logging
+
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.api.dependencies.auth import get_current_user,require_roles
+from app.api.dependencies.database import get_db
+from app.api.dependencies.service_depencies import get_order_service
+from app.models.user import User
+from app.schemas.order_schema import OrderCreate, OrderResponse
+from app.services.order_service import OrderService
+
+logger = logging.getLogger(__name__)
+
+router = APIRouter(
+    prefix="/orders",
+    tags=["Orders"]
+)
+
+
+@router.post(
+    "/",
+    response_model=OrderResponse,
+    status_code=status.HTTP_201_CREATED,
+    dependencies=[Depends(require_roles("customer"))]
+)
+async def create_order(
+    order_data: OrderCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+    order_service: OrderService = Depends(get_order_service)
+):
+    try:
+        return await order_service.create_order(
+            db=db,
+            user_id=current_user.user_id,
+            data=order_data
+        )
+
+    except ValueError as error:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(error)
+        )
+
+    except Exception:
+        logger.exception("Failed to create order")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Unable to create order"
+        )
+
+
+@router.get(
+    "/{order_id}",
+    response_model=OrderResponse,
+    dependencies=[Depends(require_roles("customer"))]
+)
+async def get_order(
+    order_id: int,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+    order_service: OrderService = Depends(get_order_service)
+):
+    try:
+        return await order_service.get_order(
+            db=db,
+            order_id=order_id,
+            user_id=current_user.user_id
+        )
+
+    except ValueError as error:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(error)
+        )
+
+    except Exception:
+        logger.exception("Failed to retrieve order")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Unable to retrieve order"
+        )
+
+
+@router.get(
+    "/",
+    response_model=list[OrderResponse],
+    dependencies=[Depends(require_roles("customer"))]
+)
+async def get_customer_orders(
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+    order_service: OrderService = Depends(get_order_service)
+):
+    try:
+        return await order_service.get_customer_orders(
+            db=db,
+            user_id=current_user.user_id
+        )
+
+    except ValueError as error:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(error)
+        )
+
+    except Exception:
+        logger.exception("Failed to retrieve customer orders")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Unable to retrieve orders"
+        )
