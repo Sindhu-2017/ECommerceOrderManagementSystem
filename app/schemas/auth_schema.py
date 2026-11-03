@@ -1,4 +1,7 @@
-from pydantic import BaseModel,EmailStr,Field
+from datetime import date
+
+from pydantic import BaseModel, EmailStr, Field
+
 
 class RegisterRequest(BaseModel):
     username:str =Field(min_length=3,max_length=50)
@@ -7,6 +10,7 @@ class RegisterRequest(BaseModel):
     first_name:str=Field(min_length=1,max_length=50)
     last_name:str=Field(min_length=1,max_length=50)
     phone :str = Field(min_length=10,max_length=15)
+    date_of_birth: date
 
 class LoginRequest(BaseModel):
     username:str

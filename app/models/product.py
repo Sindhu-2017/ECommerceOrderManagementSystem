@@ -1,12 +1,18 @@
 from decimal import Decimal
 
-from sqlalchemy import Integer,String,Boolean,ForeignKey,Text,Numeric,CheckConstraint
-from sqlalchemy.orm import Mapped,mapped_column,relationship
+from sqlalchemy import (
+    Boolean,
+    CheckConstraint,
+    ForeignKey,
+    Integer,
+    Numeric,
+    String,
+    Text,
+)
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base
-# from app.models.category import Category
-# from app.models.wishlist import Wishlist
-# from app.models.order_item import OrderItem
+
 
 class Product(Base):
     __tablename__ = "products"
@@ -48,7 +54,7 @@ class Product(Base):
         nullable=False
     )
 
-    image_path:Mapped[str] = mapped_column(
+    image_path:Mapped[str|None] = mapped_column(
         String(200),
         nullable=True
     )
@@ -62,11 +68,11 @@ class Product(Base):
         back_populates="products"
     )
 
-    wishlists :Mapped[list["Wishlist"]] = relationship(
+    wishlist_entries :Mapped[list["Wishlist"]] = relationship(
         back_populates="product"
     )
 
-    order_item :Mapped[list["OrderItem"]]=relationship(
+    order_items :Mapped[list["OrderItem"]]=relationship(
         back_populates="product"
     )
 

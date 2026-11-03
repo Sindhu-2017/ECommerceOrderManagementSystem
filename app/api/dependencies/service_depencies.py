@@ -1,22 +1,37 @@
-from typing import Annotated
-from fastapi import Depends
-from sqlalchemy.ext.asyncio import AsyncSession
+from app.repositories.implementations.category_repository import (
+    CategoryRepository
+)
 
-from app.api.dependencies.database import get_db
+from app.repositories.implementations.product_repository import (
+    ProductRepository
+)
+
 from app.repositories.implementations.refresh_token_repository import (
-    RefreshTokenRepository,
+    RefreshTokenRepository
 )
 from app.repositories.implementations.user_repository import (
-    UserRepository,
+    UserRepository
 )
+
 from app.services.auth_service import AuthService
+from app.services.category_service import CategoryService
+from app.services.product_service import ProductService
 
-
-async def get_auth_service(
-    db: Annotated[AsyncSession, Depends(get_db)],
-) -> AuthService:
+def get_auth_service() -> AuthService:
     return AuthService(
-        db=db,
-        user_repository=UserRepository(db),
-        refresh_token_repository=RefreshTokenRepository(db),
+        user_repository=UserRepository(),
+        refresh_token_repository=RefreshTokenRepository(),
+    )
+
+
+
+def get_category_service() -> CategoryService:
+    return CategoryService(
+        category_repository=CategoryRepository()
+    )
+
+def get_product_service() -> ProductService:
+    return ProductService(
+        product_repository=ProductRepository(),
+        category_repository=CategoryRepository()
     )

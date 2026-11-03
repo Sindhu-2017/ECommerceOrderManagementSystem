@@ -1,13 +1,10 @@
 from datetime import date
 
-from sqlalchemy import Integer,String,Date,ForeignKey
-from sqlalchemy.orm import Mapped,mapped_column,relationship
+from sqlalchemy import Date, ForeignKey, Integer, String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base
-# from app.models.user import User
-# from app.models.wishlist import Wishlist
-# from app.models.order import Order
-# from app.models.shipping import Shipping
+
 
 class Customer(Base):
     __tablename__ = "customers"

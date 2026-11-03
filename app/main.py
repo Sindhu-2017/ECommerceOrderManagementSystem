@@ -1,19 +1,78 @@
-from fastapi import FastAPI
+import logging
 
-from app.core.config import get_settings
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+
+import app.core.logging_config
 from app.api.routers.auth_router import router as auth_router
+from app.api.routers.category_router import router as category_router
+from app.api.routers.product_router import router as product_router
 
-settings= get_settings()
+from app.core.exceptions import (
+    AppError,
+    CategoryAlreadyExistsError,
+    CategoryNotFoundError,
+    DatabaseOperationError,
+    DuplicateEmailError,
+    DuplicatePhoneError,
+    DuplicateUsernameError,
+    InactiveUserError,
+    InvalidCredentialsError,
+    InvalidTokenError,
+    RefreshTokenNotFoundError,
+    ProductAlreadyExistsError,
+    ProductNotFoundError,
+    InvalidProductDataError
+)
+from app.middleware.observability import ObservabilityMiddleware
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI(
-    title= settings.PROJECT_NAME,
-    description="E-Commerce Order Management System API",
-    version= "1.0.0"
+    title="E-Commerce Order Management System",
+    description="E-Commerce API",
+    version="1.0.0",
 )
+
+
+@app.exception_handler(AppError)
+async def app_exception_handler(
+    request: Request,
+    exc: AppError,
+) -> JSONResponse:
+
+    status_codes = {
+        InvalidCredentialsError: 401,
+        InactiveUserError: 403,
+        DuplicateEmailError: 409,
+        DuplicateUsernameError: 409,
+        DuplicatePhoneError: 409,
+        InvalidTokenError: 401,
+        RefreshTokenNotFoundError: 401,
+        DatabaseOperationError: 500,
+        CategoryNotFoundError:404,
+        CategoryAlreadyExistsError:409,
+        ProductNotFoundError:404,
+        ProductAlreadyExistsError:409,
+        InvalidProductDataError:400        
+    }
+
+    status_code = status_codes.get(type(exc), 400)
+
+    return JSONResponse(
+        status_code=status_code,
+        content={"detail": str(exc)},
+    )
+
+
 app.include_router(auth_router)
+app.include_router(category_router)
+app.include_router(product_router)
+app.add_middleware(ObservabilityMiddleware)
+
 
 @app.get("/")
-async def root() -> dict:
+async def home() -> dict[str, str]:
     return {
-        "message" : "Welcome to E-Commerce Order Management System API"
+        "message": "E-Commerce Order Management System API is running"
     }

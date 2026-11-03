@@ -1,9 +1,10 @@
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
 from datetime import datetime
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.refresh_token import RefreshToken
+
 
 class RefreshTokenRepositoryInterface(ABC):
     @abstractmethod

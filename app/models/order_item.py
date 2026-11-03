@@ -1,11 +1,10 @@
 from decimal import Decimal
 
-from sqlalchemy import Integer,ForeignKey,Numeric
-from sqlalchemy.orm import Mapped,mapped_column,relationship
+from sqlalchemy import ForeignKey, Integer, Numeric
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base
-# from app.models.product import Product
-# from app.models.order import Order
+
 
 class OrderItem(Base):
     __tablename__ = "order_items"

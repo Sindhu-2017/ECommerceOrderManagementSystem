@@ -1,9 +1,10 @@
 from datetime import datetime
 
-from sqlalchemy import Integer,DateTime,func,ForeignKey,String,Boolean
-from sqlalchemy.orm import Mapped,mapped_column,relationship
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, func
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base
+
 # from app.models.customer import Customer
 # from app.models.order import Order
 

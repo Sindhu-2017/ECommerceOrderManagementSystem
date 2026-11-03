@@ -1,0 +1,225 @@
+2026-11-03 13:16:38,359 - app.middleware.observability - ERROR - Unhandled exception | POST /api/products/ | Correlation ID: 4135d6e3-f2d1-4f99-89ee-1e765f2ab33b
+Traceback (most recent call last):
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\middleware\observability.py", line 21, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\base.py", line 179, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\base.py", line 149, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\routing.py", line 683, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 2811, in app
+    await route.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1839, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 2894, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1865, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1328, in handle
+    await effective_context.app(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 166, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 152, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 767, in app
+    content = await serialize_response(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<11 lines>...
+    )
+    ^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 343, in serialize_response
+    raise ResponseValidationError(
+    ...<3 lines>...
+    )
+fastapi.exceptions.ResponseValidationError: 1 validation error:
+  {'type': 'string_type', 'loc': ('response', 'image_path'), 'msg': 'Input should be a valid string', 'input': None}
+
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\api\routers\product_router.py", line 39, in create_product
+    POST /api/products/
+2026-11-03 13:16:38,372 - app.middleware.observability - ERROR - POST /api/products/ | Status: 500 | Duration: 0.031 seconds | Correlation ID: 4135d6e3-f2d1-4f99-89ee-1e765f2ab33b
+2026-11-03 13:19:46,105 - app.middleware.observability - ERROR - Unhandled exception | PATCH /api/products/2 | Correlation ID: 9e139a80-925a-48c7-9829-5f13c2eb33e0
+Traceback (most recent call last):
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\middleware\observability.py", line 21, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\base.py", line 179, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\base.py", line 149, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\routing.py", line 683, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 2811, in app
+    await route.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1839, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 2894, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1865, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1328, in handle
+    await effective_context.app(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 166, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 152, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 745, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 372, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\api\routers\product_router.py", line 110, in update_product
+    return await service.update_product(db,product_id, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\services\product_service.py", line 125, in update_product
+    product = await self.get_product(product_id)
+                    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+TypeError: ProductService.get_product() missing 1 required positional argument: 'product_id'
+2026-11-03 13:19:46,118 - app.middleware.observability - ERROR - PATCH /api/products/2 | Status: 500 | Duration: 0.021 seconds | Correlation ID: 9e139a80-925a-48c7-9829-5f13c2eb33e0
+2026-11-03 15:10:24,357 - app.middleware.observability - ERROR - Unhandled exception | POST /api/products/1/image | Correlation ID: e649c88f-db29-4456-9731-e596ea641092
+Traceback (most recent call last):
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\middleware\observability.py", line 21, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\base.py", line 179, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\base.py", line 149, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\routing.py", line 683, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 2811, in app
+    await route.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1839, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 2894, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1865, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1328, in handle
+    await effective_context.app(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 166, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 152, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 745, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 372, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\api\routers\product_router.py", line 141, in upload_product_image
+    return await service.upload_product_image(
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        product_id,
+        ^^^^^^^^^^^
+        image
+        ^^^^^
+    )
+    ^
+TypeError: ProductService.upload_product_image() missing 1 required positional argument: 'image'
+2026-11-03 15:10:24,488 - app.middleware.observability - ERROR - POST /api/products/1/image | Status: 500 | Duration: 0.138 seconds | Correlation ID: e649c88f-db29-4456-9731-e596ea641092
+2026-11-03 15:10:53,010 - app.middleware.observability - ERROR - Unhandled exception | POST /api/products/1/image | Correlation ID: 69083cf2-ee97-4b41-bb9e-ebcd7b4737e1
+Traceback (most recent call last):
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\middleware\observability.py", line 21, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\base.py", line 179, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\base.py", line 149, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\routing.py", line 683, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 2811, in app
+    await route.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1839, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 2894, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1865, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1328, in handle
+    await effective_context.app(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 166, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 152, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 745, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 372, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\api\routers\product_router.py", line 141, in upload_product_image
+    return await service.upload_product_image(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\services\product_service.py", line 187, in upload_product_image
+    product = await self.get_product(product_id)
+                    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+TypeError: ProductService.get_product() missing 1 required positional argument: 'product_id'
+2026-11-03 15:10:53,024 - app.middleware.observability - ERROR - POST /api/products/1/image | Status: 500 | Duration: 0.174 seconds | Correlation ID: 69083cf2-ee97-4b41-bb9e-ebcd7b4737e1

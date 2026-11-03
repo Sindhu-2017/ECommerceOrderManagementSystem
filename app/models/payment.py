@@ -1,10 +1,11 @@
-from decimal import Decimal
 from datetime import datetime
+from decimal import Decimal
 
-from sqlalchemy import String,DateTime,ForeignKey,Numeric,func
-from sqlalchemy.orm import Mapped,mapped_column,relationship
+from sqlalchemy import DateTime, ForeignKey, Numeric, String, func
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base
+
 # from app.models.order import Order
 
 class Payment(Base):

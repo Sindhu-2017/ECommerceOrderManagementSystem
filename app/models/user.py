@@ -1,10 +1,9 @@
 from datetime import datetime
 
-from sqlalchemy import Integer,String,Boolean,DateTime,func
-from sqlalchemy.orm import Mapped,mapped_column,relationship
+from sqlalchemy import Boolean, DateTime, Integer, String, func
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base
-# from app.models.customer import Customer
 
 class User(Base):
     __tablename__ = "users"
@@ -52,4 +51,9 @@ class User(Base):
     customer :Mapped["Customer"] =  relationship(
         back_populates="user",
         cascade="all,delete-orphan"
+    )
+
+    refresh_tokens: Mapped[list["RefreshToken"]] = relationship(
+        back_populates="user",
+        cascade="all, delete-orphan",
     )

@@ -6,21 +6,8 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
-
-from app.database.base import Base
-from app.models.user import User
-from app.models.customer import Customer
-from app.models.category import Category
-from app.models.product import Product
-from app.models.order import Order
-from app.models.order_item import OrderItem
-from app.models.shipping import Shipping
-from app.models.wishlist import Wishlist
-from app.models.payment import Payment
-from app.models.refresh_token import RefreshToken
-
-
 from app.core.config import get_settings
+from app.database.base import Base
 
 settings=get_settings()
 

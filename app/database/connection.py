@@ -1,9 +1,6 @@
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+
 from app.core.config import get_settings
-from sqlalchemy.ext.asyncio import (
-    AsyncSession,
-    create_async_engine,
-    async_sessionmaker
-)
 
 settings = get_settings()
 engine = create_async_engine(
@@ -12,8 +9,7 @@ engine = create_async_engine(
     pool_size =5,
     max_overflow =10,
     pool_timeout =30,
-    pool_recycle = 1800,
-    echo = True
+    pool_recycle = 1800
 )
 
 SessionLocal =async_sessionmaker(

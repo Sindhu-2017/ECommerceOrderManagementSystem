@@ -1,7 +1,8 @@
-from sqlalchemy import Integer,String,Boolean,Text
-from sqlalchemy.orm import Mapped,mapped_column,relationship
+from sqlalchemy import Boolean, Integer, String, Text
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base
+
 # from app.models.product import Product
 
 class Category(Base):
