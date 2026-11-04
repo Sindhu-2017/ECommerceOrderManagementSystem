@@ -1,70 +1,109 @@
-2026-11-04 10:15:16,453 - app.services.payment_service - ERROR - Failed to create payment link
+2026-11-04 13:06:14,413 - app.middleware.observability - ERROR - Unhandled exception | POST /api/wishlists/1 | Correlation ID: 9a284788-e635-49c7-85bc-a3bbb6828246
 Traceback (most recent call last):
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\services\payment_service.py", line 82, in create_payment
-    payment_link = await asyncio.to_thread(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<17 lines>...
-    )
-    ^
-  File "C:\Users\G2TECH\AppData\Local\Python\pythoncore-3.14-64\Lib\asyncio\threads.py", line 26, in to_thread
-    return await loop.run_in_executor(None, func_call)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\G2TECH\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\thread.py", line 86, in run
-    result = ctx.run(self.task)
-  File "C:\Users\G2TECH\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\thread.py", line 73, in run
-    return fn(*args, **kwargs)
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\resources\payment_link.py", line 47, in create
-    return self.post_url(url, data, **kwargs)
-           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\resources\base.py", line 20, in post_url
-    return self.client.post(url, data, **kwargs)
-           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\client.py", line 252, in post
-    return self.request('post', path, data=data, **options)
-           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\client.py", line 200, in request
-    raise BadRequestError(msg)
-razorpay.errors.BadRequestError: payment link with given reference_id: 1 already exists. Please create a payment link with a different reference_id
-2026-11-04 10:15:16,457 - app.api.routers.payment_router - ERROR - Failed to create Razorpay payment
-Traceback (most recent call last):
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\services\payment_service.py", line 82, in create_payment
-    payment_link = await asyncio.to_thread(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<17 lines>...
-    )
-    ^
-  File "C:\Users\G2TECH\AppData\Local\Python\pythoncore-3.14-64\Lib\asyncio\threads.py", line 26, in to_thread
-    return await loop.run_in_executor(None, func_call)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\G2TECH\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\thread.py", line 86, in run
-    result = ctx.run(self.task)
-  File "C:\Users\G2TECH\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\thread.py", line 73, in run
-    return fn(*args, **kwargs)
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\resources\payment_link.py", line 47, in create
-    return self.post_url(url, data, **kwargs)
-           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\resources\base.py", line 20, in post_url
-    return self.client.post(url, data, **kwargs)
-           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\client.py", line 252, in post
-    return self.request('post', path, data=data, **options)
-           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\client.py", line 200, in request
-    raise BadRequestError(msg)
-razorpay.errors.BadRequestError: payment link with given reference_id: 1 already exists. Please create a payment link with a different reference_id
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\api\routers\payment_router.py", line 33, in create_payment
-    return await payment_service.create_payment(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\middleware\observability.py", line 21, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\base.py", line 179, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\base.py", line 149, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\routing.py", line 683, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 2811, in app
+    await route.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1839, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 2894, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1865, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1328, in handle
+    await effective_context.app(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 166, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 152, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 745, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     ...<3 lines>...
     )
     ^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\services\payment_service.py", line 137, in create_payment
-    raise HTTPException(
-    ...<2 lines>...
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 372, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\api\routers\wishlist_router.py", line 33, in add_to_wishlist
+    return await ServiceDependency.add_to_wishlist(db,current_user.user_id,product_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\services\wishlist_service.py", line 47, in add_to_wishlist
+    await self.wishlist_repository.create(wishlist)
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+TypeError: WishlistRepository.create() missing 1 required positional argument: 'wishlist'
+2026-11-04 13:06:14,417 - app.middleware.observability - ERROR - POST /api/wishlists/1 | Status: 500 | Duration: 0.014 seconds | Correlation ID: 9a284788-e635-49c7-85bc-a3bbb6828246
+2026-11-04 13:06:42,483 - app.middleware.observability - ERROR - Unhandled exception | POST /api/wishlists/1 | Correlation ID: 2a24dbf1-4378-4a6a-ac0b-712cce3ceba6
+Traceback (most recent call last):
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\middleware\observability.py", line 21, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\base.py", line 179, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\base.py", line 149, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\routing.py", line 683, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 2811, in app
+    await route.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1839, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 2894, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1865, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 1328, in handle
+    await effective_context.app(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 166, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 152, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 745, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
     )
-fastapi.exceptions.HTTPException: 502: Unable to create payment link
-2026-11-04 10:15:16,460 - app.middleware.observability - ERROR - POST /payments/create/1 | Status: 500 | Duration: 0.601 seconds | Correlation ID: 74cc04ac-417b-40fa-945f-7a0c7a232bc6
+    ^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\fastapi\routing.py", line 372, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\api\routers\wishlist_router.py", line 33, in add_to_wishlist
+    return await ServiceDependency.add_to_wishlist(db,current_user.user_id,product_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\services\wishlist_service.py", line 48, in add_to_wishlist
+    await db.commit
+TypeError: 'method' object can't be awaited
+2026-11-04 13:06:42,497 - app.middleware.observability - ERROR - POST /api/wishlists/1 | Status: 500 | Duration: 0.217 seconds | Correlation ID: 2a24dbf1-4378-4a6a-ac0b-712cce3ceba6

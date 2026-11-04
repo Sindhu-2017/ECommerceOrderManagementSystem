@@ -22,6 +22,9 @@ from app.repositories.implementations.shipping_repository import (
 from app.repositories.implementations.payment_repository import (
     PaymentRepository
 )
+from app.repositories.implementations.wishlist_repository import (
+    WishlistRepository
+)
 
 from app.services.shipping_service import ShippingService
 
@@ -31,6 +34,7 @@ from app.services.auth_service import AuthService
 from app.services.category_service import CategoryService
 from app.services.product_service import ProductService
 from app.services.payment_service import PaymentService
+from app.services.wishlist_service import WishListService
 
 
 def get_auth_service() -> AuthService:
@@ -67,4 +71,9 @@ def get_payment_service() -> PaymentService:
     return PaymentService(
         payment_repository=PaymentRepository(),
         order_repository=OrderRepository()
+    )
+
+def get_wishlist_service()->WishListService:
+    return WishListService(
+        wishlist_repository=WishlistRepository()
     )
