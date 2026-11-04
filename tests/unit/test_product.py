@@ -1,10 +1,11 @@
+
 from decimal import Decimal
 
 import pytest
 
-from app.core.exceptions import InvalidProductDataError
-from app.schemas.product_schema import ProductCreate
 from app.services.product_service import ProductService
+from app.schemas.product_schema import ProductCreate
+from app.core.exceptions import InvalidProductDataError
 
 
 @pytest.mark.asyncio
