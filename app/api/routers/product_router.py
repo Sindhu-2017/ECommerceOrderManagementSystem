@@ -123,6 +123,14 @@ async def delete_product(
 
     return await service.delete_product(db,product_id)
 
+# @router.get(
+#         "/admin/deleted",
+#         response_model=list[ProductResponse],
+#         dependencies=[Depends(require_roles("admin"))]
+# )
+# async def get_deleted_products(
+#     db
+# )
 
 # UPLOAD PRODUCT IMAGE
 @router.post(
@@ -142,3 +150,4 @@ async def upload_product_image(
         db,product_id,
         image
     )
+

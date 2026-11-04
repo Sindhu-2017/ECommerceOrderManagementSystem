@@ -65,3 +65,7 @@ class OrderRepositoryInterface(ABC):
         user_id: int
     ) -> User | None:
         pass
+
+    @abstractmethod
+    async def get_all_orders(self,db:AsyncSession)->list[Order]:
+        pass

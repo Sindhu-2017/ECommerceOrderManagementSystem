@@ -71,5 +71,12 @@ class ProductRepository(ProductRepositoryInterface):
         await db.flush()
         return Product
 
+    async def get_deleted_products(self, db)->list[Product]:
+        result = await db.execute(
+            select(Product)
+            .where(Product.is_active.is_(False))
+        )
+        return list(result.scalars().all())
+
         
 

@@ -111,3 +111,14 @@ async def get_customer_orders(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Unable to retrieve orders"
         )
+
+@router.get(
+    "/admin/all",
+    response_model=list[OrderResponse],
+    dependencies=[Depends(require_roles("admin"))]
+)
+async def get_all_orders(
+    db:AsyncSession=Depends(get_db),
+    order_service: OrderService = Depends(get_order_service)   
+):
+    return await order_service.get_all_orders(db)

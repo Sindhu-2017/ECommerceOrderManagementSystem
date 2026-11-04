@@ -85,3 +85,11 @@ class OrderRepository(OrderRepositoryInterface):
         )
 
         return result.scalar_one_or_none()
+
+    async def get_all_orders(self, db:AsyncSession)->list[Order]:
+        result=await db.execute(
+            select(Order)
+            .options(selectinload(Order.items))
+            .order_by(Order.order_date.desc())
+        )
+        return list(result.scalars().all())

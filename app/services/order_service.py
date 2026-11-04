@@ -179,3 +179,11 @@ class OrderService:
             raise ValueError("Customer profile not found")
 
         return await self.order_repository.get_customer_orders(db,customer.customer_id)
+
+    async def get_all_orders(self,db:AsyncSession)->list[Order]:
+        try:
+            return await self.order_repository.get_all_orders(db)
+
+        except Exception:
+            logger.exception("Failed to retrieve all orders")
+            raise

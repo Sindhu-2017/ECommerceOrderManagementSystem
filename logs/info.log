@@ -269,3 +269,9 @@ WHERE users.username = $1::VARCHAR
 2026-11-04 13:07:28,086 - app.services.wishlist_service - INFO - Product removed from wishlist. product_id=1
 2026-11-04 13:07:28,087 - app.middleware.observability - INFO - DELETE /api/wishlists/1 | Status: 200 | Duration: 0.013 seconds | Correlation ID: a825b445-8236-488e-be49-ec988c79ffbc
 2026-11-04 13:07:33,677 - app.middleware.observability - INFO - GET /api/wishlists/ | Status: 200 | Duration: 0.008 seconds | Correlation ID: f6db94ea-d1ae-41b7-9d44-3e698c249005
+2026-11-04 14:49:28,177 - app.middleware.observability - INFO - GET /docs | Status: 200 | Duration: 0.001 seconds | Correlation ID: b1a2fd36-cbdd-4a49-b977-6c6dab678a0a
+2026-11-04 14:49:28,841 - app.middleware.observability - INFO - GET /openapi.json | Status: 200 | Duration: 0.142 seconds | Correlation ID: 1ac3ea57-d938-4bbe-a8cf-ee72da607a86
+2026-11-04 14:49:51,477 - app.middleware.observability - WARNING - GET /orders/admin/all | Status: 401 | Duration: 0.004 seconds | Correlation ID: 03d07afc-8e53-4dee-8912-1cf6a43ad785
+2026-11-04 14:50:11,263 - app.services.auth_service - INFO - Login successful. user_id=1
+2026-11-04 14:50:11,264 - app.middleware.observability - INFO - POST /api/auth/login | Status: 200 | Duration: 0.377 seconds | Correlation ID: f7628f3a-ec14-40b9-8b06-5fd62f734f45
+2026-11-04 14:50:32,501 - app.middleware.observability - INFO - GET /orders/admin/all | Status: 200 | Duration: 0.062 seconds | Correlation ID: ecf9e45f-2e19-40d6-884b-53cddd1b3765

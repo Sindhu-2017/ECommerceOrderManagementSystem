@@ -182,6 +182,14 @@ class ProductService:
             await db.rollback()
             logger.exception("Product deletion failed")
             raise
+
+    async def get_deleted_products(self,db:AsyncSession)->list[Product]:
+        try:
+            return await self.product_repository.get_deleted_products(db)
+        except SQLAlchemyError:
+            logger.exception("Failed to retrieve deleted products")
+            raise
+
     
     async def upload_product_image(self,db:AsyncSession,product_id: int,image: UploadFile) -> Product:
         product = await self.get_product(db,product_id)
