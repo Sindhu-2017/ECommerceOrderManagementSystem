@@ -42,6 +42,22 @@ class Payment(Base):
         unique=True,
         nullable=True
     )
+    razorpay_payment_link_id: Mapped[str] = mapped_column(
+        String(100),
+        unique=True,
+        nullable=False
+    )
+
+    payment_link_url: Mapped[str] = mapped_column(
+        String(255),
+        nullable=False
+    )
+
+    razorpay_reference_id :Mapped[str]= mapped_column(
+        String(100),
+        nullable=True,
+        unique=True
+    )
 
     payment_date: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),

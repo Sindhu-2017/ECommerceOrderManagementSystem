@@ -1,187 +1,70 @@
-2026-11-03 19:05:30,975 - app.services.category_service - ERROR - Database error while creating category.
+2026-11-04 10:15:16,453 - app.services.payment_service - ERROR - Failed to create payment link
 Traceback (most recent call last):
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 581, in _prepare_and_execute
-    prepared_stmt, attributes = await adapt_connection._prepare(
-                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        operation, self._invalidate_schema_cache_asof
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\services\payment_service.py", line 82, in create_payment
+    payment_link = await asyncio.to_thread(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<17 lines>...
     )
     ^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 819, in _prepare
-    prepared_stmt = await self._connection.prepare(
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        operation, name=self._prepared_statement_name_func()
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\asyncpg\connection.py", line 661, in prepare
-    return await self._prepare(
-           ^^^^^^^^^^^^^^^^^^^^
-    ...<4 lines>...
-    )
-    ^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\asyncpg\connection.py", line 680, in _prepare
-    stmt = await self._get_statement(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<5 lines>...
-    )
-    ^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\asyncpg\connection.py", line 466, in _get_statement
-    statement = await self._protocol.prepare(
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<5 lines>...
-    )
-    ^
-  File "asyncpg/protocol/protocol.pyx", line 161, in prepare
-asyncpg.exceptions.UndefinedFunctionError: procedure insert_category(unknown, unknown) does not exist
-HINT:  No procedure matches the given name and argument types. You might need to add explicit type casts.
-
-The above exception was the direct cause of the following exception:
-
+  File "C:\Users\G2TECH\AppData\Local\Python\pythoncore-3.14-64\Lib\asyncio\threads.py", line 26, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\G2TECH\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Users\G2TECH\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\resources\payment_link.py", line 47, in create
+    return self.post_url(url, data, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\resources\base.py", line 20, in post_url
+    return self.client.post(url, data, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\client.py", line 252, in post
+    return self.request('post', path, data=data, **options)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\client.py", line 200, in request
+    raise BadRequestError(msg)
+razorpay.errors.BadRequestError: payment link with given reference_id: 1 already exists. Please create a payment link with a different reference_id
+2026-11-04 10:15:16,457 - app.api.routers.payment_router - ERROR - Failed to create Razorpay payment
 Traceback (most recent call last):
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1958, in _exec_single_context
-    self.dialect.do_execute(
-    ~~~~~~~~~~~~~~~~~~~~~~~^
-        cursor, str_statement, effective_parameters, context
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\services\payment_service.py", line 82, in create_payment
+    payment_link = await asyncio.to_thread(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<17 lines>...
     )
     ^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1192, in do_execute
-    cursor.execute(statement, parameters)
-    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 656, in execute
-    await_(self._prepare_and_execute(operation, parameters))
-    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\util\concurrency.py", line 167, in await_
-    return current.parent.switch(awaitable)  # type: ignore[no-any-return]
-           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\util\concurrency.py", line 205, in greenlet_spawn
-    value = await result
-            ^^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 618, in _prepare_and_execute
-    self._handle_exception(error)
-    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 568, in _handle_exception
-    self._adapt_connection._handle_exception(error)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 847, in _handle_exception
-    super()._handle_exception(error)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\connectors\asyncio.py", line 412, in _handle_exception
-    self._handle_exception_no_connection(self.dbapi, error)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 840, in _handle_exception_no_connection
-    raise translated_error from error
-sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: procedure insert_category(unknown, unknown) does not exist
+  File "C:\Users\G2TECH\AppData\Local\Python\pythoncore-3.14-64\Lib\asyncio\threads.py", line 26, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\G2TECH\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Users\G2TECH\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\resources\payment_link.py", line 47, in create
+    return self.post_url(url, data, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\resources\base.py", line 20, in post_url
+    return self.client.post(url, data, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\client.py", line 252, in post
+    return self.request('post', path, data=data, **options)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\razorpay\client.py", line 200, in request
+    raise BadRequestError(msg)
+razorpay.errors.BadRequestError: payment link with given reference_id: 1 already exists. Please create a payment link with a different reference_id
 
-The above exception was the direct cause of the following exception:
+During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\services\category_service.py", line 49, in create_category
-    await self.category_repository.create(
-        db,category
-    )
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\repositories\implementations\category_repository.py", line 59, in create
-    await db.execute(
-    ...<10 lines>...
-    )
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 651, in execute
-    result = await greenlet_spawn(
-             ^^^^^^^^^^^^^^^^^^^^^
-    ...<6 lines>...
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\api\routers\payment_router.py", line 33, in create_payment
+    return await payment_service.create_payment(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
     )
     ^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\util\concurrency.py", line 210, in greenlet_spawn
-    result = context.throw(*sys.exc_info())
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2473, in execute
-    return self._execute_internal(
-           ~~~~~~~~~~~~~~~~~~~~~~^
-        statement,
-        ^^^^^^^^^^
-    ...<4 lines>...
-        _add_event=_add_event,
-        ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\app\services\payment_service.py", line 137, in create_payment
+    raise HTTPException(
+    ...<2 lines>...
     )
-    ^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in _execute_internal
-    result = conn.execute(
-        statement, params, execution_options=combined_execution_options
-    )
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1463, in execute
-    return meth(
-        self,
-        distilled_parameters,
-        execution_options or NO_OPTIONS,
-    )
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 533, in _execute_on_connection
-    return connection._execute_clauseelement(
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        self, distilled_params, execution_options
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1683, in _execute_clauseelement
-    ret = self._execute_context(
-        dialect,
-    ...<9 lines>...
-        param_dict=param_dict,
-    )
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1837, in _execute_context
-    return self._exec_single_context(
-           ~~~~~~~~~~~~~~~~~~~~~~~~~^
-        dialect, context, statement, parameters
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1977, in _exec_single_context
-    self._handle_dbapi_exception(
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        e, str_statement, effective_parameters, cursor, context
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2347, in _handle_dbapi_exception
-    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1958, in _exec_single_context
-    self.dialect.do_execute(
-    ~~~~~~~~~~~~~~~~~~~~~~~^
-        cursor, str_statement, effective_parameters, context
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1192, in do_execute
-    cursor.execute(statement, parameters)
-    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 656, in execute
-    await_(self._prepare_and_execute(operation, parameters))
-    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\util\concurrency.py", line 167, in await_
-    return current.parent.switch(awaitable)  # type: ignore[no-any-return]
-           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\util\concurrency.py", line 205, in greenlet_spawn
-    value = await result
-            ^^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 618, in _prepare_and_execute
-    self._handle_exception(error)
-    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 568, in _handle_exception
-    self._adapt_connection._handle_exception(error)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 847, in _handle_exception
-    super()._handle_exception(error)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\connectors\asyncio.py", line 412, in _handle_exception
-    self._handle_exception_no_connection(self.dbapi, error)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "D:\SINDHUJA\Level 2\ECommerceOrderManagementSystem\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 840, in _handle_exception_no_connection
-    raise translated_error from error
-sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) procedure insert_category(unknown, unknown) does not exist
-[SQL: 
-                CALL insert_category(
-                    $1,
-                    $2
-                )
-            ]
-[parameters: ('Skin care', 'skin care products')]
-(Background on this error at: https://sqlalche.me/e/21/f405)
-2026-11-03 19:05:31,001 - app.middleware.observability - ERROR - POST /api/categories/ | Status: 500 | Duration: 0.064 seconds | Correlation ID: f92336e7-03ce-4007-a809-efe6a4cfac04
+fastapi.exceptions.HTTPException: 502: Unable to create payment link
+2026-11-04 10:15:16,460 - app.middleware.observability - ERROR - POST /payments/create/1 | Status: 500 | Duration: 0.601 seconds | Correlation ID: 74cc04ac-417b-40fa-945f-7a0c7a232bc6

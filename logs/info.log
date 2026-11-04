@@ -206,3 +206,43 @@ WHERE users.username = $1::VARCHAR
 2026-11-03 19:06:56,790 - app.services.category_service - INFO - Category created. category_id=3
 2026-11-03 19:06:56,790 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.023 seconds | Correlation ID: 1c89b21b-8bed-4995-8972-657253323f9a
 2026-11-03 19:07:10,055 - app.middleware.observability - WARNING - POST /orders/ | Status: 403 | Duration: 0.024 seconds | Correlation ID: 8801bcbe-75e7-41eb-8d4a-c5c20980bd37
+2026-11-04 10:09:39,085 - app.middleware.observability - INFO - GET /docs | Status: 200 | Duration: 0.001 seconds | Correlation ID: 8dc82b15-3d76-4032-a80e-2f9bc1f14119
+2026-11-04 10:09:39,334 - app.middleware.observability - INFO - GET /openapi.json | Status: 200 | Duration: 0.147 seconds | Correlation ID: adb9c718-61f8-43ea-b9eb-4929ed1bc1fd
+2026-11-04 10:09:58,119 - app.services.auth_service - WARNING - Login failed. Invalid credentials. username=admin
+2026-11-04 10:09:58,121 - app.middleware.observability - WARNING - POST /api/auth/login | Status: 401 | Duration: 0.242 seconds | Correlation ID: 8e7d3eaa-4c3e-4907-97fc-5123b8ca14df
+2026-11-04 10:10:07,431 - app.services.auth_service - INFO - Login successful. user_id=1
+2026-11-04 10:10:07,440 - app.middleware.observability - INFO - POST /api/auth/login | Status: 200 | Duration: 0.255 seconds | Correlation ID: 156ec330-a9c7-4035-b698-e9222e372125
+2026-11-04 10:10:37,755 - app.services.category_service - INFO - Category created. category_id=1
+2026-11-04 10:10:37,756 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.068 seconds | Correlation ID: 8bc683bb-637e-489d-b20b-f634d8a0bc90
+2026-11-04 10:11:03,353 - app.services.product_service - INFO - Poduct created successfully :1
+2026-11-04 10:11:03,354 - app.middleware.observability - INFO - POST /api/products/ | Status: 201 | Duration: 0.044 seconds | Correlation ID: 8636f1b4-9312-4d4f-acfc-72a806734346
+2026-11-04 10:12:08,298 - app.middleware.observability - WARNING - POST /api/auth/register | Status: 409 | Duration: 0.011 seconds | Correlation ID: f38d1a09-415d-479c-90b3-a23176be3a6c
+2026-11-04 10:12:49,369 - app.services.auth_service - INFO - Customer registered. username=Sindhu
+2026-11-04 10:12:49,370 - app.middleware.observability - INFO - POST /api/auth/register | Status: 201 | Duration: 0.102 seconds | Correlation ID: cb0e82d5-6627-461b-bd70-f21b6f184a0f
+2026-11-04 10:13:05,326 - app.services.auth_service - INFO - Login successful. user_id=2
+2026-11-04 10:13:05,327 - app.middleware.observability - INFO - POST /api/auth/login | Status: 200 | Duration: 0.106 seconds | Correlation ID: fbc8247b-dad6-4599-891a-89b42b3f7b8f
+2026-11-04 10:13:57,987 - app.services.shipping_service - INFO - Shipping address created. shipping_id=1
+2026-11-04 10:13:58,318 - app.middleware.observability - INFO - POST /api/shipping/ | Status: 201 | Duration: 0.379 seconds | Correlation ID: 3b2e8c81-862a-4fd3-91cd-3df9de515be6
+2026-11-04 10:14:15,038 - app.services.email_service - INFO - Order confirmation email sent successfully for order_id=1
+2026-11-04 10:14:15,039 - app.services.order_service - INFO - Order confirmation email sent. Order ID: 1
+2026-11-04 10:14:15,042 - app.middleware.observability - INFO - POST /orders/ | Status: 201 | Duration: 3.789 seconds | Correlation ID: 0f3678a3-3574-43c2-ac13-9135bfa86856
+2026-11-04 10:14:26,635 - app.middleware.observability - INFO - GET /orders/ | Status: 200 | Duration: 0.012 seconds | Correlation ID: 76014934-c937-479c-b0b9-562852cec83f
+2026-11-04 10:17:48,410 - app.services.payment_service - INFO - Payment link created. payment_id=1
+2026-11-04 10:17:48,410 - app.middleware.observability - INFO - POST /payments/create/1 | Status: 200 | Duration: 0.908 seconds | Correlation ID: 37d9e25f-6a75-4fba-874c-cc50cc467c74
+2026-11-04 10:18:00,537 - app.middleware.observability - INFO - GET /orders/ | Status: 200 | Duration: 0.020 seconds | Correlation ID: 8b43a62d-eb2c-4b5b-bd8c-ae6ff1b0ee4d
+2026-11-04 10:18:06,956 - app.services.payment_service - INFO - Payment link created. payment_id=2
+2026-11-04 10:18:06,957 - app.middleware.observability - INFO - POST /payments/create/1 | Status: 200 | Duration: 0.573 seconds | Correlation ID: 1d8dd1a0-c956-40fa-b569-0dfd15ac6039
+2026-11-04 10:18:59,837 - app.middleware.observability - WARNING - POST /payments/verify/2 | Status: 400 | Duration: 0.213 seconds | Correlation ID: ea82ccc6-59f6-498f-9397-c264c814f2da
+2026-11-04 10:19:04,549 - app.middleware.observability - WARNING - POST /payments/verify/1 | Status: 400 | Duration: 0.228 seconds | Correlation ID: 6009f69c-0dd1-4287-96d9-b8e5cb766632
+2026-11-04 10:19:37,890 - app.middleware.observability - WARNING - POST /payments/verify/1 | Status: 400 | Duration: 0.252 seconds | Correlation ID: 1f951904-cee3-4b92-a0b6-814ed485a9c2
+2026-11-04 10:20:14,916 - app.services.email_service - INFO - Order confirmation email sent successfully for order_id=2
+2026-11-04 10:20:14,916 - app.services.order_service - INFO - Order confirmation email sent. Order ID: 2
+2026-11-04 10:20:14,917 - app.middleware.observability - INFO - POST /orders/ | Status: 201 | Duration: 3.193 seconds | Correlation ID: cc5357ac-1de1-4816-8ee9-1aa73d92c1ff
+2026-11-04 10:20:26,440 - app.services.payment_service - INFO - Payment link created. payment_id=3
+2026-11-04 10:20:26,440 - app.middleware.observability - INFO - POST /payments/create/2 | Status: 200 | Duration: 0.746 seconds | Correlation ID: 5a568e00-23fe-456b-adcf-a9dc5d34266e
+2026-11-04 10:20:39,491 - app.middleware.observability - WARNING - POST /payments/verify/3 | Status: 400 | Duration: 0.223 seconds | Correlation ID: 004cd400-0f9b-415d-902b-08eb5ce472eb
+2026-11-04 10:25:47,313 - app.services.payment_service - INFO - Payment link created. payment_id=4
+2026-11-04 10:25:47,314 - app.middleware.observability - INFO - POST /payments/create/2 | Status: 200 | Duration: 0.902 seconds | Correlation ID: ffb03ffc-5b87-459d-a975-edc8738d09bc
+2026-11-04 10:25:56,003 - app.middleware.observability - INFO - POST /payments/verify/4 | Status: 200 | Duration: 0.262 seconds | Correlation ID: 56b4d54a-d4b9-4143-96ca-ac554ebb25d8
+2026-11-04 10:26:54,379 - app.services.payment_service - INFO - Payment verified successfully. payment_id=4
+2026-11-04 10:26:54,379 - app.middleware.observability - INFO - POST /payments/verify/4 | Status: 200 | Duration: 0.234 seconds | Correlation ID: 629ce669-e960-4fa6-bcfb-76298b050ec8

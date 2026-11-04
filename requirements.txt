@@ -16,3 +16,4 @@ sqlalchemy[asyncio]
 jwt
 aiofiles
 python-multipart
+razorpay

@@ -1,21 +1,21 @@
-"""Creating Tables
+"""creating all tables
 
-Revision ID: 901365c3ccf8
-Revises: 
-Create Date: 2026-11-02 16:07:45.096022
+Revision ID: b50faff8b76f
+Revises: 5c58573a046a
+Create Date: 2026-11-04 10:07:37.454318
 
 """
-from collections.abc import Sequence
-
-import sqlalchemy as sa
+from typing import Sequence, Union
 
 from alembic import op
+import sqlalchemy as sa
+
 
 # revision identifiers, used by Alembic.
-revision: str = '901365c3ccf8'
-down_revision: str | Sequence[str] | None = None
-branch_labels: str | Sequence[str] | None = None
-depends_on: str | Sequence[str] | None = None
+revision: str = 'b50faff8b76f'
+down_revision: Union[str, Sequence[str], None] = '5c58573a046a'
+branch_labels: Union[str, Sequence[str], None] = None
+depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
@@ -70,6 +70,19 @@ def upgrade() -> None:
     )
     op.create_index(op.f('ix_products_product_id'), 'products', ['product_id'], unique=False)
     op.create_index(op.f('ix_products_product_name'), 'products', ['product_name'], unique=True)
+    op.create_table('refresh_tokens',
+    sa.Column('refresh_token_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('token_hash', sa.String(length=64), nullable=False),
+    sa.Column('expires_at', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('revoked_at', sa.DateTime(timezone=True), nullable=True),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.ForeignKeyConstraint(['user_id'], ['users.user_id'], ondelete='CASCADE'),
+    sa.PrimaryKeyConstraint('refresh_token_id')
+    )
+    op.create_index(op.f('ix_refresh_tokens_refresh_token_id'), 'refresh_tokens', ['refresh_token_id'], unique=False)
+    op.create_index(op.f('ix_refresh_tokens_token_hash'), 'refresh_tokens', ['token_hash'], unique=True)
+    op.create_index(op.f('ix_refresh_tokens_user_id'), 'refresh_tokens', ['user_id'], unique=False)
     op.create_table('shipping',
     sa.Column('shipping_id', sa.Integer(), nullable=False),
     sa.Column('customer_id', sa.Integer(), nullable=False),
@@ -133,9 +146,12 @@ def upgrade() -> None:
     sa.Column('payment_amount', sa.Numeric(precision=12, scale=2), nullable=False),
     sa.Column('payment_status', sa.String(length=30), nullable=False),
     sa.Column('transaction_id', sa.String(length=100), nullable=True),
+    sa.Column('razorpay_payment_link_id', sa.String(length=100), nullable=False),
+    sa.Column('payment_link_url', sa.String(length=255), nullable=False),
     sa.Column('payment_date', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.ForeignKeyConstraint(['order_id'], ['orders.order_id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('payment_id'),
+    sa.UniqueConstraint('razorpay_payment_link_id'),
     sa.UniqueConstraint('transaction_id')
     )
     op.create_index(op.f('ix_payments_payment_id'), 'payments', ['payment_id'], unique=False)
@@ -155,6 +171,10 @@ def downgrade() -> None:
     op.drop_table('wishlists')
     op.drop_index(op.f('ix_shipping_shipping_id'), table_name='shipping')
     op.drop_table('shipping')
+    op.drop_index(op.f('ix_refresh_tokens_user_id'), table_name='refresh_tokens')
+    op.drop_index(op.f('ix_refresh_tokens_token_hash'), table_name='refresh_tokens')
+    op.drop_index(op.f('ix_refresh_tokens_refresh_token_id'), table_name='refresh_tokens')
+    op.drop_table('refresh_tokens')
     op.drop_index(op.f('ix_products_product_name'), table_name='products')
     op.drop_index(op.f('ix_products_product_id'), table_name='products')
     op.drop_table('products')

@@ -9,6 +9,8 @@ from app.api.routers.category_router import router as category_router
 from app.api.routers.product_router import router as product_router
 from app.api.routers.order_router import router as order_router 
 from app.api.routers.shipping_router import router as shipping_router
+from app.api.routers.payment_router import router as payment_router
+
 
 from app.core.exceptions import (
     AppError,
@@ -78,6 +80,7 @@ app.include_router(category_router)
 app.include_router(product_router)
 app.include_router(shipping_router)
 app.include_router(order_router)
+app.include_router(payment_router)
 app.add_middleware(ObservabilityMiddleware)
 
 

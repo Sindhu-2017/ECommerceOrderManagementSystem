@@ -9,6 +9,17 @@ from alembic import context
 from app.core.config import get_settings
 from app.database.base import Base
 
+from app.models.user import User
+from app.models.customer import Customer
+from app.models.refresh_token import RefreshToken
+from app.models.category import Category
+from app.models.product import Product
+from app.models.shipping import Shipping
+from app.models.order import Order
+from app.models.payment import Payment
+from app.models.order_item import OrderItem
+from app.models.wishlist import Wishlist
+
 settings=get_settings()
 
 # this is the Alembic Config object, which provides
@@ -30,12 +41,12 @@ target_metadata = Base.metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
-
 DATABASE_URL = settings.database_url.render_as_string(
     hide_password=False
 ).replace("%","%%")
 
 config.set_main_option("sqlalchemy.url",DATABASE_URL)
+
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
