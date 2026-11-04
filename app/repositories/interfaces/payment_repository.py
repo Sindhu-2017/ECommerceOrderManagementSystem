@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models.payment import Payment
 from app.models.order import Order
 
 

@@ -89,3 +89,27 @@ async def delete_category(
     return {
         "message": "Category deleted successfully"
     }
+
+
+@router.get(
+    "/admin/deleted",
+    response_model=list[CategoryResponse],
+    dependencies=[Depends(require_roles("admin"))]
+)
+async def get_deleted_categories(
+    service: CategoryServiceDependency,
+    db: Annotated[AsyncSession, Depends(get_db)]
+):
+    return await service.get_deleted_categories(db)
+
+
+@router.patch(
+    "/admin/restore/{category_id}",
+    dependencies=[Depends(require_roles("admin"))]
+)
+async def restore_category(
+    category_id: int,
+    service: CategoryServiceDependency,
+    db: Annotated[AsyncSession, Depends(get_db)]
+):
+    return await service.restore_category(db, category_id)

@@ -2,9 +2,8 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.product import Product
-from app.repositories.interfaces.product_repository import (
-    ProductRepositoryInterface
-)
+from app.repositories.interfaces.product_repository import ProductRepositoryInterface
+
 
 class ProductRepository(ProductRepositoryInterface):
     async def get_by_id(self,db: AsyncSession, product_id:int)->Product |None:
@@ -37,7 +36,7 @@ class ProductRepository(ProductRepositoryInterface):
 
         if search is not None:
             query = query.where(
-                Product.product_name.ilike(search)
+                Product.product_name.ilike(f"%{search.strip()}%")
             )
 
         if category_id is not None:

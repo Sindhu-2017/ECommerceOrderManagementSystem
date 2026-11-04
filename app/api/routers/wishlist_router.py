@@ -1,13 +1,11 @@
 from typing import Annotated
 
-from fastapi import APIRouter,Depends,status
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-
-from app.api.dependencies.auth import get_current_user,require_roles
+from app.api.dependencies.auth import get_current_user, require_roles
 from app.api.dependencies.database import get_db
 from app.api.dependencies.service_depencies import get_wishlist_service
-
 from app.models.user import User
 from app.schemas.wishlist_schema import WishlistResponse
 from app.services.wishlist_service import WishListService

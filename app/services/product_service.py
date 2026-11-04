@@ -1,26 +1,21 @@
 import logging
 import uuid
-
 from pathlib import Path
 
 import aiofiles
-
-from fastapi import UploadFile
-
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import HTTPException, UploadFile
 from sqlalchemy.exc import SQLAlchemyError
-
-from app.models.product import Product
-from app.schemas.product_schema import ProductCreate, ProductUpdate
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.exceptions import (
-    ProductNotFoundError,
+    InvalidProductDataError,
     ProductAlreadyExistsError,
-    InvalidProductDataError
+    ProductNotFoundError,
 )
-from app.repositories.interfaces.product_repository import ProductRepositoryInterface
+from app.models.product import Product
 from app.repositories.interfaces.category_repository import CategoryRepositoryInterface
-
+from app.repositories.interfaces.product_repository import ProductRepositoryInterface
+from app.schemas.product_schema import ProductCreate, ProductUpdate
 
 logger = logging.getLogger(__name__)
 
@@ -155,7 +150,7 @@ class ProductService:
             setattr(Product,key,value)
 
         try:
-            await self.product_repository.update(product)
+            await self.product_repository.update(db,product)
             await db.commit()
 
             logger.info("Product updated successfully: %s", product_id)
@@ -183,12 +178,46 @@ class ProductService:
             logger.exception("Product deletion failed")
             raise
 
+    # DELETED PRODUCTS
     async def get_deleted_products(self,db:AsyncSession)->list[Product]:
         try:
             return await self.product_repository.get_deleted_products(db)
         except SQLAlchemyError:
             logger.exception("Failed to retrieve deleted products")
             raise
+
+    # RESTORE DELETED PRODUCTS
+    async def restore_product(self,db:AsyncSession,product_id:int):
+        try:
+            product=await self.product_repository.get_by_id(db,product_id)
+            if product is None:
+                raise HTTPException(
+                    status_code=404,
+                    detail="Product not found"
+                )
+
+            if product.is_active:
+                raise HTTPException(
+                    status_code=400,
+                    detail="Product is already active"
+                )
+
+            product.is_active = True
+
+            await self.product_repository.update(db,product)
+            await db.commit()
+            await db.refresh(product)
+
+            return {"message": "Product restored successfully.."}
+
+        except SQLAlchemyError:
+            await db.rollback()
+            logger.exception("Failes to restore product")
+            raise HTTPException(
+                status_code=500,
+                detail="Faile to restor product"
+            )
+
 
     
     async def upload_product_image(self,db:AsyncSession,product_id: int,image: UploadFile) -> Product:

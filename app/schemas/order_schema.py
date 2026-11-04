@@ -3,6 +3,7 @@ from decimal import Decimal
 
 from pydantic import BaseModel, ConfigDict, Field
 
+
 # Order item schemas
 class OrderItemCreate(BaseModel):
     product_id:int =Field(gt=0)

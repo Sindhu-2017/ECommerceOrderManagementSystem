@@ -2,12 +2,9 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.customer import Customer
-from app.models.shipping import Shipping
 from app.models.order import Order
-
-from app.repositories.interfaces.shipping_repository import (
-    ShippingRepositoryInterface
-)
+from app.models.shipping import Shipping
+from app.repositories.interfaces.shipping_repository import ShippingRepositoryInterface
 
 
 class ShippingRepository(ShippingRepositoryInterface):

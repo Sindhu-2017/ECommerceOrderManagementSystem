@@ -1,39 +1,23 @@
-from app.repositories.implementations.category_repository import (
-    CategoryRepository
-)
-
-from app.repositories.implementations.product_repository import (
-    ProductRepository
-)
-
+from app.repositories.implementations.category_repository import CategoryRepository
+from app.repositories.implementations.order_repository import OrderRepository
+from app.repositories.implementations.payment_repository import PaymentRepository
+from app.repositories.implementations.product_repository import ProductRepository
 from app.repositories.implementations.refresh_token_repository import (
-    RefreshTokenRepository
+    RefreshTokenRepository,
 )
-from app.repositories.implementations.user_repository import (
-    UserRepository
-)
-
-from app.repositories.implementations.order_repository import (
-    OrderRepository
-)
-from app.repositories.implementations.shipping_repository import (
-    ShippingRepository
-)
-from app.repositories.implementations.payment_repository import (
-    PaymentRepository
-)
-from app.repositories.implementations.wishlist_repository import (
-    WishlistRepository
-)
-
-from app.services.shipping_service import ShippingService
-
-from app.services.order_service import OrderService
-from app.services.email_service import EmailService
+from app.repositories.implementations.report_repository import ReportRepository
+from app.repositories.implementations.shipping_repository import ShippingRepository
+from app.repositories.implementations.user_repository import UserRepository
+from app.repositories.implementations.wishlist_repository import WishlistRepository
 from app.services.auth_service import AuthService
 from app.services.category_service import CategoryService
-from app.services.product_service import ProductService
+from app.services.customer_service import CustomerService
+from app.services.email_service import EmailService
+from app.services.order_service import OrderService
 from app.services.payment_service import PaymentService
+from app.services.product_service import ProductService
+from app.services.report_service import ReportService
+from app.services.shipping_service import ShippingService
 from app.services.wishlist_service import WishListService
 
 
@@ -76,4 +60,15 @@ def get_payment_service() -> PaymentService:
 def get_wishlist_service()->WishListService:
     return WishListService(
         wishlist_repository=WishlistRepository()
+    )
+
+
+def get_customer_service() -> AdminService:
+    return CustomerService(
+        user_repository=UserRepository()
+    )
+
+def get_report_service() -> ReportService:
+    return ReportService(
+        report_repository=ReportRepository()
     )

@@ -45,3 +45,10 @@ class CategoryRepositoryInterface(ABC):
         category: Category
     ) -> Category:
         pass
+
+    @abstractmethod
+    async def get_deleted_categories(
+        self,
+        db: AsyncSession
+    ) -> list[Category]:
+        pass

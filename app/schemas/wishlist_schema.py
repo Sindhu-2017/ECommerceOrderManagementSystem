@@ -1,7 +1,9 @@
 from datetime import datetime
-from pydantic import BaseModel,ConfigDict
+
+from pydantic import BaseModel, ConfigDict
 
 from app.schemas.product_schema import ProductResponse
+
 
 class WishlistResponse(BaseModel):
     wishlist_id:int

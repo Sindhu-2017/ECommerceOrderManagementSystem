@@ -1,4 +1,4 @@
-from sqlalchemy import select,text
+from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.category import Category
@@ -86,3 +86,11 @@ class CategoryRepository(CategoryRepositoryInterface):
 
         await db.flush()
         return category
+
+    async def get_deleted_categories(self,db: AsyncSession) -> list[Category]:
+        result = await db.execute(
+            select(Category)
+            .where(Category.is_active.is_(False))
+            .order_by(Category.category_id)
+        )
+        return list(result.scalars().all())

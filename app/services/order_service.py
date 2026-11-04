@@ -5,14 +5,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.order import Order
 from app.models.order_item import OrderItem
-
+from app.repositories.implementations.order_repository import OrderRepository
 from app.schemas.order_schema import OrderCreate
-
-from app.repositories.implementations.order_repository import (
-    OrderRepository
-)
 from app.services.email_service import EmailService
-
 
 logger = logging.getLogger(__name__)
 

@@ -4,17 +4,12 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.exceptions import ShippingInUseError
-
-from app.api.dependencies.auth import require_roles,get_current_user
+from app.api.dependencies.auth import get_current_user, require_roles
 from app.api.dependencies.database import get_db
 from app.api.dependencies.service_depencies import get_shipping_service
+from app.core.exceptions import ShippingInUseError
 from app.models.user import User
-from app.schemas.shipping_schema import (
-    ShippingCreate,
-    ShippingUpdate,
-    ShippingResponse
-)
+from app.schemas.shipping_schema import ShippingCreate, ShippingResponse, ShippingUpdate
 from app.services.shipping_service import ShippingService
 
 logger = logging.getLogger(__name__)

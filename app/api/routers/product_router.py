@@ -1,32 +1,13 @@
-from fastapi import (
-    APIRouter,
-    Depends,
-    Query,
-    UploadFile,
-    File,
-    status
-)
-
 from typing import Annotated
 
+from fastapi import APIRouter, Depends, File, Query, UploadFile, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.dependencies.database import get_db
-
-from app.schemas.product_schema import (
-    ProductCreate,
-    ProductUpdate,
-    ProductResponse
-)
-
-from app.services.product_service import ProductService
-
-from app.api.dependencies.service_depencies import (
-    get_product_service
-)
-
 from app.api.dependencies.auth import require_roles
-
+from app.api.dependencies.database import get_db
+from app.api.dependencies.service_depencies import get_product_service
+from app.schemas.product_schema import ProductCreate, ProductResponse, ProductUpdate
+from app.services.product_service import ProductService
 
 router = APIRouter(
     prefix="/api/products",
@@ -123,14 +104,29 @@ async def delete_product(
 
     return await service.delete_product(db,product_id)
 
-# @router.get(
-#         "/admin/deleted",
-#         response_model=list[ProductResponse],
-#         dependencies=[Depends(require_roles("admin"))]
-# )
-# async def get_deleted_products(
-#     db
-# )
+
+# DELETED PRODUCTS
+@router.get(
+        "/admin/deleted",
+        response_model=list[ProductResponse],
+        dependencies=[Depends(require_roles("admin"))]
+)
+async def get_deleted_products(
+    db:Annotated[AsyncSession,Depends(get_db)],
+    service:ProductServiceDependency
+):
+    return await service.get_deleted_products(db)
+
+@router.patch(
+        "/admin/restore/{product_id}",
+        dependencies=[Depends(require_roles("admin"))]
+)
+async def restore_product(
+    product_id:int,
+    db:Annotated[AsyncSession,Depends(get_db)],
+    service:ProductServiceDependency
+):
+    return await service.restore_product(db,product_id)
 
 # UPLOAD PRODUCT IMAGE
 @router.post(

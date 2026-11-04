@@ -1,12 +1,10 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models.payment import Payment
 from app.models.order import Order
+from app.repositories.interfaces.payment_repository import PaymentRepositoryInterface
 
-from app.repositories.interfaces.payment_repository import (
-    PaymentRepositoryInterface
-)
+
 class PaymentRepository(PaymentRepositoryInterface):
 
     async def get_order(

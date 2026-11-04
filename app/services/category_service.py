@@ -202,3 +202,47 @@ class CategoryService:
             logger.exception("Database error while deleting category.")
 
             raise DatabaseOperationError("Unable to delete category.") from exc
+
+
+
+    async def get_deleted_categories(self,db: AsyncSession) -> list[Category]:
+        try:
+            return await self.category_repository.get_deleted_categories(db)
+
+        except SQLAlchemyError as exc:
+            logger.exception("Unable to retrieve deleted categories.")
+
+            raise DatabaseOperationError(
+                "Unable to retrieve deleted categories."
+            ) from exc
+
+
+    async def restore_category(self,db: AsyncSession,category_id: int) -> dict[str, str]:
+        try:
+            category = await self.category_repository.get_by_id(
+                db, category_id
+            )
+            if category is None:
+                raise CategoryNotFoundError("Category not found.")
+            if category.is_active:
+                return {"message": "Category is already active."}
+
+            category.is_active = True
+
+            await self.category_repository.update(db, category)
+            await db.commit()
+
+            logger.info("Category restored. category_id=%s", category_id)
+
+            return {"message": "Category restored successfully."}
+
+        except CategoryNotFoundError:
+            await db.rollback()
+            raise
+
+        except SQLAlchemyError as exc:
+            await db.rollback()
+            logger.exception("Database error while restoring category.")
+            raise DatabaseOperationError(
+                "Unable to restore category."
+            ) from exc

@@ -1,12 +1,12 @@
-from sqlalchemy import select,delete
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.models.customer import Customer
 from app.models.product import Product
 from app.models.wishlist import Wishlist
-
 from app.repositories.interfaces.wishlist_repository import WishlistRepositoryInterface
+
 
 class WishlistRepository(WishlistRepositoryInterface):
     async def get_customer_by_user_id(self, db:AsyncSession, user_id:int)->Customer:

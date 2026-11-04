@@ -7,9 +7,7 @@ from app.api.dependencies.auth import get_current_user, require_roles
 from app.api.dependencies.database import get_db
 from app.api.dependencies.service_depencies import get_payment_service
 from app.models.user import User
-from app.schemas.payment_schema import PaymentVerify
 from app.services.payment_service import PaymentService
-
 
 logger = logging.getLogger(__name__)
 

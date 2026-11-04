@@ -1,4 +1,4 @@
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -7,6 +7,7 @@ from app.models.order import Order
 from app.models.product import Product
 from app.models.shipping import Shipping
 from app.models.user import User
+
 
 class OrderRepositoryInterface(ABC):
     @abstractmethod

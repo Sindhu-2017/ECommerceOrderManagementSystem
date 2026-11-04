@@ -1,13 +1,11 @@
 import asyncio
 import logging
 import smtplib
-
 from email.message import EmailMessage
 from email.utils import formatdate, make_msgid
 
 from app.core.config import get_settings
 from app.models.order import Order
-
 
 logger = logging.getLogger(__name__)
 

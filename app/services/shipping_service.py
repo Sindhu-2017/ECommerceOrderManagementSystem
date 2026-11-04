@@ -2,15 +2,10 @@ import logging
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models.shipping import Shipping
-from app.schemas.shipping_schema import ShippingCreate, ShippingUpdate
-
 from app.core.exceptions import ShippingInUseError
-
-from app.repositories.interfaces.shipping_repository import (
-    ShippingRepositoryInterface
-)
-
+from app.models.shipping import Shipping
+from app.repositories.interfaces.shipping_repository import ShippingRepositoryInterface
+from app.schemas.shipping_schema import ShippingCreate, ShippingUpdate
 
 logger = logging.getLogger(__name__)
 

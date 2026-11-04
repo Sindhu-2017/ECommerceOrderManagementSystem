@@ -17,3 +17,5 @@ jwt
 aiofiles
 python-multipart
 razorpay
+pytest
+pytest-asyncio

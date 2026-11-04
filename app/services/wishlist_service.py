@@ -1,16 +1,15 @@
 import logging
 
 from fastapi import HTTPException
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.exc import SQLAlchemyError,IntegrityError
 
 from app.models.wishlist import Wishlist
-
 from app.repositories.interfaces.wishlist_repository import WishlistRepositoryInterface
 
 logger= logging.getLogger(__name__)
 
-class WishListService():
+class WishListService:
     def __init__(self,wishlist_repository:WishlistRepositoryInterface):
         self.wishlist_repository = wishlist_repository
 

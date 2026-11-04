@@ -1,7 +1,6 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, status
-
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -10,21 +9,24 @@ from app.api.dependencies.database import get_db
 from app.api.dependencies.service_depencies import get_auth_service
 from app.models.user import User
 from app.schemas.auth_schema import (
-    LoginRequest,
     MessageResponse,
     RefreshRequest,
     RegisterRequest,
     TokenResponse,
+    UserProfileResponse,
 )
 from app.services.auth_service import AuthService
 
-router = APIRouter(prefix="/api/auth", tags=["Authentication"])
+router = APIRouter(
+    prefix="/api/auth", 
+    tags=["Authentication"]
+)
 
 AuthServiceDependency = Annotated[AuthService, Depends(get_auth_service)]
 
 
 @router.post(
-    "/register", response_model=MessageResponse, status_code=status.HTTP_201_CREATED
+    "/register", response_model=MessageResponse, status_code=status.HTTP_201_CREATED,
 )
 async def register(
     data: RegisterRequest,
@@ -65,3 +67,9 @@ async def logout(
     await service.logout(db, data.refresh_token, current_user.user_id)
 
     return {"message": "Logged out successfully"}
+
+@router.get("/me", response_model=UserProfileResponse)
+async def get_my_profile(
+    current_user: User = Depends(get_current_user),
+):
+    return current_user

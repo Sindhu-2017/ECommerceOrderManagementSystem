@@ -1,5 +1,6 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from app.models.customer import Customer
 from app.models.user import User
@@ -22,7 +23,11 @@ class UserRepository(UserRepositoryInterface):
         return result.scalar_one_or_none()
 
     async def get_by_id(self, db: AsyncSession, user_id: int) -> User | None:
-        result = await db.execute(select(User).where(User.user_id == user_id))
+        result = await db.execute(
+            select(User)
+            .options(selectinload(User.customer))
+            .where(User.user_id == user_id)
+        )
         return result.scalar_one_or_none()
 
     async def create_customer_user(
@@ -58,4 +63,17 @@ class UserRepository(UserRepositoryInterface):
         db.add(customer)
         await db.flush()
         return user
+
+    async def get_all_customers(
+        self,
+        db: AsyncSession
+    ) -> list[Customer]:
+
+        result = await db.execute(
+            select(Customer)
+            .options(selectinload(Customer.user))
+            .order_by(Customer.customer_id)
+        )
+
+        return list(result.scalars().all())
 

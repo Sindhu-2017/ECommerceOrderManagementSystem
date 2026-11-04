@@ -3,7 +3,7 @@ import logging
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.dependencies.auth import get_current_user,require_roles
+from app.api.dependencies.auth import get_current_user, require_roles
 from app.api.dependencies.database import get_db
 from app.api.dependencies.service_depencies import get_order_service
 from app.models.user import User

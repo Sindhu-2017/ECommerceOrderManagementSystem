@@ -4,14 +4,11 @@ from sqlalchemy.orm import selectinload
 
 from app.models.customer import Customer
 from app.models.order import Order
-from app.models.order_item import OrderItem
 from app.models.product import Product
 from app.models.shipping import Shipping
 from app.models.user import User
+from app.repositories.interfaces.order_repository import OrderRepositoryInterface
 
-from app.repositories.interfaces.order_repository import (
-    OrderRepositoryInterface
-)
 
 class OrderRepository(OrderRepositoryInterface):
 

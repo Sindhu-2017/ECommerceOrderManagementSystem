@@ -1,5 +1,7 @@
 from datetime import datetime
-from pydantic import BaseModel,Field,ConfigDict
+
+from pydantic import BaseModel, ConfigDict, Field
+
 '''
 shipping table contains
     recipient_name

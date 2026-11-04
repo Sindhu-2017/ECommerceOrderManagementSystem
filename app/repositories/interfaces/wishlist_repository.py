@@ -1,10 +1,11 @@
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.customer import Customer
 from app.models.product import Product
 from app.models.wishlist import Wishlist
+
 
 class WishlistRepositoryInterface(ABC):
     @abstractmethod
