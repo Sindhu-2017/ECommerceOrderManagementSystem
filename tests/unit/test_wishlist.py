@@ -1,4 +1,3 @@
-
 import pytest
 
 from app.services.wishlist_service import WishListService
