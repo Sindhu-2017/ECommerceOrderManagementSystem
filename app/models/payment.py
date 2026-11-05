@@ -6,8 +6,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base
 
-# from app.models.order import Order
-
 
 class Payment(Base):
     __tablename__ = "payments"

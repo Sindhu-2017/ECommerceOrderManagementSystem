@@ -5,9 +5,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base
 
-# from app.models.customer import Customer
-# from app.models.order import Order
-
 
 class Shipping(Base):
     __tablename__ = "shipping"

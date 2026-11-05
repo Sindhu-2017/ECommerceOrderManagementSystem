@@ -2,6 +2,7 @@ import logging
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from contextlib import asynccontextmanager
 
 import app.core.logging_config
 from app.api.routers.auth_router import router as auth_router
@@ -37,6 +38,14 @@ from app.middleware.observability import ObservabilityMiddleware
 
 logger = logging.getLogger(__name__)
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info("E-Commerce application started")
+
+    yield
+
+    logger.info("E-Commerce application stopped")
+
 app = FastAPI(
     title="E-Commerce Order Management System",
     description=(
@@ -44,6 +53,7 @@ app = FastAPI(
         "payments, shipping, and reports."
     ),
     version="1.0.0",
+    lifespan=lifespan
 )
 
 
