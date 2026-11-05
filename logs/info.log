@@ -436,3 +436,499 @@ WHERE users.username = $1::VARCHAR
 2026-11-04 17:59:21,996 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.017 seconds | Correlation ID: 985bc000-19ec-4a26-9ee5-113a5b244be0
 2026-11-04 18:01:58,691 - app.middleware.observability - INFO - GET /docs | Status: 200 | Duration: 0.000 seconds | Correlation ID: 7610b8da-83fe-44f1-bb6a-5fb85076e6a6
 2026-11-04 18:01:59,069 - app.middleware.observability - INFO - GET /openapi.json | Status: 200 | Duration: 0.298 seconds | Correlation ID: dc2d9e97-e4b4-4158-be3c-d1ccfd7455c5
+2026-11-05 10:42:32,296 - app.services.auth_service - WARNING - Login failed. Invalid credentials. username=wronguser
+2026-11-05 10:42:32,351 - app.services.category_service - INFO - Category created. category_id=None
+2026-11-05 10:42:32,420 - app.services.product_service - INFO - Poduct created successfully :1
+2026-11-05 10:42:32,456 - app.services.shipping_service - INFO - Shipping address created. shipping_id=None
+2026-11-05 10:43:15,675 - app.services.auth_service - WARNING - Login failed. Invalid credentials. username=wronguser
+2026-11-05 10:43:15,703 - app.services.category_service - INFO - Category created. category_id=None
+2026-11-05 10:43:15,740 - app.services.product_service - INFO - Poduct created successfully :1
+2026-11-05 10:43:15,762 - app.services.shipping_service - INFO - Shipping address created. shipping_id=None
+2026-11-05 10:43:54,321 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.008 seconds | Correlation ID: 6245c972-5218-4e11-983b-d85dac99d532
+2026-11-05 10:43:54,322 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 10:43:54,353 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: a25b2f0e-a4e8-44ef-994b-bbb89df8b46e
+2026-11-05 10:43:54,353 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 10:43:54,445 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.057 seconds | Correlation ID: b092092b-53c1-449d-ac0b-3a430fc9b0ce
+2026-11-05 10:43:54,445 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 10:43:54,482 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: 9e440a09-b02d-442a-9455-09e0e7e31ad5
+2026-11-05 10:43:54,482 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 10:43:54,546 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.032 seconds | Correlation ID: 803e1015-4733-4f98-b438-505cea3df5c0
+2026-11-05 10:43:54,546 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 10:43:54,596 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.006 seconds | Correlation ID: 0a50012a-aa27-44ee-8910-46520764931e
+2026-11-05 10:43:54,597 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 10:43:54,642 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.002 seconds | Correlation ID: 02db47a8-d3cc-4b78-a2c2-77530fe7cb5d
+2026-11-05 10:43:54,642 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 10:43:54,707 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.025 seconds | Correlation ID: e8d54a18-d9ea-4e0c-9aca-4cc55bc8f3cd
+2026-11-05 10:43:54,708 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 10:43:54,756 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.006 seconds | Correlation ID: 0842ac9e-ee26-4c5b-a6b1-84105158c9d7
+2026-11-05 10:43:54,756 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 10:43:54,797 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: 65a53f09-0e46-4161-a8a8-448011f384e1
+2026-11-05 10:43:54,797 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 10:43:54,843 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: ff32c5eb-e701-40e6-a1cb-9f29230400ac
+2026-11-05 10:43:54,843 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 10:43:55,019 - app.services.product_service - INFO - Poduct created successfully :1
+2026-11-05 10:43:55,223 - app.services.auth_service - WARNING - Login failed. Invalid credentials. username=wronguser
+2026-11-05 10:43:55,234 - app.services.category_service - INFO - Category created. category_id=None
+2026-11-05 10:43:55,284 - app.services.product_service - INFO - Poduct created successfully :1
+2026-11-05 10:43:55,317 - app.services.shipping_service - INFO - Shipping address created. shipping_id=None
+2026-11-05 10:44:29,743 - app.services.auth_service - WARNING - Login failed. Invalid credentials. username=wronguser
+2026-11-05 10:44:29,824 - app.services.category_service - INFO - Category created. category_id=None
+2026-11-05 10:44:29,866 - app.services.product_service - INFO - Poduct created successfully :1
+2026-11-05 10:44:29,888 - app.services.shipping_service - INFO - Shipping address created. shipping_id=None
+2026-11-05 10:44:44,968 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.008 seconds | Correlation ID: 2d73fd97-a3d9-4039-aa97-9a0f5509a746
+2026-11-05 10:44:44,969 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 10:44:45,005 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: 0b39b031-1d43-46ce-b406-4e06daae5bb8
+2026-11-05 10:44:45,005 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 10:44:45,057 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.015 seconds | Correlation ID: ae77b02b-ec42-479a-80ec-2a7632a04d4b
+2026-11-05 10:44:45,057 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 10:44:45,094 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: b7f3a4d5-50f7-4c1a-b905-33d023abdee8
+2026-11-05 10:44:45,094 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 10:44:45,208 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.083 seconds | Correlation ID: a11a07d1-5b45-48be-a0ba-24f4d61e3848
+2026-11-05 10:44:45,209 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 10:44:45,290 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.033 seconds | Correlation ID: 8d27bea4-681d-4272-98c1-c1f9fcd83e21
+2026-11-05 10:44:45,290 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 10:44:45,331 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.002 seconds | Correlation ID: 2f428e94-a20c-4748-9636-bbd5e5bececf
+2026-11-05 10:44:45,332 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 10:44:45,385 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.020 seconds | Correlation ID: 319b39ad-cb9a-4825-9d79-4555f1d1efe9
+2026-11-05 10:44:45,386 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 10:44:45,422 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.005 seconds | Correlation ID: 936551e8-f31f-4342-ad46-bd621638ac0c
+2026-11-05 10:44:45,423 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 10:44:45,458 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: b360c23a-2435-4521-8ed0-2ec17244fd10
+2026-11-05 10:44:45,458 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 10:44:45,496 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: f9ebca05-e5ac-4569-9ea0-ce917f042131
+2026-11-05 10:44:45,496 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 10:54:00,872 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.007 seconds | Correlation ID: e9314c8d-e3c6-45cc-931d-1d76e79b4733
+2026-11-05 10:54:00,873 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 10:54:00,908 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: dfa1d771-74d6-4aad-96c5-4411dd3cc13a
+2026-11-05 10:54:00,908 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 10:54:00,995 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.054 seconds | Correlation ID: ac2eca45-06fe-486c-a87b-f04e1814695c
+2026-11-05 10:54:00,996 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 10:54:01,037 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: ae82b543-9f3b-47e4-9689-b4a302ae5e0e
+2026-11-05 10:54:01,038 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 10:54:01,087 - app.middleware.observability - INFO - GET /api/products | Status: 307 | Duration: 0.017 seconds | Correlation ID: 5fb15411-c016-4a72-9206-0afac88e3b53
+2026-11-05 10:54:01,087 - httpx - INFO - HTTP Request: GET http://test/api/products "HTTP/1.1 307 Temporary Redirect"
+2026-11-05 10:54:01,342 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.030 seconds | Correlation ID: c96500f9-c680-4368-99ef-166c1f1972cd
+2026-11-05 10:54:01,343 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 10:54:01,378 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.002 seconds | Correlation ID: 85098c50-f956-4208-bc85-f0badf5450a0
+2026-11-05 10:54:01,378 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 10:54:01,429 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.013 seconds | Correlation ID: 2329684f-b635-4581-84d9-009c544fb72c
+2026-11-05 10:54:01,430 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 10:54:01,470 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.005 seconds | Correlation ID: 7603223d-fccd-4c86-97e8-11ca91385ab5
+2026-11-05 10:54:01,471 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 10:54:01,507 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: 11e17968-4b0c-4bc6-ad42-eb4a7cae8cd4
+2026-11-05 10:54:01,507 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 10:54:01,541 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: 234da003-c945-46ad-9bf8-a2925928c789
+2026-11-05 10:54:01,541 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 10:54:44,715 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.007 seconds | Correlation ID: 1db1d742-dfd5-4dfc-873a-65514658ce48
+2026-11-05 10:54:44,715 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 10:54:44,750 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: 26cb0642-c216-42f8-99fc-dff84d2e11d7
+2026-11-05 10:54:44,750 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 10:54:44,836 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.053 seconds | Correlation ID: 5a205d33-7f92-46d6-b4cc-78ce8c8999ae
+2026-11-05 10:54:44,836 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 10:54:44,870 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: f77bdd72-8e4b-4760-9f0b-68938d4ff00e
+2026-11-05 10:54:44,871 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 10:54:44,920 - app.middleware.observability - INFO - GET /api/products | Status: 307 | Duration: 0.017 seconds | Correlation ID: 961b8e3b-e063-4073-a8b4-403c08f4e4b5
+2026-11-05 10:54:44,920 - httpx - INFO - HTTP Request: GET http://test/api/products "HTTP/1.1 307 Temporary Redirect"
+2026-11-05 10:54:45,127 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.024 seconds | Correlation ID: a0f356db-3a63-4fb9-b8bc-4a70d21fb155
+2026-11-05 10:54:45,127 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 10:54:45,164 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.002 seconds | Correlation ID: 523d95f7-694a-4a92-a161-f272407fa69d
+2026-11-05 10:54:45,164 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 10:54:45,206 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.009 seconds | Correlation ID: c39e78b2-c180-459d-8c34-14c4b7a346e9
+2026-11-05 10:54:45,206 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 10:54:45,243 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.005 seconds | Correlation ID: 900f3c71-42ed-4df0-8483-1f40f10ddde4
+2026-11-05 10:54:45,243 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 10:54:45,276 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: 516ec8b7-8388-46d8-9257-8cbbe39d8107
+2026-11-05 10:54:45,276 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 10:54:45,307 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: 1385bd25-3ec0-40d4-95a2-dc784e3c991f
+2026-11-05 10:54:45,308 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 10:55:21,318 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.007 seconds | Correlation ID: b6dd426a-e39c-4580-a6ca-fefb7c330782
+2026-11-05 10:55:21,318 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 10:55:21,353 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: cecb11c2-181a-47d9-aa24-995c520cc789
+2026-11-05 10:55:21,354 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 10:55:21,441 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.054 seconds | Correlation ID: 131bd7c6-2cdc-4850-839a-6770eefb0b00
+2026-11-05 10:55:21,442 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 10:55:21,479 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: 702474a0-261c-41f1-9136-0dc69489a8f8
+2026-11-05 10:55:21,480 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 10:55:21,543 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.031 seconds | Correlation ID: 04bc3b32-3e37-4e87-8916-92e7ea18d691
+2026-11-05 10:55:21,544 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 10:55:21,582 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: f9864fa9-8367-4b44-934a-203139262165
+2026-11-05 10:55:21,583 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 10:55:21,626 - app.middleware.observability - INFO - GET /api/products | Status: 307 | Duration: 0.010 seconds | Correlation ID: 835da31c-6c6e-41ff-a3f5-076aee66b04b
+2026-11-05 10:55:21,626 - httpx - INFO - HTTP Request: GET http://test/api/products "HTTP/1.1 307 Temporary Redirect"
+2026-11-05 10:55:21,811 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.003 seconds | Correlation ID: c8e7bdbc-5cce-4585-9df7-f006114963ec
+2026-11-05 10:55:21,812 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 10:55:21,854 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.010 seconds | Correlation ID: 96769bc2-cac2-42ec-8a03-5aedd4a86efa
+2026-11-05 10:55:21,855 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 10:55:21,891 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.005 seconds | Correlation ID: 7dda12ae-2708-4380-8f85-b863619647f8
+2026-11-05 10:55:21,891 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 10:55:21,924 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: 2da0b0d7-d08e-475f-862f-dc9c75a9a082
+2026-11-05 10:55:21,925 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 10:55:21,957 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: d3595347-73a0-4d6d-9461-de34b91a07cb
+2026-11-05 10:55:21,958 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 10:55:41,012 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.008 seconds | Correlation ID: 0bef4d70-7554-4cff-8d4a-1e91ca866f6b
+2026-11-05 10:55:41,012 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 10:55:41,048 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: 61e5f10b-d680-4080-96f7-69651f7051e4
+2026-11-05 10:55:41,048 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 10:55:41,135 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.054 seconds | Correlation ID: da1421b3-5f75-4941-aa48-d43cd11fc267
+2026-11-05 10:55:41,136 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 10:55:41,171 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: 85340acc-2376-4001-b461-970e2f47fbf6
+2026-11-05 10:55:41,172 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 10:55:41,235 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.034 seconds | Correlation ID: d637e7fb-8274-48d0-8f23-003b8a58d207
+2026-11-05 10:55:41,236 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 10:55:41,276 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: d472d6f8-98dd-43f6-96dc-39915c8c8e43
+2026-11-05 10:55:41,276 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 10:55:41,312 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.003 seconds | Correlation ID: 41fadd5a-a2bc-40f1-bae0-646cde48831e
+2026-11-05 10:55:41,312 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 10:55:41,346 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.002 seconds | Correlation ID: 3c48f5a5-6bd9-4d46-a21c-0a558caa69e8
+2026-11-05 10:55:41,347 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 10:55:41,397 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.019 seconds | Correlation ID: 688924a0-6b81-4d9f-b20e-3394858de84e
+2026-11-05 10:55:41,398 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 10:55:41,435 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.004 seconds | Correlation ID: d7a57471-164e-4e31-9f34-cb5080f6ccae
+2026-11-05 10:55:41,436 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 10:55:41,467 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: 74acdfca-24db-4cda-a0f1-ad2d3613a003
+2026-11-05 10:55:41,467 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 10:55:41,553 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: fb768f9d-c229-47bd-afad-2278c8bfa6f7
+2026-11-05 10:55:41,553 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 10:55:58,803 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.008 seconds | Correlation ID: ddbbd21d-08fa-4ab8-8797-8058fd6e8577
+2026-11-05 10:55:58,804 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 10:55:58,838 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: c432576b-6772-4be7-8cb4-96be4ecb74a1
+2026-11-05 10:55:58,839 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 10:55:58,938 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.066 seconds | Correlation ID: ba99bb56-c079-4a7b-be27-de5df43d35f9
+2026-11-05 10:55:58,939 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 10:55:58,974 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.003 seconds | Correlation ID: ac78ed0a-9ba2-4bda-a417-5a25bcb31b14
+2026-11-05 10:55:58,974 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 10:55:59,046 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.038 seconds | Correlation ID: 25d8cec4-b680-456c-ae60-e8dd6b171e46
+2026-11-05 10:55:59,047 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 10:55:59,084 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.005 seconds | Correlation ID: bf9d3968-1c35-4dbf-922e-895b222deb97
+2026-11-05 10:55:59,085 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 10:55:59,123 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.004 seconds | Correlation ID: fb08bd90-2865-413f-85f1-454b8b175e48
+2026-11-05 10:55:59,124 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 10:55:59,160 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: f5d436d7-2882-4824-8234-2b36e7e67a49
+2026-11-05 10:55:59,160 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 10:55:59,192 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.003 seconds | Correlation ID: d2816103-f8ca-40cb-903d-e0bb7f2573ef
+2026-11-05 10:55:59,193 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 10:55:59,249 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.025 seconds | Correlation ID: 51c71961-277a-431f-9cbd-b9128e9aaa5f
+2026-11-05 10:55:59,249 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 10:55:59,285 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.004 seconds | Correlation ID: 927230a9-f885-4fe5-87f0-cf09bbb8ebcb
+2026-11-05 10:55:59,285 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 10:55:59,316 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: 389fa80c-cc87-4f52-b013-724aab3c5c5c
+2026-11-05 10:55:59,317 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 10:55:59,352 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: 7690ed55-a81e-4180-b04e-9ed63e752c49
+2026-11-05 10:55:59,352 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 11:00:44,657 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.008 seconds | Correlation ID: 1dfc8e85-6b65-4d6a-9d81-078447e4c634
+2026-11-05 11:00:44,658 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 11:00:44,691 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: b985143a-0567-40e9-9e69-3e4ef4a40540
+2026-11-05 11:00:44,691 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 11:00:44,782 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.057 seconds | Correlation ID: 8a33246d-aa3c-441d-b9d8-e6fc7ccb0768
+2026-11-05 11:00:44,783 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 11:00:44,821 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: 74065ec4-c1df-442b-ba4b-670f0d1cd0c5
+2026-11-05 11:00:44,822 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 11:00:44,885 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.031 seconds | Correlation ID: 15b28798-7ef2-48b4-a6d0-dbe4737e3e29
+2026-11-05 11:00:44,886 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 11:00:44,924 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: b719e30e-bf3e-458e-8491-f69e2233b273
+2026-11-05 11:00:44,924 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 11:00:44,960 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.004 seconds | Correlation ID: 460bf7f7-ec0a-46d1-897f-f0f78d8effee
+2026-11-05 11:00:44,960 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 11:00:45,005 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: 1c72b2d1-9916-47bf-bd32-126cf4f1c4fd
+2026-11-05 11:00:45,005 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 11:00:45,046 - app.middleware.observability - WARNING - POST /api/products/ | Status: 400 | Duration: 0.004 seconds | Correlation ID: 835e7d47-5855-46ed-b6b5-0099615ed7bd
+2026-11-05 11:00:45,047 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 400 Bad Request"
+2026-11-05 11:00:45,248 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.002 seconds | Correlation ID: 9e90fde3-3b3b-44ee-9c02-d942b798fcf7
+2026-11-05 11:00:45,248 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 11:00:45,309 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.020 seconds | Correlation ID: 6fd195e2-153b-4bc7-a599-5d812843e4ff
+2026-11-05 11:00:45,309 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 11:00:45,345 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.005 seconds | Correlation ID: 38324a94-4b72-4c5b-802c-5804ec66bf15
+2026-11-05 11:00:45,345 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 11:00:45,378 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: f2b17db5-3950-4871-ac5d-e65ea37997f9
+2026-11-05 11:00:45,379 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 11:00:45,411 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: 9bab5b44-2ca5-40c6-9dfc-7e9d5103f154
+2026-11-05 11:00:45,412 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 11:01:19,523 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.008 seconds | Correlation ID: c203a0cd-79e7-44e5-987c-641777ea7066
+2026-11-05 11:01:19,523 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 11:01:19,562 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: a262fd63-b3cd-400f-915b-f9f94ad3f471
+2026-11-05 11:01:19,562 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 11:01:19,657 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.058 seconds | Correlation ID: 2223c9a6-8fcc-4d56-ab80-591b19d594c1
+2026-11-05 11:01:19,658 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 11:01:19,696 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.003 seconds | Correlation ID: bef02ac8-9f5b-44d5-9ce9-c833e2f7bddd
+2026-11-05 11:01:19,696 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 11:01:19,763 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.033 seconds | Correlation ID: 5d3f5094-fe68-497e-a940-b17220d581ec
+2026-11-05 11:01:19,763 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 11:01:19,803 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: b58b5f67-31e5-4d8b-830c-6ff24ebb47aa
+2026-11-05 11:01:19,804 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 11:01:19,840 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.003 seconds | Correlation ID: 6d519a44-154d-44bd-9a9e-2ca60ea50730
+2026-11-05 11:01:19,841 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 11:01:19,878 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: 92f4558b-f179-41e0-8954-cbb32a034277
+2026-11-05 11:01:19,878 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 11:01:19,915 - app.middleware.observability - WARNING - POST /api/products/ | Status: 400 | Duration: 0.004 seconds | Correlation ID: 17731eac-e438-4f63-915a-51adbbbe738c
+2026-11-05 11:01:19,916 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 400 Bad Request"
+2026-11-05 11:01:20,113 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.002 seconds | Correlation ID: dca8dc27-3a53-4a51-97fe-06ddde78b1bc
+2026-11-05 11:01:20,113 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 11:01:20,165 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.019 seconds | Correlation ID: 0c5f2562-5514-4f93-83a9-200bece7dfc2
+2026-11-05 11:01:20,166 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 11:01:20,204 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.005 seconds | Correlation ID: 87be2274-a2fb-498d-92df-904c1f2c6bd4
+2026-11-05 11:01:20,204 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 11:01:20,238 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: 4dffbae1-5f29-4394-85fb-fe55dd50a87d
+2026-11-05 11:01:20,238 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 11:01:20,273 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: 7d2d2e85-c8d6-4a12-8077-c03fb2e96056
+2026-11-05 11:01:20,273 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 11:04:09,986 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.009 seconds | Correlation ID: 37a74774-c39b-4cd5-9389-334b273f8926
+2026-11-05 11:04:09,987 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 11:04:10,026 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: c4cb918d-02dc-426f-9938-6dc1ad94147a
+2026-11-05 11:04:10,026 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 11:04:10,116 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.056 seconds | Correlation ID: d63642e9-6608-468a-baff-a85048ea4725
+2026-11-05 11:04:10,117 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 11:04:10,153 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: 990ada63-e283-4e27-8459-7db3f1a5667d
+2026-11-05 11:04:10,153 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 11:04:10,217 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.032 seconds | Correlation ID: 65e41e1b-f974-458c-be38-9663037c5806
+2026-11-05 11:04:10,218 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 11:04:10,257 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: 6db61d88-3754-4be9-923e-0d2cb76d1355
+2026-11-05 11:04:10,257 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 11:04:10,293 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.003 seconds | Correlation ID: dfa7373a-17f1-4110-8d1d-8ef416e4aeb7
+2026-11-05 11:04:10,293 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 11:04:10,326 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.003 seconds | Correlation ID: 508609a9-2884-427d-8993-041c04cb242a
+2026-11-05 11:04:10,327 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 11:04:10,363 - app.middleware.observability - WARNING - POST /api/products/ | Status: 400 | Duration: 0.004 seconds | Correlation ID: eaf55086-b9c0-47f8-ac54-59b215143e37
+2026-11-05 11:04:10,363 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 400 Bad Request"
+2026-11-05 11:04:10,560 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.002 seconds | Correlation ID: 44b7a9fa-9293-4c75-87ee-842dbe83c3aa
+2026-11-05 11:04:10,560 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 11:04:10,614 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.019 seconds | Correlation ID: 02a53bbc-598c-4fad-bc18-bb35cc116abf
+2026-11-05 11:04:10,614 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 11:04:10,651 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.004 seconds | Correlation ID: a4180de0-df8b-4d37-b89a-44035b01033b
+2026-11-05 11:04:10,651 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 11:04:10,684 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: 30b51b7b-3e39-466e-b20e-6f8de9ea82b3
+2026-11-05 11:04:10,684 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 11:04:10,718 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: ea9ed96d-e7c0-4692-b21a-760376f11cb3
+2026-11-05 11:04:10,718 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 11:06:09,616 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.007 seconds | Correlation ID: 96047fac-c83b-4d0a-9d03-6ed3160142b5
+2026-11-05 11:06:09,616 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 11:06:09,654 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: a2ca3c53-de3a-4515-8670-fd0dd135b70b
+2026-11-05 11:06:09,724 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 11:06:09,815 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.055 seconds | Correlation ID: af2c8906-b482-412a-bf12-8bc9b944ef89
+2026-11-05 11:06:09,816 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 11:06:09,852 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: 1466be07-efbd-427f-a307-846a1d1a909e
+2026-11-05 11:06:09,853 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 11:06:09,919 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.033 seconds | Correlation ID: d7d05891-6f7b-499d-bfcb-d71cb16caafb
+2026-11-05 11:06:09,919 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 11:06:09,957 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: c61fb44e-80f6-40a1-9b8e-0e40f689fc4f
+2026-11-05 11:06:09,957 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 11:06:09,994 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.004 seconds | Correlation ID: 96aba518-8c51-4241-95ad-0ec9bc3a99e9
+2026-11-05 11:06:09,994 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 11:06:10,033 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.003 seconds | Correlation ID: 014607b4-2386-4ae9-8184-8ab8d5cbc7d9
+2026-11-05 11:06:10,033 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 11:06:10,070 - app.middleware.observability - WARNING - POST /api/products/ | Status: 400 | Duration: 0.004 seconds | Correlation ID: 13b15308-0fe7-40a9-9421-9b9ed92a95ce
+2026-11-05 11:06:10,071 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 400 Bad Request"
+2026-11-05 11:06:10,277 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.002 seconds | Correlation ID: 06a50c2b-1c59-49e1-807e-363644f4fcd1
+2026-11-05 11:06:10,278 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 11:06:10,331 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.020 seconds | Correlation ID: 829828c6-2c72-4e4b-b7b0-cb13990a71e2
+2026-11-05 11:06:10,331 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 11:06:10,368 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.004 seconds | Correlation ID: fbaf7e7e-c3ef-4ee3-866e-da1e7e6ca5d2
+2026-11-05 11:06:10,368 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 11:06:10,401 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: 5d5fc63d-811b-4537-86aa-74fa85da663d
+2026-11-05 11:06:10,402 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 11:06:10,431 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: 417fe98b-f3ef-4380-89f4-5e340bd34f3a
+2026-11-05 11:06:10,431 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 11:07:09,710 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.008 seconds | Correlation ID: c35d9d1d-ae53-455c-82da-91031eaff9af
+2026-11-05 11:07:09,711 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 11:07:09,746 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: d0b26c7e-399f-46f1-ac03-25e2bdb9c7b9
+2026-11-05 11:07:09,746 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 11:07:09,833 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.054 seconds | Correlation ID: 163549aa-1f23-4fee-8658-702c09f66f86
+2026-11-05 11:07:09,833 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 11:07:09,868 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: b9716d63-fc8b-4b37-be3a-a36166d5f285
+2026-11-05 11:07:09,868 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 11:07:09,930 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.033 seconds | Correlation ID: 5db10fcb-96b4-4ed5-b21a-ac079038d4b8
+2026-11-05 11:07:09,930 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 11:07:09,967 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: 25ef1f78-c49d-4666-bac8-fb0996fbff68
+2026-11-05 11:07:09,967 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 11:07:10,001 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.003 seconds | Correlation ID: 278db48e-ff53-4468-8c6b-80d8b22dc98a
+2026-11-05 11:07:10,001 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 11:07:10,041 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: 27d5cf8e-3a4d-4356-96e9-528c93bcf77f
+2026-11-05 11:07:10,041 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 11:07:10,245 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 500 Internal Server Error"
+2026-11-05 11:07:10,433 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.002 seconds | Correlation ID: e48daf7a-7e3b-4f06-b26e-c19aff8a3c7a
+2026-11-05 11:07:10,433 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 11:07:10,484 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.019 seconds | Correlation ID: d547c9eb-b1fa-44cd-974a-8b935f7aea0c
+2026-11-05 11:07:10,485 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 11:07:10,523 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.005 seconds | Correlation ID: 12a495ec-0a3d-41ab-a4dc-b15781464c1c
+2026-11-05 11:07:10,523 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 11:07:10,558 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: 3399ae5c-3b7b-4c34-9a53-c1879dd1eb55
+2026-11-05 11:07:10,559 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 11:07:10,592 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: 771ba62a-d855-462f-96b0-620662e7dab1
+2026-11-05 11:07:10,592 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 11:09:32,970 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.021 seconds | Correlation ID: 5fde79e6-7948-403a-9296-ede34971c75e
+2026-11-05 11:09:32,971 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 11:09:33,061 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.002 seconds | Correlation ID: 4fff385a-4188-4161-b60f-d716c2a8bc96
+2026-11-05 11:09:33,063 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 11:09:33,279 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.137 seconds | Correlation ID: b335bc46-8d90-45ab-8535-5b1ae4760f6d
+2026-11-05 11:09:33,281 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 11:09:33,370 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.004 seconds | Correlation ID: ce637afe-75fb-4f84-a9bb-935c32d60480
+2026-11-05 11:09:33,371 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 11:09:33,565 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.122 seconds | Correlation ID: 11c6a6fa-5468-420a-8363-03ac655fdea7
+2026-11-05 11:09:33,566 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 11:09:33,674 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.015 seconds | Correlation ID: 1ae61ae4-30a4-4735-8482-690efe1fe317
+2026-11-05 11:09:33,675 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 11:09:33,797 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.010 seconds | Correlation ID: 39196fc4-4344-4d69-92d0-4c512b97d533
+2026-11-05 11:09:33,797 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 11:09:33,863 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.007 seconds | Correlation ID: f89c758a-488d-466e-b3ea-0d18a9e5c38e
+2026-11-05 11:09:33,863 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 11:09:33,935 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.005 seconds | Correlation ID: eb7595aa-939c-4e2f-8583-9928b9f5a6f9
+2026-11-05 11:09:33,935 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 11:09:34,065 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.056 seconds | Correlation ID: 20783645-28ec-4470-af67-248ba430ca4f
+2026-11-05 11:09:34,065 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 11:09:34,283 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.010 seconds | Correlation ID: 2b926022-cd4c-4c6f-96f9-ccbb327d6458
+2026-11-05 11:09:34,284 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 11:09:34,360 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: f098c5cc-707c-4fe6-bf48-85aeb0dae645
+2026-11-05 11:09:34,361 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 11:09:34,440 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.002 seconds | Correlation ID: 377fc191-ffb4-4ffe-8fbc-bd666eedf79a
+2026-11-05 11:09:34,441 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 11:57:28,681 - app.middleware.observability - INFO - GET /docs | Status: 200 | Duration: 0.001 seconds | Correlation ID: 0b6ac791-b40c-47e5-b8b8-092e9d934baf
+2026-11-05 11:57:29,087 - app.middleware.observability - INFO - GET /openapi.json | Status: 200 | Duration: 0.237 seconds | Correlation ID: 1fad3a46-23be-4d20-8f58-20d42d7f874d
+2026-11-05 11:57:37,886 - app.middleware.observability - INFO - GET /docs | Status: 200 | Duration: 0.001 seconds | Correlation ID: f6d41019-6a77-4137-a7f2-599f4e163096
+2026-11-05 11:57:37,949 - app.middleware.observability - INFO - GET /openapi.json | Status: 200 | Duration: 0.002 seconds | Correlation ID: 76f90cb6-f7b7-43c7-bffc-d5c958351a9b
+2026-11-05 11:58:01,355 - app.middleware.observability - INFO - GET /docs | Status: 200 | Duration: 0.001 seconds | Correlation ID: 28fa2bd5-2b52-4367-a644-06badba74e2c
+2026-11-05 11:58:01,419 - app.middleware.observability - INFO - GET /openapi.json | Status: 200 | Duration: 0.001 seconds | Correlation ID: ae8971a6-33bb-4961-a9e2-9210b849d3f5
+2026-11-05 12:03:42,036 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.010 seconds | Correlation ID: cb09b02f-c1d8-4126-9e8e-f313b05e4288
+2026-11-05 12:03:42,036 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 12:03:42,072 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: 8fd4f7a2-9bac-45cb-b154-4a630e54b63a
+2026-11-05 12:03:42,072 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 12:03:42,126 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.015 seconds | Correlation ID: f7aba9b3-36b9-4947-8148-d06be0e2a12d
+2026-11-05 12:03:42,127 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 12:03:42,165 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.003 seconds | Correlation ID: 053fb37f-9dca-41b8-ace4-4c130477d49f
+2026-11-05 12:03:42,166 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 12:03:42,208 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: 67168214-9388-4bc4-a543-bbfcb3bedc95
+2026-11-05 12:03:42,209 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 12:03:42,286 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.039 seconds | Correlation ID: ca8a8b11-957b-415c-b150-5433507ff1e7
+2026-11-05 12:03:42,287 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 12:03:42,328 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: a8c9258d-9024-41bd-aee5-a2dd184ad836
+2026-11-05 12:03:42,329 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 12:03:42,380 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.006 seconds | Correlation ID: 76b42526-df5b-44ca-a6b3-93173433d747
+2026-11-05 12:03:42,380 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 12:03:42,427 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.003 seconds | Correlation ID: dfc6dea5-d7ff-4fa7-b491-09aff479ba6f
+2026-11-05 12:03:42,427 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 12:03:42,476 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.002 seconds | Correlation ID: 9793304f-12f4-4640-a6d5-cb8a509c7cf8
+2026-11-05 12:03:42,477 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 12:03:42,537 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.021 seconds | Correlation ID: 49378346-d437-40a5-8125-4baf51edfd53
+2026-11-05 12:03:42,537 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 12:03:42,579 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.005 seconds | Correlation ID: 9320568b-8162-471c-aff1-8c8ebd8713e8
+2026-11-05 12:03:42,580 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 12:03:42,612 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: 1eab79c3-0d33-4b07-b3e8-c9d6543a95b6
+2026-11-05 12:03:42,612 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 12:03:42,653 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: e39e6831-58fc-4061-b872-3a9d1daf2ffb
+2026-11-05 12:03:42,654 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 12:07:32,902 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.009 seconds | Correlation ID: 4647d040-f4bb-4f90-a56b-d0675644b827
+2026-11-05 12:07:32,902 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 12:07:32,936 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: 4c04a570-5623-4578-b4f8-2f33b3c884d9
+2026-11-05 12:07:32,937 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 12:07:33,025 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.056 seconds | Correlation ID: 074dc7c8-8352-4c49-a422-74d4f5bfbcbb
+2026-11-05 12:07:33,026 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 12:07:33,065 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: f0d49710-fa18-44fc-8fc8-125f8d16565d
+2026-11-05 12:07:33,065 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 12:07:33,098 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.001 seconds | Correlation ID: 7b060e67-151d-4135-bec4-5898764a8b81
+2026-11-05 12:07:33,098 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 12:07:33,168 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.037 seconds | Correlation ID: 7974bd7a-a27c-4812-9038-0dcb63c208ee
+2026-11-05 12:07:33,168 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 12:07:33,204 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.005 seconds | Correlation ID: cf7e5604-94ec-4d39-8be2-39d24c4f87ae
+2026-11-05 12:07:33,205 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 12:07:33,241 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.003 seconds | Correlation ID: 5b9f894f-9641-4302-9af9-e1f68296a21b
+2026-11-05 12:07:33,242 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 12:07:33,280 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: fda91f17-0665-4437-aa9c-894826440244
+2026-11-05 12:07:33,281 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 12:07:33,316 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.002 seconds | Correlation ID: 6d202554-dc44-4dfe-afce-9cbc365d5614
+2026-11-05 12:07:33,316 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 12:07:33,367 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.018 seconds | Correlation ID: b77fd250-e681-4698-ace0-90c6ccc077a3
+2026-11-05 12:07:33,368 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 12:07:33,404 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.005 seconds | Correlation ID: cf2b26d3-86ce-4d9e-861f-1b22c0197d34
+2026-11-05 12:07:33,405 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 12:07:33,437 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: 0e4aa7ac-b3c2-4381-b9ac-b15e7c31042c
+2026-11-05 12:07:33,437 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 12:07:33,469 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: 8c8805c9-ec64-49b1-982f-376225480edd
+2026-11-05 12:07:33,470 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 12:07:51,655 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.009 seconds | Correlation ID: 1b2d2626-e189-41b0-8310-ce2e3af1105c
+2026-11-05 12:07:51,656 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 12:07:51,691 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: e7ee0530-25b8-4062-97ba-d2f3bc856c93
+2026-11-05 12:07:51,691 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 12:07:51,781 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.056 seconds | Correlation ID: 824ba433-4b9b-46dd-814e-66d66b698ee0
+2026-11-05 12:07:51,781 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 12:07:51,832 - app.middleware.observability - INFO - POST /api/categories | Status: 307 | Duration: 0.017 seconds | Correlation ID: 6366370e-0fc1-49d5-9930-42db7ff77226
+2026-11-05 12:07:51,833 - httpx - INFO - HTTP Request: POST http://test/api/categories "HTTP/1.1 307 Temporary Redirect"
+2026-11-05 12:07:52,039 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: 2976894c-54f5-4c44-a951-e12e8813fc8a
+2026-11-05 12:07:52,040 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 12:07:52,074 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: 03862009-91a3-45be-b5cc-f53db28fae88
+2026-11-05 12:07:52,075 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 12:07:52,133 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.025 seconds | Correlation ID: 6f16ae80-2c2a-4b81-9aef-7f65bac35e36
+2026-11-05 12:07:52,133 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 12:07:52,171 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: 98ed2360-ffbd-4b4c-86d6-c1344e69633e
+2026-11-05 12:07:52,172 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 12:07:52,207 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.004 seconds | Correlation ID: 7719135f-3d81-4396-88e1-b7103a990915
+2026-11-05 12:07:52,208 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 12:07:52,243 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.003 seconds | Correlation ID: e3323183-e4b9-430c-b64e-e9564ef61ad7
+2026-11-05 12:07:52,244 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 12:07:52,279 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.003 seconds | Correlation ID: 0266423e-6139-42a3-84d3-748bd00b1fd9
+2026-11-05 12:07:52,280 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 12:07:52,321 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.009 seconds | Correlation ID: 6cb4ec90-edfb-438c-b198-9e9182d2d667
+2026-11-05 12:07:52,321 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 12:07:52,357 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.004 seconds | Correlation ID: 058eb9a3-a2eb-46b7-910b-a9c855b6c088
+2026-11-05 12:07:52,358 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 12:07:52,391 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: 00f76f41-4f9c-49c7-b609-d0bcb9594a35
+2026-11-05 12:07:52,391 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 12:07:52,424 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: f49db7df-1b87-4fc6-8452-d484716590d8
+2026-11-05 12:07:52,425 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 12:08:17,642 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.008 seconds | Correlation ID: ca734aa7-9e0f-4d58-b0c7-28268b59f4c9
+2026-11-05 12:08:17,643 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 12:08:17,680 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.005 seconds | Correlation ID: d2327a91-246e-4b37-9354-fa6affee5a2d
+2026-11-05 12:08:17,681 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 12:08:17,774 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.058 seconds | Correlation ID: f6dd512d-2ad4-40de-ab8b-ca5b280bd047
+2026-11-05 12:08:17,775 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 12:08:17,827 - app.middleware.observability - INFO - POST /api/categories | Status: 307 | Duration: 0.017 seconds | Correlation ID: d9ac127a-2644-498c-8c35-4a82d262056a
+2026-11-05 12:08:17,827 - httpx - INFO - HTTP Request: POST http://test/api/categories "HTTP/1.1 307 Temporary Redirect"
+2026-11-05 12:08:18,030 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.003 seconds | Correlation ID: 9e1b9d1f-93a6-4910-9c5f-dd10fe443b09
+2026-11-05 12:08:18,030 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 12:08:18,064 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: f57da221-d372-4e60-9b88-d3c80b4fe939
+2026-11-05 12:08:18,065 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 12:08:18,123 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.025 seconds | Correlation ID: c3568627-91ea-4bfe-bc01-d4cf7d72c92f
+2026-11-05 12:08:18,123 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 12:08:18,159 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: 3eb2dc52-2e7c-469a-96f0-24d60d68d96e
+2026-11-05 12:08:18,159 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 12:08:18,201 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.008 seconds | Correlation ID: 916e022b-51a3-4efe-b6fe-c0b77c99f446
+2026-11-05 12:08:18,201 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 12:08:18,238 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.003 seconds | Correlation ID: 3ca4df62-5d87-4092-85fb-4eb357b04277
+2026-11-05 12:08:18,239 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 12:08:18,286 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.010 seconds | Correlation ID: bb09d927-bf79-4694-aa0d-16156bed3d3e
+2026-11-05 12:08:18,287 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 12:08:18,377 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.010 seconds | Correlation ID: 74708864-55c6-4d50-939e-740567326949
+2026-11-05 12:08:18,377 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 12:08:18,412 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.005 seconds | Correlation ID: 077bf59a-ab17-40f6-ab28-6cd2bc03b8e0
+2026-11-05 12:08:18,413 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 12:08:18,445 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: 6684c407-8f1c-470d-b34c-4ec2fbfb4147
+2026-11-05 12:08:18,446 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 12:08:18,476 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: 2a10fb27-26d5-4ffa-a94d-abbae3bc20dd
+2026-11-05 12:08:18,476 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"
+2026-11-05 12:21:53,361 - app.middleware.observability - INFO - GET /api/auth/me | Status: 200 | Duration: 0.008 seconds | Correlation ID: 92dc7216-065f-4bc3-aae9-770413fc2483
+2026-11-05 12:21:53,362 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 200 OK"
+2026-11-05 12:21:53,395 - app.middleware.observability - WARNING - GET /api/auth/me | Status: 401 | Duration: 0.001 seconds | Correlation ID: abb4bd6e-7cf7-4e0e-86a9-7472c3bd9055
+2026-11-05 12:21:53,396 - httpx - INFO - HTTP Request: GET http://test/api/auth/me "HTTP/1.1 401 Unauthorized"
+2026-11-05 12:21:53,486 - app.middleware.observability - INFO - POST /api/categories/ | Status: 201 | Duration: 0.057 seconds | Correlation ID: 5b634623-7b3e-4a88-9817-e3397a17682c
+2026-11-05 12:21:53,487 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 201 Created"
+2026-11-05 12:21:53,523 - app.middleware.observability - WARNING - POST /api/categories/ | Status: 403 | Duration: 0.001 seconds | Correlation ID: 27083499-36de-465d-bb06-a58359076c3f
+2026-11-05 12:21:53,524 - httpx - INFO - HTTP Request: POST http://test/api/categories/ "HTTP/1.1 403 Forbidden"
+2026-11-05 12:21:53,561 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: dc81f480-a490-4af8-b81f-f0d60c252927
+2026-11-05 12:21:53,561 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 12:21:53,595 - app.middleware.observability - INFO - GET /api/categories/ | Status: 200 | Duration: 0.002 seconds | Correlation ID: 1a5800e7-797f-4b14-95a5-c60ef4660b86
+2026-11-05 12:21:53,596 - httpx - INFO - HTTP Request: GET http://test/api/categories/ "HTTP/1.1 200 OK"
+2026-11-05 12:21:53,665 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.034 seconds | Correlation ID: 503c5f8a-163b-49c7-aa55-9a665ab559d7
+2026-11-05 12:21:53,666 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 12:21:53,706 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: dd66f653-e212-4b11-a117-67a337cc64e4
+2026-11-05 12:21:53,706 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 12:21:53,744 - app.middleware.observability - INFO - GET /api/products/ | Status: 200 | Duration: 0.004 seconds | Correlation ID: 4b6c9c4d-3842-4359-a80e-e9b2c7c7170f
+2026-11-05 12:21:53,745 - httpx - INFO - HTTP Request: GET http://test/api/products/ "HTTP/1.1 200 OK"
+2026-11-05 12:21:53,782 - app.middleware.observability - WARNING - GET /api/products/999 | Status: 404 | Duration: 0.004 seconds | Correlation ID: 9c159517-a486-4d92-9e3b-66e99c87354a
+2026-11-05 12:21:53,782 - httpx - INFO - HTTP Request: GET http://test/api/products/999 "HTTP/1.1 404 Not Found"
+2026-11-05 12:21:53,820 - app.middleware.observability - WARNING - POST /api/products/ | Status: 422 | Duration: 0.003 seconds | Correlation ID: f9c4bdbd-2643-44ef-a270-e9e6ab03db27
+2026-11-05 12:21:53,820 - httpx - INFO - HTTP Request: POST http://test/api/products/ "HTTP/1.1 422 Unprocessable Entity"
+2026-11-05 12:21:53,872 - app.middleware.observability - INFO - GET /api/reports/sales-summary | Status: 200 | Duration: 0.019 seconds | Correlation ID: 3bf1959f-5831-4c32-aa43-2aeb3bd1c64e
+2026-11-05 12:21:53,872 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 200 OK"
+2026-11-05 12:21:53,910 - app.middleware.observability - INFO - GET /api/reports/product-sales | Status: 200 | Duration: 0.005 seconds | Correlation ID: 8b7b46fe-a659-43a5-821f-dedf7fa928ad
+2026-11-05 12:21:53,910 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 200 OK"
+2026-11-05 12:21:53,945 - app.middleware.observability - WARNING - GET /api/reports/sales-summary | Status: 403 | Duration: 0.001 seconds | Correlation ID: 35caf56b-8114-4da6-a978-8c31ef331b47
+2026-11-05 12:21:53,945 - httpx - INFO - HTTP Request: GET http://test/api/reports/sales-summary "HTTP/1.1 403 Forbidden"
+2026-11-05 12:21:53,979 - app.middleware.observability - WARNING - GET /api/reports/product-sales | Status: 403 | Duration: 0.001 seconds | Correlation ID: 383788f4-a2bf-4c6d-9a7e-2bce3625e83f
+2026-11-05 12:21:53,979 - httpx - INFO - HTTP Request: GET http://test/api/reports/product-sales "HTTP/1.1 403 Forbidden"

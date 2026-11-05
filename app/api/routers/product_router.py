@@ -21,7 +21,9 @@ ProductServiceDependency = Annotated[ProductService,Depends(get_product_service)
     "/",
     response_model=ProductResponse,
     status_code=status.HTTP_201_CREATED,
-    dependencies=[Depends(require_roles("admin"))]
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Create a product",
+    description="Creates a new product with its details and image."
 )
 async def create_product(
     data: ProductCreate,
@@ -36,7 +38,9 @@ async def create_product(
 @router.get(
     "/",
     response_model=list[ProductResponse],
-    dependencies=[Depends(require_roles("admin","customer"))]
+    dependencies=[Depends(require_roles("admin","customer"))],
+    summary="Get all products",
+    description="Retrieves all products with filtering and pagination."
 )
 async def get_all_products(
     db: Annotated[AsyncSession, Depends(get_db)],
@@ -64,7 +68,9 @@ async def get_all_products(
 @router.get(
     "/{product_id}",
     response_model=ProductResponse,
-    dependencies=[Depends(require_roles("admin","customer"))]
+    dependencies=[Depends(require_roles("admin","customer"))],
+    summary="Get product by ID",
+    description="Retrieves product details using its ID.",
 )
 async def get_product(
     db: Annotated[AsyncSession, Depends(get_db)],
@@ -79,7 +85,9 @@ async def get_product(
 @router.patch(
     "/{product_id}",
     response_model=ProductResponse,
-    dependencies=[Depends(require_roles("admin"))]
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Get product by ID",
+    description="Retrieves product details using its ID."
 )
 async def update_product(
     db: Annotated[AsyncSession, Depends(get_db)],
@@ -94,7 +102,9 @@ async def update_product(
 # DELETE PRODUCT
 @router.delete(
     "/{product_id}",
-    dependencies=[Depends(require_roles("admin"))]
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Delete a product",
+    description="Deletes a product using its ID."
 )
 async def delete_product(
     db: Annotated[AsyncSession, Depends(get_db)],
@@ -107,9 +117,11 @@ async def delete_product(
 
 # DELETED PRODUCTS
 @router.get(
-        "/admin/deleted",
-        response_model=list[ProductResponse],
-        dependencies=[Depends(require_roles("admin"))]
+    "/admin/deleted",
+    response_model=list[ProductResponse],
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Get deleted prodcts",
+    description="Retrieves all deleted products"
 )
 async def get_deleted_products(
     db:Annotated[AsyncSession,Depends(get_db)],
@@ -118,8 +130,10 @@ async def get_deleted_products(
     return await service.get_deleted_products(db)
 
 @router.patch(
-        "/admin/restore/{product_id}",
-        dependencies=[Depends(require_roles("admin"))]
+    "/admin/restore/{product_id}",
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Restore Product",
+    description="Restore Deleted Product based on Product ID"
 )
 async def restore_product(
     product_id:int,
@@ -128,12 +142,15 @@ async def restore_product(
 ):
     return await service.restore_product(db,product_id)
 
+
 # UPLOAD PRODUCT IMAGE
 @router.post(
     "/{product_id}/image",
     response_model=ProductResponse,
     status_code=status.HTTP_200_OK,
-    dependencies=[Depends(require_roles("admin"))]
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Upload product image",
+    description="Upload Product Image using Product ID"
 )
 async def upload_product_image(
     db: Annotated[AsyncSession, Depends(get_db)],

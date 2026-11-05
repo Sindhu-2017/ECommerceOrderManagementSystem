@@ -1,3 +1,4 @@
+from datetime import datetime
 
 from decimal import Decimal
 from types import SimpleNamespace
@@ -5,7 +6,19 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
+import pytest_asyncio
+from httpx import ASGITransport, AsyncClient
+from sqlalchemy.ext.asyncio import (
+    async_sessionmaker,
+    create_async_engine,
+)
 
+from app.api.dependencies.auth import get_current_user
+from app.api.dependencies.database import get_db
+from app.database.base import Base
+from app.main import app
+
+# mock database
 @pytest.fixture
 def mock_db():
     db = MagicMock()
@@ -16,6 +29,7 @@ def mock_db():
     return db
 
 
+# sample data
 @pytest.fixture
 def sample_user():
     return SimpleNamespace(
@@ -119,6 +133,7 @@ def sample_sales_summary():
     )
 
 
+# mock repositories
 @pytest.fixture
 def mock_user_repository():
     repo = MagicMock()
@@ -215,3 +230,125 @@ def mock_report_repository():
     repo.get_sales_summary = AsyncMock()
     repo.get_product_sales = AsyncMock()
     return repo
+
+
+# integration
+TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"
+
+@pytest_asyncio.fixture
+async def test_engine():
+    engine = create_async_engine(TEST_DATABASE_URL)
+    async with engine.begin() as connection:
+        await connection.run_sync(Base.metadata.create_all)
+
+    yield engine
+
+    await engine.dispose()
+
+
+@pytest_asyncio.fixture
+async def db_session(test_engine):
+    TestingSessionLocal = async_sessionmaker(
+        bind=test_engine,
+        expire_on_commit=False,
+    )
+    async with TestingSessionLocal() as session:
+        yield session
+
+
+# api
+@pytest.fixture
+def api_admin():
+    return SimpleNamespace(
+        user_id=2,
+        username="testadmin",
+        email="admin@example.com",
+        hashed_password="hashed_password",
+        role="admin",
+        is_active=True,
+        created_at=datetime.now(),
+        customer=None,
+    )
+
+
+@pytest.fixture
+def api_customer():
+    return SimpleNamespace(
+        user_id=1,
+        username="testuser",
+        email="test@example.com",
+        hashed_password="hashed_password",
+        role="customer",
+        is_active=True,
+        created_at=datetime.now(),
+        customer=None,
+    )
+
+
+@pytest_asyncio.fixture
+async def admin_client(db_session, api_admin):
+    async def override_get_db():
+        yield db_session
+
+    async def override_get_current_user():
+        return api_admin
+
+    app.dependency_overrides[get_db] = override_get_db
+    app.dependency_overrides[get_current_user] = override_get_current_user
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test",
+    ) as client:
+        yield client
+
+    app.dependency_overrides.clear()
+
+
+@pytest_asyncio.fixture
+async def customer_client(db_session, api_customer):
+    async def override_get_db():
+        yield db_session
+
+    async def override_get_current_user():
+        return api_customer
+
+    app.dependency_overrides[get_db] = override_get_db
+    app.dependency_overrides[get_current_user] = override_get_current_user
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test",
+    ) as client:
+        yield client
+
+    app.dependency_overrides.clear()
+
+
+@pytest_asyncio.fixture
+async def unauthenticated_client(db_session):
+    async def override_get_db():
+        yield db_session
+
+    app.dependency_overrides[get_db] = override_get_db
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test",
+    ) as client:
+        yield client
+
+    app.dependency_overrides.clear()
+
+
+@pytest.fixture
+def mock_category_service(sample_category):
+    service = MagicMock()
+
+    service.create_category = AsyncMock(return_value=sample_category)
+
+    service.get_all_categories = AsyncMock(return_value=[sample_category])
+
+    service.get_category_by_id = AsyncMock(return_value=sample_category)
+
+    return service

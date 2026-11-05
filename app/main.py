@@ -13,6 +13,7 @@ from app.api.routers.product_router import router as product_router
 from app.api.routers.report_router import router as report_router
 from app.api.routers.shipping_router import router as shipping_router
 from app.api.routers.wishlist_router import router as wishlist_router
+from app.api.routers.health_router import router as health_router
 from app.core.exceptions import (
     AppError,
     CategoryAlreadyExistsError,
@@ -38,17 +39,16 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="E-Commerce Order Management System",
-    description="E-Commerce API",
-    version="1.0.0",
+     description=(
+        "E-Commerce Order Management System for managing customers, products, orders, "
+        "payments, shipping, and reports."
+    ),
+    version="1.0.0"
 )
 
 
 @app.exception_handler(AppError)
-async def app_exception_handler(
-    request: Request,
-    exc: AppError,
-) -> JSONResponse:
-
+async def app_exception_handler(request: Request,exc: AppError) -> JSONResponse:
     status_codes = {
         InvalidCredentialsError: 401,
         InactiveUserError: 403,
@@ -67,7 +67,6 @@ async def app_exception_handler(
         OrderNotFoundError:404,
         InvalidOrderOperationError:409       
     }
-
     status_code = status_codes.get(type(exc), 400)
 
     return JSONResponse(
@@ -75,7 +74,7 @@ async def app_exception_handler(
         content={"detail": str(exc)},
     )
 
-
+app.include_router(health_router)
 app.include_router(auth_router)
 app.include_router(customer_router)
 app.include_router(category_router)

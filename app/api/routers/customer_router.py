@@ -19,7 +19,9 @@ CustomerServiceDependency = Annotated[CustomerService,Depends(get_customer_servi
 @router.get(
     "/customers",
     response_model=list[CustomerAdminResponse],
-    dependencies=[Depends(require_roles("admin"))]
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Get all customers",
+    description="Retrieves the registered customer details."
 )
 async def get_all_customers(
     db: Annotated[AsyncSession, Depends(get_db)],

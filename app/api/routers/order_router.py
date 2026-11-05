@@ -22,7 +22,9 @@ router = APIRouter(
     "/",
     response_model=OrderResponse,
     status_code=status.HTTP_201_CREATED,
-    dependencies=[Depends(require_roles("customer"))]
+    dependencies=[Depends(require_roles("customer"))],
+    summary="Create order",
+    description="Creates an order with the selected products and shipping address."
 )
 async def create_order(
     order_data: OrderCreate,
@@ -54,7 +56,9 @@ async def create_order(
 @router.get(
     "/{order_id}",
     response_model=OrderResponse,
-    dependencies=[Depends(require_roles("customer"))]
+    dependencies=[Depends(require_roles("customer"))],
+    summary="Get order by ID",
+    description="Retrieves order details using its ID."
 )
 async def get_order(
     order_id: int,
@@ -86,7 +90,9 @@ async def get_order(
 @router.get(
     "/",
     response_model=list[OrderResponse],
-    dependencies=[Depends(require_roles("customer"))]
+    dependencies=[Depends(require_roles("customer"))],
+    summary="Get customer orders",
+    description="Retrieves orders placed by the authenticated customer."
 )
 async def get_customer_orders(
     db: AsyncSession = Depends(get_db),
@@ -112,10 +118,13 @@ async def get_customer_orders(
             detail="Unable to retrieve orders"
         )
 
+
 @router.get(
     "/admin/all",
     response_model=list[OrderResponse],
-    dependencies=[Depends(require_roles("admin"))]
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Get All Orders",
+    description="Get All Customers and Orders(only admin can see)",
 )
 async def get_all_orders(
     db:AsyncSession=Depends(get_db),

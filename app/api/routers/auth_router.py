@@ -26,7 +26,11 @@ AuthServiceDependency = Annotated[AuthService, Depends(get_auth_service)]
 
 
 @router.post(
-    "/register", response_model=MessageResponse, status_code=status.HTTP_201_CREATED,
+    "/register", 
+    response_model=MessageResponse, 
+    status_code=status.HTTP_201_CREATED,
+    summary="Register user",
+    description="Creates a new user account."
 )
 async def register(
     data: RegisterRequest,
@@ -38,7 +42,12 @@ async def register(
     return {"message": "Customer registered successfully"}
 
 
-@router.post("/login", response_model=TokenResponse)
+@router.post(
+    "/login", 
+    response_model=TokenResponse,
+    summary="Login user",
+    description="Authenticates the user and generates access and refresh tokens."
+)
 async def login(
     # data: LoginRequest,
     service: AuthServiceDependency,
@@ -48,7 +57,12 @@ async def login(
     return await service.login(db, data.username, data.password)
 
 
-@router.post("/refresh", response_model=TokenResponse)
+@router.post(
+    "/refresh", 
+    response_model=TokenResponse,
+    summary="Refresh token",
+    description="Generates a new access token using a refresh token."
+)
 async def refresh(
     data: RefreshRequest,
     service: AuthServiceDependency,
@@ -57,7 +71,11 @@ async def refresh(
     return await service.refresh_tokens(db, data.refresh_token)
 
 
-@router.post("/logout", response_model=MessageResponse)
+@router.post(
+    "/logout", 
+    response_model=MessageResponse,
+    summary="Logout User"
+)
 async def logout(
     data: RefreshRequest,
     service: AuthServiceDependency,
@@ -68,7 +86,12 @@ async def logout(
 
     return {"message": "Logged out successfully"}
 
-@router.get("/me", response_model=UserProfileResponse)
+@router.get(
+    "/me", 
+    response_model=UserProfileResponse,
+    summary="Get my profile",
+    description="Retrieves the currently authenticated user's profile."
+)
 async def get_my_profile(
     current_user: User = Depends(get_current_user),
 ):

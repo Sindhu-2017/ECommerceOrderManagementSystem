@@ -3,16 +3,9 @@ import pytest
 from app.schemas.shipping_schema import ShippingCreate
 from app.services.shipping_service import ShippingService
 
-
 @pytest.mark.asyncio
-async def test_create_shipping(
-    mock_db,
-    mock_shipping_repository,
-    sample_customer,
-):
-    mock_shipping_repository.get_customer_by_user_id.return_value = (
-        sample_customer
-    )
+async def test_create_shipping(mock_db,mock_shipping_repository,sample_customer):
+    mock_shipping_repository.get_customer_by_user_id.return_value = sample_customer
     mock_shipping_repository.get_all.return_value = []
 
     service = ShippingService(mock_shipping_repository)
@@ -31,7 +24,6 @@ async def test_create_shipping(
     assert result.customer_id == 1
     assert result.recipient_name == "Test Customer"
     assert result.is_default is True
-
     mock_db.commit.assert_awaited_once()
 
 
@@ -42,9 +34,7 @@ async def test_get_shipping(
     sample_customer,
     sample_shipping,
 ):
-    mock_shipping_repository.get_customer_by_user_id.return_value = (
-        sample_customer
-    )
+    mock_shipping_repository.get_customer_by_user_id.return_value = sample_customer
     mock_shipping_repository.get_by_id.return_value = sample_shipping
 
     service = ShippingService(mock_shipping_repository)

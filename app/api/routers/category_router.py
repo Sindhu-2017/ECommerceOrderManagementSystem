@@ -21,7 +21,9 @@ CategoryServiceDependency = Annotated[CategoryService,Depends(get_category_servi
     "/",
     response_model=CategoryResponse,
     status_code=status.HTTP_201_CREATED,
-    dependencies=[Depends(require_roles("admin"))]
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Create category",
+    description="Creates a new product category."
 )
 async def create_category(
     data: CategoryCreate,
@@ -34,7 +36,9 @@ async def create_category(
 @router.get(
     "/",
     response_model=list[CategoryResponse],
-    dependencies=[Depends(require_roles("admin","customer"))]
+    dependencies=[Depends(require_roles("admin","customer"))],
+    summary="Get all categories",
+    description="Retrieves all available categories."
 )
 async def get_all_categories(
     service: CategoryServiceDependency,
@@ -46,7 +50,9 @@ async def get_all_categories(
 @router.get(
     "/{category_id}",
     response_model=CategoryResponse,
-    dependencies=[Depends(require_roles("admin","customer"))]
+    dependencies=[Depends(require_roles("admin","customer"))],
+    summary="Get category by ID",
+    description="Retrieves a category using its ID."
 )
 async def get_category(
     category_id: int,
@@ -61,7 +67,9 @@ async def get_category(
 @router.patch(
     "/{category_id}",
     response_model=CategoryResponse,
-    dependencies=[Depends(require_roles("admin"))]
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Update category",
+    description="Updates an existing category."
 )
 async def update_category(
     category_id: int,
@@ -77,7 +85,9 @@ async def update_category(
 @router.delete(
     "/{category_id}",
     status_code=status.HTTP_200_OK,
-    dependencies=[Depends(require_roles("admin"))]
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Delete category",
+    description="Deletes a category using its ID."
 )
 async def delete_category(
     category_id: int,
@@ -94,7 +104,9 @@ async def delete_category(
 @router.get(
     "/admin/deleted",
     response_model=list[CategoryResponse],
-    dependencies=[Depends(require_roles("admin"))]
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Get deleted categories",
+    description="Retrieves all deleted categories"
 )
 async def get_deleted_categories(
     service: CategoryServiceDependency,
@@ -105,7 +117,9 @@ async def get_deleted_categories(
 
 @router.patch(
     "/admin/restore/{category_id}",
-    dependencies=[Depends(require_roles("admin"))]
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Restore Category",
+    description="Restore Deleted Category based on Category ID"
 )
 async def restore_category(
     category_id: int,

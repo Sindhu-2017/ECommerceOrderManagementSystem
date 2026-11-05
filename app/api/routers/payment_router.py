@@ -19,7 +19,9 @@ router = APIRouter(
 
 @router.post(
     "/create/{order_id}",
-    dependencies=[Depends(require_roles("customer"))]
+    dependencies=[Depends(require_roles("customer"))],
+    summary="Create payment",
+    description="Creates a payment link for an order."
 )
 async def create_payment(
     order_id: int,
@@ -50,7 +52,9 @@ async def create_payment(
 
 @router.post(
     "/verify/{payment_id}",
-    dependencies=[Depends(require_roles("customer"))]
+    dependencies=[Depends(require_roles("customer"))],
+    summary="Verify payment",
+    description="Verifies the payment status and updates the order."
 )
 async def verify_payment(
     payment_id: int,

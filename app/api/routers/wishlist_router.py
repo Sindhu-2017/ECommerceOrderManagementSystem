@@ -20,7 +20,9 @@ WishlistServiceDependency = Annotated[WishListService,Depends(get_wishlist_servi
 @router.post(
     "/{product_id}",
     status_code=status.HTTP_201_CREATED,
-    dependencies=[Depends(require_roles("customer"))]
+    dependencies=[Depends(require_roles("customer"))],
+    summary="Add product",
+    description="Adds a product to the customer's wishlist."
 )
 async def add_to_wishlist(
     product_id:int,
@@ -34,7 +36,9 @@ async def add_to_wishlist(
 @router.get(
     "/",
     response_model=list[WishlistResponse],
-    dependencies=[Depends(require_roles("customer"))]
+    dependencies=[Depends(require_roles("customer"))],
+    summary="Get wishlist",
+    description="Retrieves all products in the customer's wishlist."
 )
 async def get_wishlist(
     db:Annotated[AsyncSession,Depends(get_db)],
@@ -46,7 +50,9 @@ async def get_wishlist(
 
 @router.delete(
     "/{product_id}",
-    dependencies=[Depends(require_roles("customer"))]
+    dependencies=[Depends(require_roles("customer"))],
+    summary="Remove product",
+    description="Removes a product from the customer's wishlist."
 )
 async def remove_from_wishlist(
     product_id:int,

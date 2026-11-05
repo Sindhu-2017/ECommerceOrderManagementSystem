@@ -25,7 +25,9 @@ ShippingServiceDependency = Annotated[ShippingService,Depends(get_shipping_servi
     "/",
     response_model=ShippingResponse,
     status_code=status.HTTP_201_CREATED,
-    dependencies=[Depends(require_roles("customer"))]
+    dependencies=[Depends(require_roles("customer"))],
+    summary="Create Address",
+    description="Adds a new shipping address for a customer"
 )
 async def create_shipping(
     data: ShippingCreate,
@@ -48,8 +50,9 @@ async def create_shipping(
 @router.get(
     "/",
     response_model=list[ShippingResponse],
-    dependencies=[Depends(require_roles("customer"))]
-
+    dependencies=[Depends(require_roles("customer"))],
+    summary="Get Addresses",
+    description="Retrieve the customer's saved shipping addresses"
 )
 async def get_all_shipping(
     db: Annotated[AsyncSession, Depends(get_db)],
@@ -71,7 +74,9 @@ async def get_all_shipping(
 @router.get(
     "/{shipping_id}",
     response_model=ShippingResponse,
-    dependencies=[Depends(require_roles("customer"))]
+    dependencies=[Depends(require_roles("customer"))],
+    summary="Get Address By ID",
+    description="Retrieve the customer's saved shipping address by ID"
 )
 async def get_shipping(
     shipping_id: int,
@@ -94,7 +99,9 @@ async def get_shipping(
 @router.patch(
     "/{shipping_id}",
     response_model=ShippingResponse,
-    dependencies=[Depends(require_roles("customer"))]
+    dependencies=[Depends(require_roles("customer"))],
+    summary="Update Address",
+    description="Updates an existing shipping address"
 )
 async def update_shipping(
     shipping_id: int,
@@ -121,7 +128,9 @@ async def update_shipping(
 @router.delete(
     "/{shipping_id}",
     status_code=status.HTTP_200_OK,
-    dependencies=[Depends(require_roles("customer"))]
+    dependencies=[Depends(require_roles("customer"))],
+    summary="Delete Address",
+    description="Deletes a shipping address if not being used by an order"
 )
 async def delete_shipping(
     shipping_id: int,

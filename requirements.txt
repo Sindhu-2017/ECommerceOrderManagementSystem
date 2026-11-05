@@ -19,3 +19,5 @@ python-multipart
 razorpay
 pytest
 pytest-asyncio
+aiosqlite
+ruff

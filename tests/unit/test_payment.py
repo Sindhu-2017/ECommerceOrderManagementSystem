@@ -6,19 +6,15 @@ from fastapi import HTTPException
 
 from app.services.payment_service import PaymentService
 
-
 @pytest.mark.asyncio
 async def test_payment_rejected_for_paid_order(
     mock_db,
     mock_payment_repository,
     mock_order_repository,
     sample_customer,
-    monkeypatch,
+    monkeypatch
 ):
-    mock_order_repository.get_customer_by_user_id.return_value = (
-        sample_customer
-    )
-
+    mock_order_repository.get_customer_by_user_id.return_value = sample_customer
     mock_payment_repository.get_order.return_value = SimpleNamespace(
         order_id=1,
         customer_id=1,
@@ -28,9 +24,7 @@ async def test_payment_rejected_for_paid_order(
 
     fake_settings = SimpleNamespace(
         RAZORPAY_KEY_ID="test_key",
-        RAZORPAY_KEY_SECRET=SimpleNamespace(
-            get_secret_value=lambda: "test_secret"
-        ),
+        RAZORPAY_KEY_SECRET=SimpleNamespace(get_secret_value=lambda: "test_secret"),
     )
 
     monkeypatch.setattr(

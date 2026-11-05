@@ -20,7 +20,9 @@ ReportServiceDependency = Annotated[ReportService,Depends(get_report_service)]
 @router.get(
     "/sales-summary",
     response_model=SalesSummaryResponse,
-    dependencies=[Depends(require_roles("admin"))]
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Sales summary",
+    description="Retrieves the overall sales summary."
 )
 async def get_sales_summary(
     db: Annotated[AsyncSession, Depends(get_db)],
@@ -32,7 +34,9 @@ async def get_sales_summary(
 @router.get(
     "/product-sales",
     response_model=list[ProductSalesResponse],
-    dependencies=[Depends(require_roles("admin"))]
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Product sales",
+    description="Retrieves sales information for individual products."
 )
 async def get_product_sales(
     db: Annotated[AsyncSession, Depends(get_db)],
