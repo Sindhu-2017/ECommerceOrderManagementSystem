@@ -757,4 +757,3 @@ ruff check .
 ruff format . --check
 ```
 
-If both commands complete successfully, the project passes the configured Ruff linting and formatting checks.
