@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends,Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.dependencies.auth import require_roles
@@ -16,6 +16,8 @@ router = APIRouter(
 
 CustomerServiceDependency = Annotated[CustomerService,Depends(get_customer_service)]
 
+
+# get all customers
 @router.get(
     "/customers",
     response_model=list[CustomerAdminResponse],
@@ -25,7 +27,9 @@ CustomerServiceDependency = Annotated[CustomerService,Depends(get_customer_servi
 )
 async def get_all_customers(
     db: Annotated[AsyncSession, Depends(get_db)],
-    service: CustomerServiceDependency
+    service: CustomerServiceDependency,
+    skip:int = Query(0,ge=0),
+    limit:int = Query(10,ge=1,le=100)
 ):
-    return await service.get_all_customers(db)
+    return await service.get_all_customers(db,skip,limit)
 

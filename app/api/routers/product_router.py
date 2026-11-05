@@ -33,6 +33,26 @@ async def create_product(
 
     return await service.create_product(db,data)
 
+# UPLOAD PRODUCT IMAGE
+@router.post(
+    "/{product_id}/image",
+    response_model=ProductResponse,
+    status_code=status.HTTP_200_OK,
+    dependencies=[Depends(require_roles("admin"))],
+    summary="Upload product image",
+    description="Upload Product Image using Product ID"
+)
+async def upload_product_image(
+    db: Annotated[AsyncSession, Depends(get_db)],
+    product_id: int,
+    service: ProductServiceDependency,
+    image: UploadFile = File(...),
+):
+
+    return await service.upload_product_image(
+        db,product_id,
+        image
+    )
 
 # GET ALL PRODUCTS
 @router.get(
@@ -45,7 +65,7 @@ async def create_product(
 async def get_all_products(
     db: Annotated[AsyncSession, Depends(get_db)],
     service: ProductServiceDependency,
-    search: str | None = None,
+    search: str | None = Query(default=None,description="Search by Product name"),
     category_id: int | None = Query(default=None, gt=0),
     min_price: float | None = Query(default=None, ge=0),
     max_price: float | None = Query(default=None, ge=0),
@@ -86,8 +106,8 @@ async def get_product(
     "/{product_id}",
     response_model=ProductResponse,
     dependencies=[Depends(require_roles("admin"))],
-    summary="Get product by ID",
-    description="Retrieves product details using its ID."
+    summary="Update product by ID",
+    description="Update product details using its ID."
 )
 async def update_product(
     db: Annotated[AsyncSession, Depends(get_db)],
@@ -129,6 +149,8 @@ async def get_deleted_products(
 ):
     return await service.get_deleted_products(db)
 
+
+# restore deleted product
 @router.patch(
     "/admin/restore/{product_id}",
     dependencies=[Depends(require_roles("admin"))],
@@ -143,24 +165,5 @@ async def restore_product(
     return await service.restore_product(db,product_id)
 
 
-# UPLOAD PRODUCT IMAGE
-@router.post(
-    "/{product_id}/image",
-    response_model=ProductResponse,
-    status_code=status.HTTP_200_OK,
-    dependencies=[Depends(require_roles("admin"))],
-    summary="Upload product image",
-    description="Upload Product Image using Product ID"
-)
-async def upload_product_image(
-    db: Annotated[AsyncSession, Depends(get_db)],
-    product_id: int,
-    service: ProductServiceDependency,
-    image: UploadFile = File(...),
-):
 
-    return await service.upload_product_image(
-        db,product_id,
-        image
-    )
 

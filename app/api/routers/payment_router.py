@@ -16,7 +16,7 @@ router = APIRouter(
     tags=["Payments"]
 )
 
-
+# create payment
 @router.post(
     "/create/{order_id}",
     dependencies=[Depends(require_roles("customer"))],
@@ -50,6 +50,7 @@ async def create_payment(
         )
 
 
+# verify payment
 @router.post(
     "/verify/{payment_id}",
     dependencies=[Depends(require_roles("customer"))],

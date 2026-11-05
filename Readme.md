@@ -10,16 +10,17 @@ SQLAlchemy ORM is used for database operations, and Alembic is used for database
 
 - Customer registration, login, token refresh, logout and profile retrieval.
 - Role-based access for customers and administrators.
-- Category and product creation, retrieval, update and deletion.
+- Category and product management.
+- Product search, filtering and pagination.
 - Product image upload.
 - Customer shipping-address management.
 - Order creation and order retrieval.
 - Wishlist management.
-- Razorpay payment creation and payment-status verification.
+- Razorpay payment creation and verification.
 - Sales summary and product sales reports.
-- Request logging, correlation IDs and centralized application exception handling.
-- Unit, integration and API tests using Pytest.
-
+- Logging and correlation ID tracking.
+- Unit, integration and API testing using Pytest.
+- PostgreSQL stored procedure and trigger.
 
 ## Project Folder Structure
 
@@ -28,9 +29,6 @@ ECommerceOrderManagementSystem/
 │
 ├── alembic/
 │   ├── versions/
-│   │   ├── 5c58573a046a_creating_tables.py
-│   │   ├── b30c390e4fda_payment_table_change.py
-│   │   └── b50faff8b76f_creating_all_tables.py
 │   ├── env.py
 │   └── script.py.mako
 │
@@ -133,67 +131,62 @@ ECommerceOrderManagementSystem/
 
 | Folder / File | Description |
 |---|---|
-| `app/` | Contains the main application source code. |
-| `app/main.py` | Initializes the FastAPI application, middleware, exception handlers and API routers. |
-| `app/api/routers/` | Contains API route definitions for each module. |
-| `app/api/dependencies/` | Provides database sessions, authentication and service dependencies. |
-| `app/core/` | Contains application configuration, security utilities, exceptions and logging setup. |
-| `app/database/` | Manages database connections and SQLAlchemy model metadata. |
+| `app/` | Contains the application source code. |
+| `app/main.py` | Starts the FastAPI application and registers middleware, exception handlers and routers. |
+| `app/api/routers/` | Contains the API endpoints. |
+| `app/api/dependencies/` | Contains database, authentication and service dependencies. |
+| `app/core/` | Contains configuration, security, exceptions and logging setup. |
+| `app/database/` | Handles database connections and model metadata. |
 | `app/middleware/` | Contains request logging and observability middleware. |
-| `app/models/` | Defines SQLAlchemy database models and relationships. |
-| `app/schemas/` | Defines Pydantic request and response schemas for data validation. |
-| `app/repositories/interfaces/` | Defines repository contracts for database operations. |
-| `app/repositories/implementations/` | Implements database operations using SQLAlchemy. |
-| `app/services/` | Contains business logic and application operations. |
-| `app/scripts/` | Contains utility scripts, including administrator account creation. |
-| `sql/` | Contains PostgreSQL stored procedures and trigger scripts. |
-| `alembic/` | Contains database migration configuration and revision files. |
-| `tests/unit/` | Contains unit tests for individual services and business logic. |
-| `tests/integration/` | Tests interactions between services, repositories and the database. |
-| `tests/api/` | Tests API endpoints, responses and access control. |
-| `tests/conftest.py` | Defines shared pytest fixtures and test configurations. |
+| `app/models/` | Defines database tables and relationships. |
+| `app/schemas/` | Defines request and response schemas. |
+| `app/repositories/interfaces/` | Defines repository interfaces. |
+| `app/repositories/implementations/` | Contains database operation implementations. |
+| `app/services/` | Contains application business logic. |
+| `app/scripts/` | Contains utility scripts such as admin creation. |
+| `sql/` | Contains stored procedure and trigger scripts. |
+| `alembic/` | Contains database migration files. |
+| `tests/unit/` | Contains unit tests. |
+| `tests/integration/` | Contains integration tests. |
+| `tests/api/` | Contains API endpoint tests. |
+| `tests/conftest.py` | Contains shared test fixtures. |
 | `uploads/` | Stores uploaded product images. |
-| `logs/` | Stores application information and error logs. |
-| `pyproject.toml` | Contains Ruff linting and formatting configuration. |
-| `requirements.txt` | Lists the Python dependencies required by the project. |
-| `alembic.ini` | Contains Alembic migration configuration. |
-| `.env.example` | Provides a template for application environment variables. |
-| `.gitignore` | Specifies files and folders excluded from Git tracking. |
-| `README.md` | Provides project information, setup instructions and usage documentation. |
-
+| `logs/` | Stores application and error logs. |
+| `pyproject.toml` | Contains Ruff configuration. |
+| `requirements.txt` | Lists project dependencies. |
+| `.env.example` | Provides the environment variable template. |
+| `alembic.ini` | Contains Alembic configuration. |
+| `README.md` | Contains project documentation. |
 
 ### Application Architecture
-The application follows a layered architecture:
 
-- **Router Layer:** Handles HTTP requests and responses.
-- **Schema Layer:** Validates incoming data and structures API responses.
-- **Service Layer:** Implements business logic.
-- **Repository Layer:** Handles database operations through interfaces and implementations.
+The application follows a layered architecture.
+
+- **Router Layer:** Handles incoming API requests.
+- **Schema Layer:** Validates request data and structures responses.
+- **Service Layer:** Handles business logic.
+- **Repository Layer:** Handles database operations using interfaces and implementations.
 - **Model Layer:** Defines database tables and relationships.
-- **Database Layer:** Manages database connectivity and SQLAlchemy configuration.
-
+- **Database Layer:** Manages database connections.
 
 ## Database Tables
 
-The application uses PostgreSQL with SQLAlchemy ORM to store and manage data. The database contains the following tables:
+The application uses PostgreSQL with SQLAlchemy ORM.
 
 | Table Name | Primary Key | Description |
 |---|---|---|
-| `users` | `user_id` | Stores user login credentials, email, role and account status. |
-| `customers` | `customer_id` | Stores customer profile information linked to user accounts. |
-| `categories` | `category_id` | Stores product categories and their active status. |
-| `products` | `product_id` | Stores product details, price, stock quantity, image path and category information. |
-| `shipping` | `shipping_id` | Stores customer shipping addresses and default address information. |
-| `orders` | `order_id` | Stores customer orders, order status, total amount and shipping address details. |
-| `order_items` | `order_item_id` | Stores products, quantities, unit prices and subtotals for each order. |
-| `payments` | `payment_id` | Stores payment details, payment status and Razorpay transaction references. |
-| `refresh_tokens` | `refresh_token_id` | Stores hashed refresh tokens, expiration and revocation information. |
+| `users` | `user_id` | Stores login credentials, email, role and account status. |
+| `customers` | `customer_id` | Stores customer profile details. |
+| `categories` | `category_id` | Stores product categories. |
+| `products` | `product_id` | Stores product details, price, stock and image path. |
+| `shipping` | `shipping_id` | Stores customer shipping addresses. |
+| `orders` | `order_id` | Stores order details and status. |
+| `order_items` | `order_item_id` | Stores products and quantities in each order. |
+| `payments` | `payment_id` | Stores payment details and transaction references. |
+| `refresh_tokens` | `refresh_token_id` | Stores refresh token information. |
 | `wishlists` | `wishlist_id` | Stores products added to customer wishlists. |
 
-
 ### Table Relationships
-
-The database uses primary keys and foreign keys to maintain relationships between tables.
 
 | Parent Table | Child Table | Relationship |
 |---|---|---|
@@ -207,28 +200,26 @@ The database uses primary keys and foreign keys to maintain relationships betwee
 | `products` | `wishlists` | One-to-many |
 | `orders` | `order_items` | One-to-many |
 
+### Stored Procedure and Trigger
 
-### Important Database Operations(Stored Procedure and Trigger)
-
-- **Stored Procedure:** `sp_insert_category` is used for inserting product categories.
-- **Trigger:** `trg_update_stock` automatically updates product stock when order items are inserted.
-
+- **Stored Procedure:** `sp_insert_category` is used to insert product categories.
+- **Trigger:** `trg_update_stock` updates product stock when order items are inserted.
 
 ## Technology Stack
 
-Programming language-Python 
-API framework -FastAPI
-Database -PostgreSQL 
-ORM - SQLAlchemy (async) 
-Database migrations -Alembic 
-Data validation - Pydantic
-Authentication - JWT 
-Payment integration -Razorpay 
-Testing -Pytest, pytest-asyncio, HTTPX 
-Code quality - Ruff 
-
-
-
+| Technology | Purpose |
+|---|---|
+| Python | Programming language |
+| FastAPI | API development |
+| PostgreSQL | Database |
+| SQLAlchemy | ORM and database operations |
+| Alembic | Database migrations |
+| Pydantic | Data validation |
+| JWT | Authentication |
+| Razorpay | Payment integration |
+| Pytest | Testing |
+| HTTPX | API testing |
+| Ruff | Code formatting and linting |
 
 ## Prerequisites
 
@@ -263,35 +254,43 @@ pip install -r requirements.txt
 
 ### 4. Configure environment variables
 
-Create a local `.env` file using `.env.example` as the template. Update the values for your own development environment. Do not commit `.env` or share real passwords, secret keys or payment credentials.
+Create a `.env` file using `.env.example` as a template.
 
-The application configuration expects these settings:
+Update the values according to your local environment.
+
+The application uses the following settings:
+
 - `PROJECT_NAME`
-- `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`
-- `SECRET_KEY`, `ALGORITHM`
-- `ACCESS_TOKEN_EXPIRE_MINUTES`, `REFRESH_TOKEN_EXPIRE_DAYS`
-- `EMAIL_SENDER`, `EMAIL_PASSWORD` (when email functionality is configured)
+- `DB_HOST`
+- `DB_PORT`
+- `DB_NAME`
+- `DB_USER`
+- `DB_PASSWORD`
+- `SECRET_KEY`
+- `ALGORITHM`
+- `ACCESS_TOKEN_EXPIRE_MINUTES`
+- `REFRESH_TOKEN_EXPIRE_DAYS`
+- `EMAIL_SENDER`
+- `EMAIL_PASSWORD`
 - `LOG_LEVEL`
-- `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`
+- `RAZORPAY_KEY_ID`
+- `RAZORPAY_KEY_SECRET`
 
-Load the data from .env using the settings defined in `app/core/config.py`.
 
 ### 5. Prepare the PostgreSQL database
 
-Create a PostgreSQL database and make sure the database connection values in `.env` point to it.
+Create a PostgreSQL database and update the database details in `.env`.
 
-Apply the database migrations:
+Run the migrations:
 
 ```powershell
 alembic upgrade head
 ```
 
-Run the SQL scripts in the `sql/` directory against the configured PostgreSQL database when setting up the stored procedure and trigger:
+Run the SQL scripts in the `sql/` folder to create the stored procedure and trigger:
 
 - `sql/sp_insert_category.sql`
 - `sql/trg_update_stock.sql`
-
-These scripts use PostgreSQL-specific SQL.
 
 ### 6. Start the application
 
@@ -299,93 +298,432 @@ These scripts use PostgreSQL-specific SQL.
 uvicorn app.main:app --reload
 ```
 
-The API will be available at `http://127.0.0.1:8000`.
+The application will run at:
 
-
-
+`http://127.0.0.1:8000`
 
 ## Database Migration with Alembic
 
-Alembic is used to manage database schema changes and maintain migration history.
+Alembic is used to manage database changes.
 
-### 1. Create a new migration
+### Create a new migration
 
-After modifying SQLAlchemy models, generate a migration file:
+After changing the SQLAlchemy models:
 
 ```powershell
 alembic revision --autogenerate -m "description_of_change"
 ```
 
-### 2. Apply all migrations
+### Apply all migrations
 
 ```powershell
 alembic upgrade head
 ```
 
-### 3. Apply a specific migration revision
+### Apply a specific migration
 
 ```powershell
 alembic upgrade <revision_id>
 ```
 
-### 4. Check the current migration revision
+### Check the current migration
 
 ```powershell
 alembic current
 ```
 
-### 5. View migration history
+### View migration history
 
 ```powershell
 alembic history
 ```
 
-### 6. Roll back the latest migration
+### Roll back the latest migration
 
 ```powershell
 alembic downgrade -1
 ```
 
-### 7. Roll back to a specific revision
+### Roll back to a specific revision
 
 ```powershell
 alembic downgrade <revision_id>
 ```
 
-
 ## API Documentation
 
-FastAPI provides interactive API documentation automatically:
+FastAPI provides Swagger UI for testing the API endpoints.
 
-- Swagger UI: `http://127.0.0.1:8000/docs`
-- ReDoc: `http://127.0.0.1:8000/redoc`
+Swagger UI:
 
-Use the authentication endpoints to obtain an access token. For protected endpoints, provide the token through Swagger's **Authorize** control or an HTTP `Authorization: Bearer <access_token>` header.
+`http://127.0.0.1:8000/docs`
 
-## API Modules
+## Authorization
 
-Authentication ---> Register, login, refresh token, logout and get current profile (`/api/auth`) 
-Categories  ---> Create, list, retrieve, update, delete and restore categories (`/api/categories`)
-Products ---> Create, list, retrieve, update, delete, restore and upload product images (`/api/products`) 
-Customers ---> Administrator customer listing (`/api/admin`) 
-Shipping --->Create, list, retrieve, update and delete shipping addresses (`/api/shipping`) 
-Wishlists ---> Add, list and remove wishlist products (`/api/wishlists`) 
-Orders   ---> Create and retrieve orders (`/orders`) 
-Payments --->Create and verify payments (`/payments`) 
-Reports   ---> Sales summary and product sales (`/api/reports`) 
+Protected endpoints require a valid access token.
 
-Access to some operations depends on the authenticated user's role.
+1. Login using `/api/auth/login`.
+2. Copy the returned `access_token`.
+3. Click **Authorize** in Swagger UI.
+4. Enter the access token.
+5. Click Authorize.
 
+### User Roles
+
+- **Admin:** Can manage categories, products, customers and reports.
+- **Customer:** Can manage shipping addresses, wishlists, orders and payments.
+- **Authenticated users:** Can access their own profile.
+
+## 1. Authentication APIs
+
+Base URL: `/api/auth`
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/register` | Registers a new customer. |
+| POST | `/login` | Logs in and generates tokens. |
+| POST | `/refresh` | Generates new tokens using a refresh token. |
+| POST | `/logout` | Revokes the refresh token. |
+| GET | `/me` | Gets the logged-in user's profile. |
+
+### Register
+
+`POST /api/auth/register`
+
+Sample input:
+
+```json
+{
+  "username": "john123",
+  "email": "john@gmail.com",
+  "password": "John@123",
+  "first_name": "John",
+  "last_name": "David",
+  "phone": "9876543210",
+  "date_of_birth": "2000-05-15"
+}
+```
+
+### Login
+
+`POST /api/auth/login`
+
+Sample form data:
+
+```text
+username: john123
+password: John@123
+```
+
+Returns access and refresh tokens after successful login.
+
+### Refresh Token
+
+`POST /api/auth/refresh`
+
+Sample input:
+
+```json
+{
+  "refresh_token": "your_refresh_token"
+}
+```
+
+### Logout
+
+`POST /api/auth/logout`
+
+Sample input:
+
+```json
+{
+  "refresh_token": "your_refresh_token"
+}
+```
+
+### Get My Profile
+
+`GET /api/auth/me`
+
+Returns the logged-in user's details.
+
+## 2. Category APIs
+
+Base URL: `/api/categories`
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/` | Creates a category. |
+| GET | `/` | Gets all categories. |
+| GET | `/{category_id}` | Gets a category by ID. |
+| PATCH | `/{category_id}` | Updates a category. |
+| DELETE | `/{category_id}` | Deletes a category. |
+| GET | `/admin/deleted` | Gets deleted categories. |
+| PATCH | `/admin/restore/{category_id}` | Restores a deleted category. |
+
+### Create Category
+
+`POST /api/categories/`
+
+```json
+{
+  "category_name": "Electronics",
+  "description": "Electronic products"
+}
+```
+
+### Update Category
+
+`PATCH /api/categories/1`
+
+```json
+{
+  "category_name": "Mobile Phones",
+  "description": "Smartphones and accessories"
+}
+```
+
+Only admin users can manage categories.
+
+## 3. Product APIs
+
+Base URL: `/api/products`
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/` | Creates a product. |
+| GET | `/` | Gets products with search and filters. |
+| GET | `/{product_id}` | Gets a product by ID. |
+| PATCH | `/{product_id}` | Updates a product. |
+| DELETE | `/{product_id}` | Deletes a product. |
+| GET | `/admin/deleted` | Gets deleted products. |
+| PATCH | `/admin/restore/{product_id}` | Restores a deleted product. |
+| POST | `/{product_id}/image` | Uploads a product image. |
+
+### Create Product
+
+`POST /api/products/`
+
+```json
+{
+  "category_id": 1,
+  "product_name": "Wireless Mouse",
+  "description": "Bluetooth wireless mouse",
+  "price": 599.00,
+  "stock_quantity": 50
+}
+```
+
+### Get Products
+
+`GET /api/products/`
+
+Optional query parameters:
+
+```text
+search=mouse
+category_id=1
+min_price=100
+max_price=1000
+skip=0
+limit=10
+```
+
+### Update Product
+
+`PATCH /api/products/1`
+
+```json
+{
+  "product_name": "Wireless Mouse",
+  "price": 699.00,
+  "stock_quantity": 40
+}
+```
+
+### Upload Product Image
+
+`POST /api/products/1/image`
+
+Select the image file using Swagger's file upload option.
+
+Only admin users can manage products.
+
+## 4. Customer APIs
+
+Base URL: `/api/admin`
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/customers` | Gets all registered customers. |
+
+Only admin users can access the customer list.
+
+## 5. Shipping APIs
+
+Base URL: `/api/shipping`
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/` | Adds a shipping address. |
+| GET | `/` | Gets all saved addresses. |
+| GET | `/{shipping_id}` | Gets an address by ID. |
+| PATCH | `/{shipping_id}` | Updates an address. |
+| DELETE | `/{shipping_id}` | Deletes an address. |
+
+### Create Shipping Address
+
+`POST /api/shipping/`
+
+```json
+{
+  "recipient_name": "John David",
+  "phone": "9876543210",
+  "address_line": "12 Main Road",
+  "city": "Chennai",
+  "state": "Tamil Nadu",
+  "pincode": "600001",
+  "is_default": true
+}
+```
+
+### Update Shipping Address
+
+`PATCH /api/shipping/1`
+
+```json
+{
+  "phone": "9876501234",
+  "city": "Coimbatore"
+}
+```
+
+Customers can save multiple shipping addresses and update their saved addresses.
+
+## 6. Wishlist APIs
+
+Base URL: `/api/wishlists`
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/{product_id}` | Adds a product to the wishlist. |
+| GET | `/` | Gets wishlist products. |
+| DELETE | `/{product_id}` | Removes a product from the wishlist. |
+
+Example:
+
+`POST /api/wishlists/1`
+
+Adds product ID 1 to the logged-in customer's wishlist.
+
+## 7. Order APIs
+
+Base URL: `/orders`
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/` | Creates a new order. |
+| GET | `/{order_id}` | Gets an order by ID. |
+| GET | `/` | Gets the logged-in customer's orders. |
+| GET | `/admin/all` | Gets all customers' orders. |
+
+### Create Order
+
+`POST /orders/`
+
+```json
+{
+  "shipping_id": 1,
+  "items": [
+    {
+      "product_id": 1,
+      "quantity": 2
+    },
+    {
+      "product_id": 2,
+      "quantity": 1
+    }
+  ]
+}
+```
+
+The system calculates the order total using the selected products and quantities.
+
+## 8. Payment APIs
+
+Base URL: `/payments`
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/create/{order_id}` | Creates a Razorpay payment link. |
+| POST | `/verify/{payment_id}` | Checks the payment status. |
+
+### Create Payment
+
+`POST /payments/create/1`
+
+Creates a Razorpay payment link for the selected order. Open the returned payment URL to complete the payment.
+
+### Verify Payment
+
+`POST /payments/verify/1`
+
+Checks the payment status with Razorpay. If payment is successful, the payment and order statuses are updated.
+
+## 9. Report APIs
+
+Base URL: `/api/reports`
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/sales-summary` | Gets overall sales information. |
+| GET | `/product-sales` | Gets product-wise sales information. |
+
+- **Sales Summary:** Shows total orders, paid orders, pending orders and total revenue.
+- **Product Sales:** Shows the quantity sold and total sales for each product.
+
+These reports are available to admin users.
+
+## 10. Health Check API
+
+Base URL: `/api/health`
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/` | Checks application and database health. |
+
+Sample response:
+
+```json
+{
+  "status": "healthy",
+  "database": "connected"
+}
+```
+
+## 11. Home API
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/` | Checks whether the API is running. |
+
+Sample response:
+
+```json
+{
+  "message": "E-Commerce Order Management System API is running"
+}
+```
 
 ## Running Tests
 
-Run the complete test suite from the project root:
+Run all tests from the project root:
 
 ```powershell
 python -m pytest -v
 ```
 
-Run a specific group:
+Run specific tests:
 
 ```powershell
 python -m pytest tests/unit -v
@@ -393,16 +731,4 @@ python -m pytest tests/integration -v
 python -m pytest tests/api -v
 ```
 
-
-
-## Development Notes
-
-- Keep API endpoint definitions in `app/api/routers/`.
-- Keep business logic in `app/services/`.
-- Keep database operations in repository implementations under `app/repositories/implementations/`.
-- Define repository contracts under `app/repositories/interfaces/`.
-- Keep request and response validation schemas in `app/schemas/`.
-- Add new database schema changes through Alembic migrations.
-- Keep credentials and environment-specific values outside source control.
-- Add tests for new functionality and run the quality checks before pushing changes.
 

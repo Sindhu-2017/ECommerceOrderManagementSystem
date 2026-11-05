@@ -1,6 +1,6 @@
 import logging
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status,Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.dependencies.auth import get_current_user, require_roles
@@ -17,7 +17,7 @@ router = APIRouter(
     tags=["Orders"]
 )
 
-
+# create order
 @router.post(
     "/",
     response_model=OrderResponse,
@@ -53,6 +53,7 @@ async def create_order(
         )
 
 
+# get order by id
 @router.get(
     "/{order_id}",
     response_model=OrderResponse,
@@ -87,6 +88,7 @@ async def get_order(
         )
 
 
+# get all orders
 @router.get(
     "/",
     response_model=list[OrderResponse],
@@ -119,6 +121,7 @@ async def get_customer_orders(
         )
 
 
+# get all cutomer's orders
 @router.get(
     "/admin/all",
     response_model=list[OrderResponse],
@@ -128,6 +131,9 @@ async def get_customer_orders(
 )
 async def get_all_orders(
     db:AsyncSession=Depends(get_db),
-    order_service: OrderService = Depends(get_order_service)   
+    order_service: OrderService = Depends(get_order_service),
+    search:str |None =Query(default=None,description="Search by order id or order status"),
+    skip:int = Query(0,ge=0),
+    limit:int = Query(10,ge=1,le=100)
 ):
-    return await order_service.get_all_orders(db)
+    return await order_service.get_all_orders(db,search,skip,limit)

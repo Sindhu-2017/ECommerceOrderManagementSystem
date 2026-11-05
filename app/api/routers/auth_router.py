@@ -25,6 +25,7 @@ router = APIRouter(
 AuthServiceDependency = Annotated[AuthService, Depends(get_auth_service)]
 
 
+# register - it automatically assigns role as customer
 @router.post(
     "/register", 
     response_model=MessageResponse, 
@@ -42,6 +43,7 @@ async def register(
     return {"message": "Customer registered successfully"}
 
 
+# login
 @router.post(
     "/login", 
     response_model=TokenResponse,
@@ -49,7 +51,6 @@ async def register(
     description="Authenticates the user and generates access and refresh tokens."
 )
 async def login(
-    # data: LoginRequest,
     service: AuthServiceDependency,
     data:Annotated[OAuth2PasswordRequestForm,Depends()],
     db: AsyncSession = Depends(get_db),
@@ -57,6 +58,7 @@ async def login(
     return await service.login(db, data.username, data.password)
 
 
+# generates new tokens using existing refresh token
 @router.post(
     "/refresh", 
     response_model=TokenResponse,
@@ -71,6 +73,7 @@ async def refresh(
     return await service.refresh_tokens(db, data.refresh_token)
 
 
+# logout - refresh token will be revoked
 @router.post(
     "/logout", 
     response_model=MessageResponse,
@@ -86,6 +89,8 @@ async def logout(
 
     return {"message": "Logged out successfully"}
 
+
+# get current authenticated user info
 @router.get(
     "/me", 
     response_model=UserProfileResponse,

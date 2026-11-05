@@ -12,10 +12,6 @@ class RegisterRequest(BaseModel):
     phone :str = Field(pattern=r"^[0-9]{10}$")
     date_of_birth: date
 
-class LoginRequest(BaseModel):
-    username:str
-    password:str
-
 class TokenResponse(BaseModel):
     access_token:str
     refresh_token:str

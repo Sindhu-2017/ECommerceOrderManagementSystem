@@ -66,13 +66,17 @@ class UserRepository(UserRepositoryInterface):
 
     async def get_all_customers(
         self,
-        db: AsyncSession
+        db: AsyncSession,
+        skip:int,
+        limit:int
     ) -> list[Customer]:
 
         result = await db.execute(
             select(Customer)
             .options(selectinload(Customer.user))
             .order_by(Customer.customer_id)
+            .offset(skip)
+            .limit(limit)
         )
 
         return list(result.scalars().all())

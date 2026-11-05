@@ -21,6 +21,7 @@ router = APIRouter(
 
 ShippingServiceDependency = Annotated[ShippingService,Depends(get_shipping_service)]
 
+# create shipping address
 @router.post(
     "/",
     response_model=ShippingResponse,
@@ -47,6 +48,7 @@ async def create_shipping(
         )
 
 
+# get all shipping address
 @router.get(
     "/",
     response_model=list[ShippingResponse],
@@ -71,6 +73,7 @@ async def get_all_shipping(
         )
 
 
+# get shipping address by id
 @router.get(
     "/{shipping_id}",
     response_model=ShippingResponse,
@@ -96,6 +99,8 @@ async def get_shipping(
         )
 
 
+
+# update shipping address
 @router.patch(
     "/{shipping_id}",
     response_model=ShippingResponse,
@@ -125,6 +130,7 @@ async def update_shipping(
         )
 
 
+# delete shipping address
 @router.delete(
     "/{shipping_id}",
     status_code=status.HTTP_200_OK,

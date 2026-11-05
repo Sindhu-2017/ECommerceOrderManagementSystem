@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import select,or_,cast,String
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -83,10 +83,22 @@ class OrderRepository(OrderRepositoryInterface):
 
         return result.scalar_one_or_none()
 
-    async def get_all_orders(self, db:AsyncSession)->list[Order]:
+    async def get_all_orders(self, db:AsyncSession,search:str | None,skip:int,limit:int)->list[Order]:
+        query=select(Order).options(
+            selectinload(Order.items)
+        )
+        if search:
+            search = f"%{search.strip()}"
+            query=query.where(
+                or_(
+                    cast(Order.order_id,String).ilike(search),
+                    Order.order_status.ilike(search)
+                )
+            )
         result=await db.execute(
-            select(Order)
-            .options(selectinload(Order.items))
+            query
             .order_by(Order.order_date.desc())
+            .offset(skip)
+            .limit(limit)
         )
         return list(result.scalars().all())

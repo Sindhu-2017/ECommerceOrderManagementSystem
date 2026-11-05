@@ -17,6 +17,7 @@ router =APIRouter(
 
 WishlistServiceDependency = Annotated[WishListService,Depends(get_wishlist_service)]
 
+# add product to wishlist
 @router.post(
     "/{product_id}",
     status_code=status.HTTP_201_CREATED,
@@ -33,6 +34,7 @@ async def add_to_wishlist(
     return await ServiceDependency.add_to_wishlist(db,current_user.user_id,product_id)
 
 
+# retrieves all products from wishlist
 @router.get(
     "/",
     response_model=list[WishlistResponse],
@@ -48,6 +50,7 @@ async def get_wishlist(
     return await ServiceDependency.get_wishlist(db,current_user.user_id)
 
 
+# delete product from wislist
 @router.delete(
     "/{product_id}",
     dependencies=[Depends(require_roles("customer"))],

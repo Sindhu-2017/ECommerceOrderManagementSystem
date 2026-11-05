@@ -9,7 +9,7 @@ router = APIRouter(
     tags=["Health"],
 )
 
-
+# checks the database
 @router.get(
     "/",
     summary="Check application health",
@@ -20,7 +20,7 @@ async def health_check(db: AsyncSession = Depends(get_db)):
         await db.execute(text("SELECT 1"))
         return {
             "status": "healthy",
-            "database": "connected",
+            "database": "connected"
         }
 
     except SQLAlchemyError as exc:
@@ -28,6 +28,6 @@ async def health_check(db: AsyncSession = Depends(get_db)):
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail={
                 "status": "unhealthy",
-                "database": "disconnected",
+                "database": "disconnected"
             }
         ) from exc

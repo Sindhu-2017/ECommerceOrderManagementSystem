@@ -175,9 +175,9 @@ class OrderService:
 
         return await self.order_repository.get_customer_orders(db,customer.customer_id)
 
-    async def get_all_orders(self,db:AsyncSession)->list[Order]:
+    async def get_all_orders(self,db:AsyncSession,search:str,skip:int,limit:int)->list[Order]:
         try:
-            return await self.order_repository.get_all_orders(db)
+            return await self.order_repository.get_all_orders(db,search,skip,limit)
 
         except Exception:
             logger.exception("Failed to retrieve all orders")

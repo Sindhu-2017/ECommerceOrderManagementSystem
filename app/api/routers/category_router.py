@@ -14,9 +14,10 @@ router = APIRouter(
     tags=["Categories"]
 )
 
-
 CategoryServiceDependency = Annotated[CategoryService,Depends(get_category_service)]
 
+
+# create new category
 @router.post(
     "/",
     response_model=CategoryResponse,
@@ -33,6 +34,8 @@ async def create_category(
     return await service.create_category(db, data)
 
 
+
+# retrieves all categories
 @router.get(
     "/",
     response_model=list[CategoryResponse],
@@ -47,6 +50,7 @@ async def get_all_categories(
     return await service.get_all_categories(db)
 
 
+# retrieves category by id
 @router.get(
     "/{category_id}",
     response_model=CategoryResponse,
@@ -64,6 +68,7 @@ async def get_category(
     )
 
 
+# update category
 @router.patch(
     "/{category_id}",
     response_model=CategoryResponse,
@@ -82,6 +87,7 @@ async def update_category(
     )
 
 
+# delete category
 @router.delete(
     "/{category_id}",
     status_code=status.HTTP_200_OK,
@@ -101,6 +107,7 @@ async def delete_category(
     }
 
 
+# retrieves deleted categories
 @router.get(
     "/admin/deleted",
     response_model=list[CategoryResponse],
@@ -115,6 +122,7 @@ async def get_deleted_categories(
     return await service.get_deleted_categories(db)
 
 
+# restore deleted category
 @router.patch(
     "/admin/restore/{category_id}",
     dependencies=[Depends(require_roles("admin"))],

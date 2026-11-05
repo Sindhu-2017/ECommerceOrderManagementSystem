@@ -12,9 +12,9 @@ class CustomerService:
     def __init__(self,user_repository: UserRepositoryInterface):
         self.user_repository = user_repository
 
-    async def get_all_customers(self,db: AsyncSession) -> list[Customer]:
+    async def get_all_customers(self,db: AsyncSession,skip:int,limit:int) -> list[Customer]:
         try:
-            return await self.user_repository.get_all_customers(db)
+            return await self.user_repository.get_all_customers(db,skip,limit)
         except SQLAlchemyError:
             logger.exception("Unable to retrieve customers.")
             raise DatabaseOperationError("Unable to retrieve customers.")

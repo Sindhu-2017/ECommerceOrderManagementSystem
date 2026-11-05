@@ -17,6 +17,7 @@ router = APIRouter(
 ReportServiceDependency = Annotated[ReportService,Depends(get_report_service)]
 
 
+# retrieve sales summary report
 @router.get(
     "/sales-summary",
     response_model=SalesSummaryResponse,
@@ -31,6 +32,7 @@ async def get_sales_summary(
     return await service.get_sales_summary(db)
 
 
+# retrieve product sales report
 @router.get(
     "/product-sales",
     response_model=list[ProductSalesResponse],

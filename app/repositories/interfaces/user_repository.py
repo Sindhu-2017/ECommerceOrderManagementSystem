@@ -39,5 +39,5 @@ class UserRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    async def get_all_customers(self, db: AsyncSession) -> list[Customer]:
+    async def get_all_customers(self, db: AsyncSession,skip:int,limit:int) -> list[Customer]:
         pass
