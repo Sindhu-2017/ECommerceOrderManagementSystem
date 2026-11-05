@@ -1,12 +1,11 @@
 import pytest
 
 from app.services.wishlist_service import WishListService
+
+
 @pytest.mark.asyncio
 async def test_get_wishlist(
-    mock_db,
-    mock_wishlist_repository,
-    sample_customer,
-    sample_wishlist,
+    mock_db, mock_wishlist_repository, sample_customer, sample_wishlist
 ):
     mock_wishlist_repository.get_customer_by_user_id.return_value = sample_customer
     mock_wishlist_repository.get_customer_wishlist.return_value = [sample_wishlist]
@@ -20,7 +19,7 @@ async def test_get_wishlist(
 
 
 @pytest.mark.asyncio
-async def test_get_wishlist_customer_not_found(mock_db,mock_wishlist_repository):
+async def test_get_wishlist_customer_not_found(mock_db, mock_wishlist_repository):
     mock_wishlist_repository.get_customer_by_user_id.return_value = None
     service = WishListService(mock_wishlist_repository)
 

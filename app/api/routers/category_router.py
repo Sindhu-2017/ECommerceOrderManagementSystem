@@ -5,16 +5,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.dependencies.auth import require_roles
 from app.api.dependencies.database import get_db
-from app.api.dependencies.service_depencies import get_category_service
+from app.api.dependencies.service_dependencies import get_category_service
 from app.schemas.category_schema import CategoryCreate, CategoryResponse, CategoryUpdate
 from app.services.category_service import CategoryService
 
-router = APIRouter(
-    prefix="/api/categories",
-    tags=["Categories"]
-)
+router = APIRouter(prefix="/api/categories", tags=["Categories"])
 
-CategoryServiceDependency = Annotated[CategoryService,Depends(get_category_service)]
+CategoryServiceDependency = Annotated[CategoryService, Depends(get_category_service)]
 
 
 # create new category
@@ -24,7 +21,7 @@ CategoryServiceDependency = Annotated[CategoryService,Depends(get_category_servi
     status_code=status.HTTP_201_CREATED,
     dependencies=[Depends(require_roles("admin"))],
     summary="Create category",
-    description="Creates a new product category."
+    description="Creates a new product category.",
 )
 async def create_category(
     data: CategoryCreate,
@@ -34,18 +31,16 @@ async def create_category(
     return await service.create_category(db, data)
 
 
-
 # retrieves all categories
 @router.get(
     "/",
     response_model=list[CategoryResponse],
-    dependencies=[Depends(require_roles("admin","customer"))],
+    dependencies=[Depends(require_roles("admin", "customer"))],
     summary="Get all categories",
-    description="Retrieves all available categories."
+    description="Retrieves all available categories.",
 )
 async def get_all_categories(
-    service: CategoryServiceDependency,
-    db: Annotated[AsyncSession, Depends(get_db)]
+    service: CategoryServiceDependency, db: Annotated[AsyncSession, Depends(get_db)]
 ):
     return await service.get_all_categories(db)
 
@@ -54,18 +49,16 @@ async def get_all_categories(
 @router.get(
     "/{category_id}",
     response_model=CategoryResponse,
-    dependencies=[Depends(require_roles("admin","customer"))],
+    dependencies=[Depends(require_roles("admin", "customer"))],
     summary="Get category by ID",
-    description="Retrieves a category using its ID."
+    description="Retrieves a category using its ID.",
 )
 async def get_category(
     category_id: int,
     service: CategoryServiceDependency,
-    db: Annotated[AsyncSession, Depends(get_db)]
+    db: Annotated[AsyncSession, Depends(get_db)],
 ):
-    return await service.get_category_by_id(
-        db,category_id
-    )
+    return await service.get_category_by_id(db, category_id)
 
 
 # update category
@@ -74,7 +67,7 @@ async def get_category(
     response_model=CategoryResponse,
     dependencies=[Depends(require_roles("admin"))],
     summary="Update category",
-    description="Updates an existing category."
+    description="Updates an existing category.",
 )
 async def update_category(
     category_id: int,
@@ -82,9 +75,7 @@ async def update_category(
     service: CategoryServiceDependency,
     db: Annotated[AsyncSession, Depends(get_db)],
 ):
-    return await service.update_category(
-        db,category_id,data
-    )
+    return await service.update_category(db, category_id, data)
 
 
 # delete category
@@ -93,7 +84,7 @@ async def update_category(
     status_code=status.HTTP_200_OK,
     dependencies=[Depends(require_roles("admin"))],
     summary="Delete category",
-    description="Deletes a category using its ID."
+    description="Deletes a category using its ID.",
 )
 async def delete_category(
     category_id: int,
@@ -102,9 +93,7 @@ async def delete_category(
 ):
     await service.delete_category(db, category_id)
 
-    return {
-        "message": "Category deleted successfully"
-    }
+    return {"message": "Category deleted successfully"}
 
 
 # retrieves deleted categories
@@ -113,11 +102,10 @@ async def delete_category(
     response_model=list[CategoryResponse],
     dependencies=[Depends(require_roles("admin"))],
     summary="Get deleted categories",
-    description="Retrieves all deleted categories"
+    description="Retrieves all deleted categories",
 )
 async def get_deleted_categories(
-    service: CategoryServiceDependency,
-    db: Annotated[AsyncSession, Depends(get_db)]
+    service: CategoryServiceDependency, db: Annotated[AsyncSession, Depends(get_db)]
 ):
     return await service.get_deleted_categories(db)
 
@@ -127,11 +115,11 @@ async def get_deleted_categories(
     "/admin/restore/{category_id}",
     dependencies=[Depends(require_roles("admin"))],
     summary="Restore Category",
-    description="Restore Deleted Category based on Category ID"
+    description="Restore Deleted Category based on Category ID",
 )
 async def restore_category(
     category_id: int,
     service: CategoryServiceDependency,
-    db: Annotated[AsyncSession, Depends(get_db)]
+    db: Annotated[AsyncSession, Depends(get_db)],
 ):
     return await service.restore_category(db, category_id)

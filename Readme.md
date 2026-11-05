@@ -37,7 +37,7 @@ ECommerceOrderManagementSystem/
 │   │   ├── dependencies/
 │   │   │   ├── auth.py
 │   │   │   ├── database.py
-│   │   │   └── service_depencies.py
+│   │   │   └── service_dependencies.py
 │   │   └── routers/
 │   │       ├── auth_router.py
 │   │       ├── category_router.py
@@ -220,6 +220,7 @@ The application uses PostgreSQL with SQLAlchemy ORM.
 | Pytest | Testing |
 | HTTPX | API testing |
 | Ruff | Code formatting and linting |
+| uvicorn| ASGI application server|
 
 ## Prerequisites
 
@@ -234,7 +235,7 @@ Install the following before running the application:
 ### 1. Clone the repository
 
 ```powershell
-git clone <repository-url>
+git clone https://github.com/Sindhu-2017/ECommerceOrderManagementSystem.git
 cd ECommerceOrderManagementSystem
 ```
 
@@ -370,9 +371,9 @@ Protected endpoints require a valid access token.
 
 ### User Roles
 
-- **Admin:** Can manage categories, products, customers and reports.
-- **Customer:** Can manage shipping addresses, wishlists, orders and payments.
-- **Authenticated users:** Can access their own profile.
+- Admin: Can manage categories, products, customers and reports.
+- Customer: Can manage shipping addresses, wishlists, orders and payments.
+- Authenticated users: Can access their own profile.
 
 ## 1. Authentication APIs
 
@@ -679,9 +680,6 @@ Base URL: `/api/reports`
 | GET | `/sales-summary` | Gets overall sales information. |
 | GET | `/product-sales` | Gets product-wise sales information. |
 
-- **Sales Summary:** Shows total orders, paid orders, pending orders and total revenue.
-- **Product Sales:** Shows the quantity sold and total sales for each product.
-
 These reports are available to admin users.
 
 ## 10. Health Check API
@@ -692,28 +690,12 @@ Base URL: `/api/health`
 |---|---|---|
 | GET | `/` | Checks application and database health. |
 
-Sample response:
-
-```json
-{
-  "status": "healthy",
-  "database": "connected"
-}
-```
-
 ## 11. Home API
 
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/` | Checks whether the API is running. |
 
-Sample response:
-
-```json
-{
-  "message": "E-Commerce Order Management System API is running"
-}
-```
 
 ## Running Tests
 
@@ -732,3 +714,47 @@ python -m pytest tests/api -v
 ```
 
 
+## Code Formatting and Linting with Ruff
+
+Ruff is used to check code quality, identify common coding mistakes and format Python files.
+
+### 1. Install Ruff
+
+```powershell
+pip install ruff
+```
+
+### 2. Check code for issues
+
+Run this command from the project root:
+
+```powershell
+ruff check .
+```
+
+### 3. Automatically fix issues
+
+```powershell
+ruff check . --fix
+```
+
+### 4. Format the project
+
+```powershell
+ruff format .
+```
+
+### 5. Check formatting without changing files
+
+```powershell
+ruff format . --check
+```
+
+### 6. Run all Ruff checks
+
+```powershell
+ruff check .
+ruff format . --check
+```
+
+If both commands complete successfully, the project passes the configured Ruff linting and formatting checks.

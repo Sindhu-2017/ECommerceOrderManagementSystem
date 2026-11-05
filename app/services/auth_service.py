@@ -100,7 +100,7 @@ class AuthService:
             password,
             user.hashed_password,
         ):
-            logger.warning("Login failed. Invalid credentials. username=%s",username)
+            logger.warning("Login failed. Invalid credentials. username=%s", username)
             raise InvalidCredentialsError("Invalid username or password.")
 
         if not user.is_active:

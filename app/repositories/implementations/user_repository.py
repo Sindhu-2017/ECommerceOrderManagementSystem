@@ -65,12 +65,8 @@ class UserRepository(UserRepositoryInterface):
         return user
 
     async def get_all_customers(
-        self,
-        db: AsyncSession,
-        skip:int,
-        limit:int
+        self, db: AsyncSession, skip: int, limit: int
     ) -> list[Customer]:
-
         result = await db.execute(
             select(Customer)
             .options(selectinload(Customer.user))
@@ -80,4 +76,3 @@ class UserRepository(UserRepositoryInterface):
         )
 
         return list(result.scalars().all())
-

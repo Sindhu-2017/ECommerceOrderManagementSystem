@@ -9,6 +9,7 @@ class SalesSummaryResponse(BaseModel):
     total_revenue: Decimal
     pending_orders: int
 
+
 class ProductSalesResponse(BaseModel):
     product_id: int
     product_name: str

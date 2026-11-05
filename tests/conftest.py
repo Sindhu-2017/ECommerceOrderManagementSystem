@@ -1,11 +1,9 @@
 from datetime import datetime
-
 from decimal import Decimal
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
-
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import (
@@ -17,6 +15,7 @@ from app.api.dependencies.auth import get_current_user
 from app.api.dependencies.database import get_db
 from app.database.base import Base
 from app.main import app
+
 
 # mock database
 @pytest.fixture
@@ -89,6 +88,7 @@ def sample_shipping():
         state="Tamil Nadu",
         pincode="600001",
         is_default=True,
+        created_at=datetime.now(),
     )
 
 
@@ -235,6 +235,7 @@ def mock_report_repository():
 # integration
 TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"
 
+
 @pytest_asyncio.fixture
 async def test_engine():
     engine = create_async_engine(TEST_DATABASE_URL)
@@ -346,9 +347,99 @@ def mock_category_service(sample_category):
     service = MagicMock()
 
     service.create_category = AsyncMock(return_value=sample_category)
-
     service.get_all_categories = AsyncMock(return_value=[sample_category])
-
     service.get_category_by_id = AsyncMock(return_value=sample_category)
+    service.update_category = AsyncMock(return_value=sample_category)
+    service.delete_category = AsyncMock()
+    service.get_deleted_categories = AsyncMock(return_value=[])
+    service.restore_category = AsyncMock(
+        return_value={"message": "Category restored successfully."}
+    )
 
+    return service
+
+
+@pytest.fixture
+def mock_auth_service():
+    service = MagicMock()
+    service.register = AsyncMock()
+    service.login = AsyncMock()
+    service.refresh_tokens = AsyncMock()
+    service.logout = AsyncMock()
+    return service
+
+
+@pytest.fixture
+def mock_product_service(sample_product):
+    service = MagicMock()
+    service.create_product = AsyncMock(return_value=sample_product)
+    service.upload_product_image = AsyncMock(return_value=sample_product)
+    service.get_all_products = AsyncMock(return_value=[sample_product])
+    service.get_product = AsyncMock(return_value=sample_product)
+    service.update_product = AsyncMock(return_value=sample_product)
+    service.delete_product = AsyncMock(
+        return_value={"message": "Product deleted successfully"}
+    )
+
+    service.get_deleted_products = AsyncMock(return_value=[])
+
+    service.restore_product = AsyncMock(
+        return_value={"message": "Product restored successfully.."}
+    )
+    return service
+
+
+@pytest.fixture
+def mock_order_service(sample_order):
+    service = MagicMock()
+    service.create_order = AsyncMock(return_value=sample_order)
+    service.get_order = AsyncMock(return_value=sample_order)
+    service.get_customer_orders = AsyncMock(return_value=[sample_order])
+    service.get_all_orders = AsyncMock(return_value=[sample_order])
+    return service
+
+
+@pytest.fixture
+def mock_shipping_service(sample_shipping):
+    service = MagicMock()
+    service.create_shipping = AsyncMock(return_value=sample_shipping)
+    service.get_all_shipping = AsyncMock(return_value=[sample_shipping])
+    service.get_shipping = AsyncMock(return_value=sample_shipping)
+    service.update_shipping = AsyncMock(return_value=sample_shipping)
+    service.delete_shipping = AsyncMock()
+    return service
+
+
+@pytest.fixture
+def mock_payment_service(sample_payment):
+    service = MagicMock()
+    service.create_payment = AsyncMock(return_value=sample_payment)
+    service.check_payment_status = AsyncMock(return_value=sample_payment)
+    return service
+
+
+@pytest.fixture
+def mock_wishlist_service(sample_wishlist):
+    service = MagicMock()
+    service.add_to_wishlist = AsyncMock(return_value=sample_wishlist)
+    service.get_wishlist = AsyncMock(return_value=[sample_wishlist])
+
+    service.remove_from_wishlist = AsyncMock(
+        return_value={"message": "Product removed from wishlist successfully"}
+    )
+    return service
+
+
+@pytest.fixture
+def mock_customer_service(sample_customer):
+    service = MagicMock()
+    service.get_all_customers = AsyncMock(return_value=[sample_customer])
+    return service
+
+
+@pytest.fixture
+def mock_report_service(sample_sales_summary):
+    service = MagicMock()
+    service.get_sales_summary = AsyncMock(return_value=sample_sales_summary)
+    service.get_product_sales = AsyncMock(return_value=[])
     return service

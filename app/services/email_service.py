@@ -9,12 +9,14 @@ from app.models.order import Order
 
 logger = logging.getLogger(__name__)
 
+
 class EmailService:
+    async def send_order_confirmation(self, receiver: str, order: Order) -> bool:
+        return await asyncio.to_thread(
+            self._send_order_confirmation_sync, receiver, order
+        )
 
-    async def send_order_confirmation(self,receiver: str, order: Order) -> bool:
-        return await asyncio.to_thread(self._send_order_confirmation_sync,receiver, order)
-
-    def _send_order_confirmation_sync(self,receiver: str, order: Order) -> bool:
+    def _send_order_confirmation_sync(self, receiver: str, order: Order) -> bool:
         settings = get_settings()
 
         sender = settings.EMAIL_SENDER
@@ -25,7 +27,9 @@ class EmailService:
             return False
 
         message = EmailMessage()
-        message["Subject"] = (f"Order Management - Order #{order.order_id} Created Successfully")
+        message["Subject"] = (
+            f"Order Management - Order #{order.order_id} Created Successfully"
+        )
         message["From"] = sender
         message["To"] = receiver
         message["Date"] = formatdate(localtime=True)
@@ -76,16 +80,22 @@ E-Commerce Team
         message.set_content(email_body)
 
         try:
-            with smtplib.SMTP_SSL("smtp.gmail.com", 465,  timeout=15) as smtp:
+            with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=15) as smtp:
                 # authenticate Gmail account
                 smtp.login(sender, password)
 
                 # send order confirmation email
                 smtp.send_message(message)
 
-            logger.info( "Order confirmation email sent successfully for order_id=%s", order.order_id)
+            logger.info(
+                "Order confirmation email sent successfully for order_id=%s",
+                order.order_id,
+            )
             return True
 
         except (smtplib.SMTPException, OSError):
-            logger.exception("Failed to send order confirmation email for order_id=%s", order.order_id)
+            logger.exception(
+                "Failed to send order confirmation email for order_id=%s",
+                order.order_id,
+            )
             return False

@@ -1,4 +1,4 @@
-from sqlalchemy import select,or_,cast,String
+from sqlalchemy import String, cast, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -11,44 +11,38 @@ from app.repositories.interfaces.order_repository import OrderRepositoryInterfac
 
 
 class OrderRepository(OrderRepositoryInterface):
-
-    async def get_customer_by_user_id(self, db: AsyncSession,user_id: int) -> Customer | None:
-        result = await db.execute(
-            select(Customer).where(
-                Customer.user_id == user_id
-            )
-        )
+    async def get_customer_by_user_id(
+        self, db: AsyncSession, user_id: int
+    ) -> Customer | None:
+        result = await db.execute(select(Customer).where(Customer.user_id == user_id))
         return result.scalar_one_or_none()
 
-
-    async def get_shipping(self,db: AsyncSession,shipping_id: int,customer_id: int) -> Shipping | None:
+    async def get_shipping(
+        self, db: AsyncSession, shipping_id: int, customer_id: int
+    ) -> Shipping | None:
         result = await db.execute(
             select(Shipping).where(
-                Shipping.shipping_id == shipping_id,
-                Shipping.customer_id == customer_id
+                Shipping.shipping_id == shipping_id, Shipping.customer_id == customer_id
             )
         )
-
         return result.scalar_one_or_none()
 
-
-    async def get_product(self,db: AsyncSession,product_id: int) -> Product | None:
+    async def get_product(self, db: AsyncSession, product_id: int) -> Product | None:
         result = await db.execute(
             select(Product).where(
-                Product.product_id == product_id,
-                Product.is_active.is_(True)
+                Product.product_id == product_id, Product.is_active.is_(True)
             )
         )
         return result.scalar_one_or_none()
 
-
-    async def create_order(self,db: AsyncSession,order: Order) -> Order:
+    async def create_order(self, db: AsyncSession, order: Order) -> Order:
         db.add(order)
         await db.flush()
         return order
 
-
-    async def get_order_by_id(self,db: AsyncSession,order_id: int,customer_id: int | None = None) -> Order | None:
+    async def get_order_by_id(
+        self, db: AsyncSession, order_id: int, customer_id: int | None = None
+    ) -> Order | None:
         query = (
             select(Order)
             .options(selectinload(Order.items))
@@ -61,8 +55,9 @@ class OrderRepository(OrderRepositoryInterface):
 
         return result.scalar_one_or_none()
 
-
-    async def get_customer_orders(self,db: AsyncSession,customer_id: int) -> list[Order]:
+    async def get_customer_orders(
+        self, db: AsyncSession, customer_id: int
+    ) -> list[Order]:
         result = await db.execute(
             select(Order)
             .options(selectinload(Order.items))
@@ -71,34 +66,24 @@ class OrderRepository(OrderRepositoryInterface):
         )
         return list(result.scalars().all())
 
-    async def get_user_by_id(
-        self,
-        db: AsyncSession,
-        user_id: int
-    ) -> User | None:
+    async def get_user_by_id(self, db: AsyncSession, user_id: int) -> User | None:
 
-        result = await db.execute(
-            select(User).where(User.user_id == user_id)
-        )
-
+        result = await db.execute(select(User).where(User.user_id == user_id))
         return result.scalar_one_or_none()
 
-    async def get_all_orders(self, db:AsyncSession,search:str | None,skip:int,limit:int)->list[Order]:
-        query=select(Order).options(
-            selectinload(Order.items)
-        )
+    async def get_all_orders(
+        self, db: AsyncSession, search: str | None, skip: int, limit: int
+    ) -> list[Order]:
+        query = select(Order).options(selectinload(Order.items))
         if search:
-            search = f"%{search.strip()}"
-            query=query.where(
+            search = f"%{search.strip()}%"
+            query = query.where(
                 or_(
-                    cast(Order.order_id,String).ilike(search),
-                    Order.order_status.ilike(search)
+                    cast(Order.order_id, String).ilike(search),
+                    Order.order_status.ilike(search),
                 )
             )
-        result=await db.execute(
-            query
-            .order_by(Order.order_date.desc())
-            .offset(skip)
-            .limit(limit)
+        result = await db.execute(
+            query.order_by(Order.order_date.desc()).offset(skip).limit(limit)
         )
         return list(result.scalars().all())

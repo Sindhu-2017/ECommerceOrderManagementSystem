@@ -1,5 +1,6 @@
 import pytest
 
+
 @pytest.mark.asyncio
 async def test_get_sales_summary(admin_client):
     response = await admin_client.get("/api/reports/sales-summary")
@@ -23,6 +24,7 @@ async def test_get_product_sales(admin_client):
 async def test_customer_cannot_access_sales_report(customer_client):
     response = await customer_client.get("/api/reports/sales-summary")
     assert response.status_code == 403
+
 
 @pytest.mark.asyncio
 async def test_customer_cannot_access_products_sales(customer_client):

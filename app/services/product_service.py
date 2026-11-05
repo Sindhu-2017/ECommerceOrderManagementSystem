@@ -19,17 +19,9 @@ from app.schemas.product_schema import ProductCreate, ProductUpdate
 
 logger = logging.getLogger(__name__)
 
-# Project root/uploads/products
-UPLOAD_DIR = Path(__file__).resolve().parents[2] / "uploads" / "products"
-MAX_FILE_SIZE = 5 * 1024 * 1024
-ALLOWED_EXTENSIONS = {
-    ".jpg",
-    ".jpeg",
-    ".png"
-}
 
 class ProductService:
-    UPLOAD_DIR = (Path(__file__).resolve().parents[2] / "uploads" / "products")
+    UPLOAD_DIR = Path(__file__).resolve().parents[2] / "uploads" / "products"
     ALLOWED_FILE_TYPES = {
         "image/jpeg": ".jpg",
         "image/png": ".png",
@@ -39,48 +31,41 @@ class ProductService:
 
     def __init__(
         self,
-        product_repository:ProductRepositoryInterface,
-        category_repository:CategoryRepositoryInterface
+        product_repository: ProductRepositoryInterface,
+        category_repository: CategoryRepositoryInterface,
     ):
-        self.product_repository=product_repository
+        self.product_repository = product_repository
         self.category_repository = category_repository
 
-
-    async def create_product(self,db: AsyncSession,data:ProductCreate)->Product:
-        category = await self.category_repository.get_by_id(
-            db,data.category_id
-        )
+    async def create_product(self, db: AsyncSession, data: ProductCreate) -> Product:
+        category = await self.category_repository.get_by_id(db, data.category_id)
         if not category or not category.is_active:
             raise InvalidProductDataError("Invalid Category")
 
-        existing = await self.product_repository.get_by_name(
-            db,data.product_name
-        )
+        existing = await self.product_repository.get_by_name(db, data.product_name)
 
         if existing:
             raise ProductAlreadyExistsError("Product Already exists.")
 
         product = Product(
-            category_id =data.category_id,
+            category_id=data.category_id,
             product_name=data.product_name,
-            description = data.description,
-            price = data.price,
-            stock_quantity = data.stock_quantity,
-            image_path=None
+            description=data.description,
+            price=data.price,
+            stock_quantity=data.stock_quantity,
+            image_path=None,
         )
 
         try:
-            await self.product_repository.create(db,product)
+            await self.product_repository.create(db, product)
             await db.commit()
 
-            logger.info("Poduct created successfully :%s",product.product_id)
+            logger.info("Poduct created successfully :%s", product.product_id)
             return product
         except SQLAlchemyError:
             await db.rollback()
             logger.exception("Product creation failed")
             raise
-
-
 
     async def get_all_products(
         self,
@@ -90,15 +75,11 @@ class ProductService:
         min_price=None,
         max_price=None,
         skip=0,
-        limit=10
+        limit=10,
     ):
-        if (
-            min_price is not None and
-            max_price is not None and
-            min_price > max_price
-        ):
+        if min_price is not None and max_price is not None and min_price > max_price:
             raise InvalidProductDataError("Minimum price cannot exceed maximum price")
-        
+
         return await self.product_repository.get_all(
             db,
             search=search,
@@ -106,51 +87,42 @@ class ProductService:
             min_price=min_price,
             max_price=max_price,
             skip=skip,
-            limit=limit
+            limit=limit,
         )
 
     # GET PRODUCT BY ID
-    async def get_product(self, db: AsyncSession,product_id: int) -> Product:
-        product = await self.product_repository.get_by_id(
-            db,product_id
-        )
+    async def get_product(self, db: AsyncSession, product_id: int) -> Product:
+        product = await self.product_repository.get_by_id(db, product_id)
         if not product or not product.is_active:
             raise ProductNotFoundError("Product not found")
 
         return product
 
     async def update_product(
-            self,
-            db: AsyncSession,
-            product_id:int,
-            data:ProductUpdate
-    )->Product:
-        product = await self.get_product(db,product_id)
+        self, db: AsyncSession, product_id: int, data: ProductUpdate
+    ) -> Product:
+        product = await self.get_product(db, product_id)
         update_data = data.model_dump(exclude_unset=True)
         if "category_id" in update_data:
             category = await self.category_repository.get_by_id(
-                db,update_data["category_id"]
+                db, update_data["category_id"]
             )
 
             if not category or not category.is_active:
                 raise InvalidProductDataError("Invalid category")
 
-
         if "product_name" in update_data:
             existing = await self.product_repository.get_by_name(
-                db,update_data["product_name"]
+                db, update_data["product_name"]
             )
-            if (
-                existing and existing.product_id !=product_id
-            ):
+            if existing and existing.product_id != product_id:
                 raise ProductAlreadyExistsError("Product name already exists")
 
-
-        for key,value in update_data.items():
-            setattr(Product,key,value)
+        for key, value in update_data.items():
+            setattr(product, key, value)
 
         try:
-            await self.product_repository.update(db,product)
+            await self.product_repository.update(db, product)
             await db.commit()
 
             logger.info("Product updated successfully: %s", product_id)
@@ -163,11 +135,11 @@ class ProductService:
             raise
 
     # SOFT DELETE PRODUCT
-    async def delete_product(self,db: AsyncSession, product_id: int) -> dict:
-        product = await self.get_product(db,product_id)
+    async def delete_product(self, db: AsyncSession, product_id: int) -> dict:
+        product = await self.get_product(db, product_id)
         product.is_active = False
         try:
-            await self.product_repository.update(db,product)
+            await self.product_repository.update(db, product)
             await db.commit()
 
             logger.info("Product deactivated: %s", product_id)
@@ -179,7 +151,7 @@ class ProductService:
             raise
 
     # DELETED PRODUCTS
-    async def get_deleted_products(self,db:AsyncSession)->list[Product]:
+    async def get_deleted_products(self, db: AsyncSession) -> list[Product]:
         try:
             return await self.product_repository.get_deleted_products(db)
         except SQLAlchemyError:
@@ -187,24 +159,18 @@ class ProductService:
             raise
 
     # RESTORE DELETED PRODUCTS
-    async def restore_product(self,db:AsyncSession,product_id:int):
+    async def restore_product(self, db: AsyncSession, product_id: int):
         try:
-            product=await self.product_repository.get_by_id(db,product_id)
+            product = await self.product_repository.get_by_id(db, product_id)
             if product is None:
-                raise HTTPException(
-                    status_code=404,
-                    detail="Product not found"
-                )
+                raise HTTPException(status_code=404, detail="Product not found")
 
             if product.is_active:
-                raise HTTPException(
-                    status_code=400,
-                    detail="Product is already active"
-                )
+                raise HTTPException(status_code=400, detail="Product is already active")
 
             product.is_active = True
 
-            await self.product_repository.update(db,product)
+            await self.product_repository.update(db, product)
             await db.commit()
             await db.refresh(product)
 
@@ -213,15 +179,12 @@ class ProductService:
         except SQLAlchemyError:
             await db.rollback()
             logger.exception("Failes to restore product")
-            raise HTTPException(
-                status_code=500,
-                detail="Faile to restor product"
-            )
+            raise HTTPException(status_code=500, detail="Faile to restor product")
 
-
-    
-    async def upload_product_image(self,db:AsyncSession,product_id: int,image: UploadFile) -> Product:
-        product = await self.get_product(db,product_id)
+    async def upload_product_image(
+        self, db: AsyncSession, product_id: int, image: UploadFile
+    ) -> Product:
+        product = await self.get_product(db, product_id)
 
         # validate file type
         if image.content_type not in self.ALLOWED_FILE_TYPES:
@@ -249,12 +212,14 @@ class ProductService:
                     await output.write(chunk)
 
             # Store relative path in database
-            relative_path = destination.relative_to(self.UPLOAD_DIR.parents[1]).as_posix()
+            relative_path = destination.relative_to(
+                self.UPLOAD_DIR.parents[1]
+            ).as_posix()
             product.image_path = relative_path
-            await self.product_repository.update(db,product)
+            await self.product_repository.update(db, product)
             await db.commit()
 
-            logger.info("Product image uploaded successfully: %s",product_id)
+            logger.info("Product image uploaded successfully: %s", product_id)
             return product
 
         except Exception:

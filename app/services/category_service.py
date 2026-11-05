@@ -14,26 +14,16 @@ from app.schemas.category_schema import CategoryCreate, CategoryUpdate
 
 logger = logging.getLogger(__name__)
 
-class CategoryService:
 
-    def __init__(
-        self,
-        category_repository: CategoryRepositoryInterface
-    ):
+class CategoryService:
+    def __init__(self, category_repository: CategoryRepositoryInterface):
         self.category_repository = category_repository
 
-
-    async def create_category(
-        self,
-        db: AsyncSession,
-        data: CategoryCreate
-    ) -> Category:
+    async def create_category(self, db: AsyncSession, data: CategoryCreate) -> Category:
 
         try:
-            existing_category = (
-                await self.category_repository.get_by_name(
-                    db,data.category_name
-                )
+            existing_category = await self.category_repository.get_by_name(
+                db, data.category_name
             )
 
             if existing_category:
@@ -42,18 +32,16 @@ class CategoryService:
             category = Category(
                 category_name=data.category_name,
                 description=data.description,
-                is_active=True
+                is_active=True,
             )
 
-            created_category = (
-                await self.category_repository.create(
-                    db,category
-                )
-            )
+            created_category = await self.category_repository.create(db, category)
             await db.commit()
             await db.refresh(created_category)
 
-            logger.info("Category created. category_id=%s",created_category.category_id)
+            logger.info(
+                "Category created. category_id=%s", created_category.category_id
+            )
             return created_category
 
         except CategoryAlreadyExistsError:
@@ -67,11 +55,7 @@ class CategoryService:
 
             raise DatabaseOperationError("Unable to create category.") from exc
 
-
-    async def get_all_categories(
-        self,
-        db: AsyncSession
-    ) -> list[Category]:
+    async def get_all_categories(self, db: AsyncSession) -> list[Category]:
 
         try:
             return await self.category_repository.get_all(db)
@@ -81,18 +65,10 @@ class CategoryService:
 
             raise DatabaseOperationError("Unable to retrieve categories.") from exc
 
-
-    async def get_category_by_id(
-        self,
-        db: AsyncSession,
-        category_id: int
-    ) -> Category:
+    async def get_category_by_id(self, db: AsyncSession, category_id: int) -> Category:
 
         try:
-            category = await self.category_repository.get_by_id(
-                db,
-                category_id
-            )
+            category = await self.category_repository.get_by_id(db, category_id)
 
             if category is None or not category.is_active:
                 raise CategoryNotFoundError("Category not found.")
@@ -107,19 +83,12 @@ class CategoryService:
 
             raise DatabaseOperationError("Unable to retrieve category.") from exc
 
-
     async def update_category(
-        self,
-        db: AsyncSession,
-        category_id: int,
-        data: CategoryUpdate
+        self, db: AsyncSession, category_id: int, data: CategoryUpdate
     ) -> Category:
 
         try:
-            category = await self.category_repository.get_by_id(
-                db,
-                category_id
-            )
+            category = await self.category_repository.get_by_id(db, category_id)
 
             if category is None or not category.is_active:
                 raise CategoryNotFoundError("Category not found.")
@@ -131,10 +100,8 @@ class CategoryService:
 
             new_name = update_data.get("category_name")
             if new_name is not None:
-                existing_category = (
-                    await self.category_repository.get_by_name(
-                        db,new_name
-                    )
+                existing_category = await self.category_repository.get_by_name(
+                    db, new_name
                 )
 
                 if (
@@ -155,10 +122,7 @@ class CategoryService:
 
             return category
 
-        except (
-            CategoryNotFoundError,
-            CategoryAlreadyExistsError
-        ):
+        except (CategoryNotFoundError, CategoryAlreadyExistsError):
             await db.rollback()
             raise
 
@@ -167,19 +131,12 @@ class CategoryService:
 
             logger.exception("Database error while updating category.")
 
-            raise DatabaseOperationError("Unable to update category." ) from exc
+            raise DatabaseOperationError("Unable to update category.") from exc
 
-
-    async def delete_category(
-        self,
-        db: AsyncSession,
-        category_id: int
-    ) -> None:
+    async def delete_category(self, db: AsyncSession, category_id: int) -> None:
 
         try:
-            category = await self.category_repository.get_by_id(
-                db,category_id
-            )
+            category = await self.category_repository.get_by_id(db, category_id)
 
             if category is None or not category.is_active:
                 raise CategoryNotFoundError("Category not found.")
@@ -190,7 +147,7 @@ class CategoryService:
 
             await db.commit()
 
-            logger.info("Category deactivated. category_id=%s",category_id)
+            logger.info("Category deactivated. category_id=%s", category_id)
 
         except CategoryNotFoundError:
             await db.rollback()
@@ -203,9 +160,7 @@ class CategoryService:
 
             raise DatabaseOperationError("Unable to delete category.") from exc
 
-
-
-    async def get_deleted_categories(self,db: AsyncSession) -> list[Category]:
+    async def get_deleted_categories(self, db: AsyncSession) -> list[Category]:
         try:
             return await self.category_repository.get_deleted_categories(db)
 
@@ -216,12 +171,11 @@ class CategoryService:
                 "Unable to retrieve deleted categories."
             ) from exc
 
-
-    async def restore_category(self,db: AsyncSession,category_id: int) -> dict[str, str]:
+    async def restore_category(
+        self, db: AsyncSession, category_id: int
+    ) -> dict[str, str]:
         try:
-            category = await self.category_repository.get_by_id(
-                db, category_id
-            )
+            category = await self.category_repository.get_by_id(db, category_id)
             if category is None:
                 raise CategoryNotFoundError("Category not found.")
             if category.is_active:
@@ -243,6 +197,4 @@ class CategoryService:
         except SQLAlchemyError as exc:
             await db.rollback()
             logger.exception("Database error while restoring category.")
-            raise DatabaseOperationError(
-                "Unable to restore category."
-            ) from exc
+            raise DatabaseOperationError("Unable to restore category.") from exc

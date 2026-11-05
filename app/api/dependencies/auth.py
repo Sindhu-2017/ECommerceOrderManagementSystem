@@ -1,8 +1,5 @@
 from fastapi import Depends, HTTPException, status
-from fastapi.security import (
-    HTTPAuthorizationCredentials,
-    HTTPBearer,
-)
+from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -11,21 +8,14 @@ from app.core.security import decode_token
 from app.models.user import User
 from app.repositories.implementations.user_repository import UserRepository
 
-# auth_scheme = OAuth2PasswordBearer(
-#     tokenUrl="/api/auth/login"
-# )
-bearer_scheme = HTTPBearer()
+auth_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 user_repository = UserRepository()
 
 
 async def get_current_user(
-    # token = Depends(auth_scheme),
-    credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme),
+    token=Depends(auth_scheme),
     db: AsyncSession = Depends(get_db),
 ) -> User:
-
-    token = credentials.credentials
-
     try:
         payload = decode_token(token)
 
@@ -54,7 +44,6 @@ async def get_current_user(
 
 
 def require_roles(*allowed_roles: str):
-
     async def role_checker(current_user: User = Depends(get_current_user)) -> User:
 
         if current_user.role not in allowed_roles:

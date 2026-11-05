@@ -6,13 +6,14 @@ from fastapi import HTTPException
 
 from app.services.payment_service import PaymentService
 
+
 @pytest.mark.asyncio
 async def test_payment_rejected_for_paid_order(
     mock_db,
     mock_payment_repository,
     mock_order_repository,
     sample_customer,
-    monkeypatch
+    monkeypatch,
 ):
     mock_order_repository.get_customer_by_user_id.return_value = sample_customer
     mock_payment_repository.get_order.return_value = SimpleNamespace(

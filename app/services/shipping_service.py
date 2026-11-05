@@ -9,20 +9,25 @@ from app.schemas.shipping_schema import ShippingCreate, ShippingUpdate
 
 logger = logging.getLogger(__name__)
 
-class ShippingService:
 
-    def __init__(self,shipping_repository: ShippingRepositoryInterface):
+class ShippingService:
+    def __init__(self, shipping_repository: ShippingRepositoryInterface):
         self.shipping_repository = shipping_repository
 
-
-    async def create_shipping(self,db: AsyncSession,user_id: int,data: ShippingCreate) -> Shipping:
+    async def create_shipping(
+        self, db: AsyncSession, user_id: int, data: ShippingCreate
+    ) -> Shipping:
         try:
-            customer = await self.shipping_repository.get_customer_by_user_id(db, user_id)
+            customer = await self.shipping_repository.get_customer_by_user_id(
+                db, user_id
+            )
 
             if customer is None:
                 raise ValueError("Customer profile not found")
 
-            existing_addresses = await self.shipping_repository.get_all(db, customer.customer_id)
+            existing_addresses = await self.shipping_repository.get_all(
+                db, customer.customer_id
+            )
 
             # First address becomes the default address.
             make_default = data.is_default or not existing_addresses
@@ -38,14 +43,16 @@ class ShippingService:
                 city=data.city,
                 state=data.state,
                 pincode=data.pincode,
-                is_default=make_default
+                is_default=make_default,
             )
 
             await self.shipping_repository.create(db, shipping)
             await db.commit()
             await db.refresh(shipping)
 
-            logger.info("Shipping address created. shipping_id=%s",shipping.shipping_id)
+            logger.info(
+                "Shipping address created. shipping_id=%s", shipping.shipping_id
+            )
             return shipping
 
         except Exception:
@@ -53,8 +60,7 @@ class ShippingService:
             logger.exception("Shipping address creation failed")
             raise
 
-
-    async def get_all_shipping(self,db: AsyncSession,user_id: int) -> list[Shipping]:
+    async def get_all_shipping(self, db: AsyncSession, user_id: int) -> list[Shipping]:
         customer = await self.shipping_repository.get_customer_by_user_id(db, user_id)
 
         if customer is None:
@@ -62,8 +68,9 @@ class ShippingService:
 
         return await self.shipping_repository.get_all(db, customer.customer_id)
 
-
-    async def get_shipping(self,db: AsyncSession,user_id: int,shipping_id: int) -> Shipping:
+    async def get_shipping(
+        self, db: AsyncSession, user_id: int, shipping_id: int
+    ) -> Shipping:
         customer = await self.shipping_repository.get_customer_by_user_id(db, user_id)
 
         if customer is None:
@@ -78,22 +85,21 @@ class ShippingService:
 
         return shipping
 
-
     async def update_shipping(
-        self,
-        db: AsyncSession,
-        user_id: int,
-        shipping_id: int,
-        data: ShippingUpdate
+        self, db: AsyncSession, user_id: int, shipping_id: int, data: ShippingUpdate
     ) -> Shipping:
 
         try:
-            customer = await self.shipping_repository.get_customer_by_user_id(db, user_id)
+            customer = await self.shipping_repository.get_customer_by_user_id(
+                db, user_id
+            )
 
             if customer is None:
                 raise ValueError("Customer profile not found")
 
-            shipping = await self.shipping_repository.get_by_id(db, shipping_id, customer.customer_id)
+            shipping = await self.shipping_repository.get_by_id(
+                db, shipping_id, customer.customer_id
+            )
 
             if shipping is None:
                 raise ValueError("Shipping address not found")
@@ -122,15 +128,13 @@ class ShippingService:
             logger.exception("Shipping address update failed")
             raise
 
-
     async def delete_shipping(
-        self,
-        db: AsyncSession,
-        user_id: int,
-        shipping_id: int
+        self, db: AsyncSession, user_id: int, shipping_id: int
     ) -> None:
         try:
-            customer = await self.shipping_repository.get_customer_by_user_id(db, user_id)
+            customer = await self.shipping_repository.get_customer_by_user_id(
+                db, user_id
+            )
 
             if customer is None:
                 raise ValueError("Customer profile not found")
@@ -141,14 +145,16 @@ class ShippingService:
 
             if shipping is None:
                 raise ValueError("Shipping address not found")
-            
+
             if await self.shipping_repository.has_orders(db, shipping_id):
-                raise ShippingInUseError("Cannot delete this shipping address because it is used in an order")
+                raise ShippingInUseError(
+                    "Cannot delete this shipping address because it is used in an order"
+                )
 
             await self.shipping_repository.delete(db, shipping)
             await db.commit()
 
-            logger.info("Shipping address deleted. shipping_id=%s",shipping_id)
+            logger.info("Shipping address deleted. shipping_id=%s", shipping_id)
 
         except Exception:
             await db.rollback()

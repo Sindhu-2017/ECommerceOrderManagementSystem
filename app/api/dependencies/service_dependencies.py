@@ -28,47 +28,39 @@ def get_auth_service() -> AuthService:
     )
 
 
-
 def get_category_service() -> CategoryService:
-    return CategoryService(
-        category_repository=CategoryRepository()
-    )
+    return CategoryService(category_repository=CategoryRepository())
+
 
 def get_product_service() -> ProductService:
     return ProductService(
-        product_repository=ProductRepository(),
-        category_repository=CategoryRepository()
+        product_repository=ProductRepository(), category_repository=CategoryRepository()
     )
+
 
 def get_order_service() -> OrderService:
     return OrderService(
-        order_repository=OrderRepository(),
-        email_service=EmailService()
+        order_repository=OrderRepository(), email_service=EmailService()
     )
 
+
 def get_shipping_service() -> ShippingService:
-    return ShippingService(
-        shipping_repository=ShippingRepository()
-    )
+    return ShippingService(shipping_repository=ShippingRepository())
+
 
 def get_payment_service() -> PaymentService:
     return PaymentService(
-        payment_repository=PaymentRepository(),
-        order_repository=OrderRepository()
-    )
-
-def get_wishlist_service()->WishListService:
-    return WishListService(
-        wishlist_repository=WishlistRepository()
+        payment_repository=PaymentRepository(), order_repository=OrderRepository()
     )
 
 
-def get_customer_service() -> AdminService:
-    return CustomerService(
-        user_repository=UserRepository()
-    )
+def get_wishlist_service() -> WishListService:
+    return WishListService(wishlist_repository=WishlistRepository())
+
+
+def get_customer_service() -> CustomerService:
+    return CustomerService(user_repository=UserRepository())
+
 
 def get_report_service() -> ReportService:
-    return ReportService(
-        report_repository=ReportRepository()
-    )
+    return ReportService(report_repository=ReportRepository())

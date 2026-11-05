@@ -9,7 +9,7 @@ from alembic import context
 from app.core.config import get_settings
 from app.database.base import Base
 
-settings=get_settings()
+settings = get_settings()
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -24,17 +24,18 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
+
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
-DATABASE_URL = settings.database_url.render_as_string(
-    hide_password=False
-).replace("%","%%")
+DATABASE_URL = settings.database_url.render_as_string(hide_password=False).replace(
+    "%", "%%"
+)
 
-config.set_main_option("sqlalchemy.url",DATABASE_URL)
+config.set_main_option("sqlalchemy.url", DATABASE_URL)
 
 
 def run_migrations_offline() -> None:

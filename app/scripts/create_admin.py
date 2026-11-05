@@ -31,10 +31,7 @@ async def main() -> None:
         if result.scalar_one_or_none() is not None:
             raise SystemExit("Username or email is already registered")
 
-        hashed_password = await asyncio.to_thread(
-            hash_password,
-            password
-        )
+        hashed_password = await asyncio.to_thread(hash_password, password)
 
         admin = User(
             username=username,
@@ -51,11 +48,11 @@ async def main() -> None:
         except IntegrityError as exc:
             await db.rollback()
             raise SystemExit(
-                "Could not create administrator. "
-                "Username or email may already exist."
+                "Could not create administrator. Username or email may already exist."
             ) from exc
 
     print("Administrator created successfully.")
+
 
 if __name__ == "__main__":
     asyncio.run(main())

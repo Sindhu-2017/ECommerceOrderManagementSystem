@@ -12,61 +12,41 @@ from app.models.user import User
 class OrderRepositoryInterface(ABC):
     @abstractmethod
     async def get_customer_by_user_id(
-        self,
-        db: AsyncSession,
-        user_id: int
+        self, db: AsyncSession, user_id: int
     ) -> Customer | None:
         pass
 
     @abstractmethod
     async def get_shipping(
-        self,
-        db: AsyncSession,
-        shipping_id: int,
-        customer_id: int
+        self, db: AsyncSession, shipping_id: int, customer_id: int
     ) -> Shipping | None:
         pass
 
     @abstractmethod
-    async def get_product(
-        self,
-        db: AsyncSession,
-        product_id: int
-    ) -> Product | None:
+    async def get_product(self, db: AsyncSession, product_id: int) -> Product | None:
         pass
 
     @abstractmethod
-    async def create_order(
-        self,
-        db: AsyncSession,
-        order: Order
-    ) -> Order:
+    async def create_order(self, db: AsyncSession, order: Order) -> Order:
         pass
 
     @abstractmethod
     async def get_order_by_id(
-        self,
-        db: AsyncSession,
-        order_id: int,
-        customer_id: int | None = None
+        self, db: AsyncSession, order_id: int, customer_id: int | None = None
     ) -> Order | None:
         pass
 
     @abstractmethod
     async def get_customer_orders(
-        self,
-        db: AsyncSession,
-        customer_id: int
+        self, db: AsyncSession, customer_id: int
     ) -> list[Order]:
         pass
 
-    async def get_user_by_id(
-        self,
-        db: AsyncSession,
-        user_id: int
-    ) -> User | None:
+    async def get_user_by_id(self, db: AsyncSession, user_id: int) -> User | None:
         pass
 
     @abstractmethod
-    async def get_all_orders(self,db:AsyncSession,search:str,skip:int,limit:int)->list[Order]:
+    async def get_all_orders(
+        self, db: AsyncSession, search: str, skip: int, limit: int
+    ) -> list[Order]:
         pass

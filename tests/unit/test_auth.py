@@ -1,8 +1,9 @@
 import pytest
 
-from app.services.auth_service import AuthService
 from app.api.routers.auth_router import get_my_profile
 from app.core.exceptions import InvalidCredentialsError
+from app.services.auth_service import AuthService
+
 
 @pytest.mark.asyncio
 async def test_login_invalid_credentials(
@@ -14,7 +15,7 @@ async def test_login_invalid_credentials(
     mock_user_repository.get_by_username.return_value = None
     monkeypatch.setattr(
         "app.services.auth_service.verify_password",
-        lambda password, hashed: False,             
+        lambda password, hashed: False,
     )
     service = AuthService(
         mock_user_repository,

@@ -13,22 +13,18 @@ from app.repositories.implementations.product_repository import (
 from app.schemas.product_schema import ProductCreate
 from app.services.product_service import ProductService
 
+
 @pytest.mark.asyncio
 async def test_create_product(db_session):
     category = Category(
-        category_name="Electronics",
-        description="Electronic products",
-        is_active=True
+        category_name="Electronics", description="Electronic products", is_active=True
     )
 
     db_session.add(category)
     await db_session.commit()
     await db_session.refresh(category)
 
-    service = ProductService(
-        ProductRepository(),
-        CategoryRepository()
-    )
+    service = ProductService(ProductRepository(), CategoryRepository())
 
     product_data = ProductCreate(
         category_id=category.category_id,
@@ -37,10 +33,7 @@ async def test_create_product(db_session):
         price=Decimal("50000.00"),
         stock_quantity=10,
     )
-    result = await service.create_product(
-        db_session,
-        product_data
-    )
+    result = await service.create_product(db_session, product_data)
     assert result.product_id is not None
     assert result.product_name == "Laptop"
     assert result.price == Decimal("50000.00")
@@ -73,15 +66,9 @@ async def test_get_product(db_session):
     await db_session.commit()
     await db_session.refresh(product)
 
-    service = ProductService(
-        ProductRepository(),
-        CategoryRepository()
-    )
+    service = ProductService(ProductRepository(), CategoryRepository())
 
-    result = await service.get_product(
-        db_session,
-        product.product_id
-    )
+    result = await service.get_product(db_session, product.product_id)
 
     assert result.product_id == product.product_id
     assert result.product_name == "Smartphone"

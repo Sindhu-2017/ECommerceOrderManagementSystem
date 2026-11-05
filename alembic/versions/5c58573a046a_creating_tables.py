@@ -1,14 +1,15 @@
 """creating tables
 
 Revision ID: 5c58573a046a
-Revises: 
+Revises:
 Create Date: 2026-11-04 09:57:08.044410
 
 """
+
 from collections.abc import Sequence
 
 # revision identifiers, used by Alembic.
-revision: str = '5c58573a046a'
+revision: str = "5c58573a046a"
 down_revision: str | Sequence[str] | None = None
 branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None

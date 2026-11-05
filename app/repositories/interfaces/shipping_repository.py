@@ -7,7 +7,6 @@ from app.models.shipping import Shipping
 
 
 class ShippingRepositoryInterface(ABC):
-
     @abstractmethod
     async def get_customer_by_user_id(
         self, db: AsyncSession, user_id: int
@@ -15,9 +14,7 @@ class ShippingRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    async def create(
-        self, db: AsyncSession, shipping: Shipping
-    ) -> Shipping:
+    async def create(self, db: AsyncSession, shipping: Shipping) -> Shipping:
         pass
 
     @abstractmethod
@@ -27,27 +24,17 @@ class ShippingRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    async def get_all(
-        self, db: AsyncSession, customer_id: int
-    ) -> list[Shipping]:
+    async def get_all(self, db: AsyncSession, customer_id: int) -> list[Shipping]:
         pass
 
     @abstractmethod
-    async def update(
-        self, db: AsyncSession, shipping: Shipping
-    ) -> Shipping:
+    async def update(self, db: AsyncSession, shipping: Shipping) -> Shipping:
         pass
 
     @abstractmethod
-    async def delete(
-        self, db: AsyncSession, shipping: Shipping
-    ) -> None:
+    async def delete(self, db: AsyncSession, shipping: Shipping) -> None:
         pass
 
     @abstractmethod
-    async def has_orders(
-        self,
-        db: AsyncSession,
-        shipping_id: int
-    ) -> bool:
+    async def has_orders(self, db: AsyncSession, shipping_id: int) -> bool:
         pass

@@ -17,9 +17,7 @@ info_handler = RotatingFileHandler(
 )
 
 info_handler.setLevel(logging.INFO)
-info_handler.addFilter(
-    lambda record: logging.INFO <= record.levelno < logging.ERROR
-)
+info_handler.addFilter(lambda record: logging.INFO <= record.levelno < logging.ERROR)
 info_handler.setFormatter(formatter)
 
 error_handler = RotatingFileHandler(

@@ -4,12 +4,9 @@ import pytest
 
 from app.services.report_service import ReportService
 
+
 @pytest.mark.asyncio
-async def test_get_sales_summary(
-    mock_db,
-    mock_report_repository,
-    sample_sales_summary
-):
+async def test_get_sales_summary(mock_db, mock_report_repository, sample_sales_summary):
     mock_report_repository.get_sales_summary.return_value = sample_sales_summary
     service = ReportService(mock_report_repository)
 
@@ -22,7 +19,7 @@ async def test_get_sales_summary(
 
 
 @pytest.mark.asyncio
-async def test_get_product_sales(mock_db,mock_report_repository):
+async def test_get_product_sales(mock_db, mock_report_repository):
     mock_report_repository.get_product_sales.return_value = [
         {
             "product_id": 1,

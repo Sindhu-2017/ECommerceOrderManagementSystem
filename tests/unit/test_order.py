@@ -2,12 +2,10 @@ import pytest
 
 from app.services.order_service import OrderService
 
+
 @pytest.mark.asyncio
 async def test_get_customer_orders(
-    mock_db,
-    mock_order_repository,
-    sample_customer,
-    sample_order
+    mock_db, mock_order_repository, sample_customer, sample_order
 ):
     mock_order_repository.get_customer_by_user_id.return_value = sample_customer
     mock_order_repository.get_customer_orders.return_value = [sample_order]
@@ -25,7 +23,10 @@ async def test_get_customer_orders(
 
 
 @pytest.mark.asyncio
-async def test_get_customer_orders_without_customer(mock_db,mock_order_repository,):
+async def test_get_customer_orders_without_customer(
+    mock_db,
+    mock_order_repository,
+):
     mock_order_repository.get_customer_by_user_id.return_value = None
     service = OrderService(
         mock_order_repository,

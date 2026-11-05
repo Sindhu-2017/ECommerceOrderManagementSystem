@@ -6,12 +6,10 @@ from app.core.exceptions import InvalidProductDataError
 from app.schemas.product_schema import ProductCreate
 from app.services.product_service import ProductService
 
+
 @pytest.mark.asyncio
 async def test_create_product(
-    mock_db,
-    mock_product_repository,
-    mock_category_repository,
-    sample_category
+    mock_db, mock_product_repository, mock_category_repository, sample_category
 ):
     mock_category_repository.get_by_id.return_value = sample_category
     mock_product_repository.get_by_name.return_value = None
@@ -42,9 +40,7 @@ async def test_create_product(
 
 @pytest.mark.asyncio
 async def test_create_product_invalid_category(
-    mock_db,
-    mock_product_repository,
-    mock_category_repository
+    mock_db, mock_product_repository, mock_category_repository
 ):
     mock_category_repository.get_by_id.return_value = None
     service = ProductService(

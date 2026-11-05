@@ -11,11 +11,7 @@ from app.repositories.interfaces.refresh_token_repository import (
 
 class RefreshTokenRepository(RefreshTokenRepositoryInterface):
     async def create(
-        self, 
-        db: AsyncSession, 
-        user_id: int, 
-        token_hash: str, 
-        expires_at: datetime
+        self, db: AsyncSession, user_id: int, token_hash: str, expires_at: datetime
     ) -> RefreshToken:
         refresh_token = RefreshToken(
             user_id=user_id, token_hash=token_hash, expires_at=expires_at
@@ -27,9 +23,7 @@ class RefreshTokenRepository(RefreshTokenRepositoryInterface):
 
     # prevent two concurrent refresh requests from successfully rotating the same token
     async def get_valid_for_update(
-        self, 
-        db: AsyncSession, 
-        token_hash: str
+        self, db: AsyncSession, token_hash: str
     ) -> RefreshToken | None:
         result = await db.execute(
             select(RefreshToken)

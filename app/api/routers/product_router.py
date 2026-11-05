@@ -5,16 +5,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.dependencies.auth import require_roles
 from app.api.dependencies.database import get_db
-from app.api.dependencies.service_depencies import get_product_service
+from app.api.dependencies.service_dependencies import get_product_service
 from app.schemas.product_schema import ProductCreate, ProductResponse, ProductUpdate
 from app.services.product_service import ProductService
 
-router = APIRouter(
-    prefix="/api/products",
-    tags=["Product Management"]
-)
+router = APIRouter(prefix="/api/products", tags=["Product Management"])
 
-ProductServiceDependency = Annotated[ProductService,Depends(get_product_service)]
+ProductServiceDependency = Annotated[ProductService, Depends(get_product_service)]
+
 
 # CREATE PRODUCT
 @router.post(
@@ -23,15 +21,16 @@ ProductServiceDependency = Annotated[ProductService,Depends(get_product_service)
     status_code=status.HTTP_201_CREATED,
     dependencies=[Depends(require_roles("admin"))],
     summary="Create a product",
-    description="Creates a new product with its details and image."
+    description="Creates a new product with its details and image.",
 )
 async def create_product(
     data: ProductCreate,
     db: Annotated[AsyncSession, Depends(get_db)],
-    service: ProductServiceDependency
+    service: ProductServiceDependency,
 ):
 
-    return await service.create_product(db,data)
+    return await service.create_product(db, data)
+
 
 # UPLOAD PRODUCT IMAGE
 @router.post(
@@ -40,7 +39,7 @@ async def create_product(
     status_code=status.HTTP_200_OK,
     dependencies=[Depends(require_roles("admin"))],
     summary="Upload product image",
-    description="Upload Product Image using Product ID"
+    description="Upload Product Image using Product ID",
 )
 async def upload_product_image(
     db: Annotated[AsyncSession, Depends(get_db)],
@@ -49,23 +48,21 @@ async def upload_product_image(
     image: UploadFile = File(...),
 ):
 
-    return await service.upload_product_image(
-        db,product_id,
-        image
-    )
+    return await service.upload_product_image(db, product_id, image)
+
 
 # GET ALL PRODUCTS
 @router.get(
     "/",
     response_model=list[ProductResponse],
-    dependencies=[Depends(require_roles("admin","customer"))],
+    dependencies=[Depends(require_roles("admin", "customer"))],
     summary="Get all products",
-    description="Retrieves all products with filtering and pagination."
+    description="Retrieves all products with filtering and pagination.",
 )
 async def get_all_products(
     db: Annotated[AsyncSession, Depends(get_db)],
     service: ProductServiceDependency,
-    search: str | None = Query(default=None,description="Search by Product name"),
+    search: str | None = Query(default=None, description="Search by Product name"),
     category_id: int | None = Query(default=None, gt=0),
     min_price: float | None = Query(default=None, ge=0),
     max_price: float | None = Query(default=None, ge=0),
@@ -80,7 +77,7 @@ async def get_all_products(
         min_price=min_price,
         max_price=max_price,
         skip=skip,
-        limit=limit
+        limit=limit,
     )
 
 
@@ -88,17 +85,17 @@ async def get_all_products(
 @router.get(
     "/{product_id}",
     response_model=ProductResponse,
-    dependencies=[Depends(require_roles("admin","customer"))],
+    dependencies=[Depends(require_roles("admin", "customer"))],
     summary="Get product by ID",
     description="Retrieves product details using its ID.",
 )
 async def get_product(
     db: Annotated[AsyncSession, Depends(get_db)],
     product_id: int,
-    service: ProductServiceDependency
+    service: ProductServiceDependency,
 ):
 
-    return await service.get_product(db,product_id)
+    return await service.get_product(db, product_id)
 
 
 # UPDATE PRODUCT
@@ -107,16 +104,16 @@ async def get_product(
     response_model=ProductResponse,
     dependencies=[Depends(require_roles("admin"))],
     summary="Update product by ID",
-    description="Update product details using its ID."
+    description="Update product details using its ID.",
 )
 async def update_product(
     db: Annotated[AsyncSession, Depends(get_db)],
     product_id: int,
     data: ProductUpdate,
-    service:ProductServiceDependency
+    service: ProductServiceDependency,
 ):
 
-    return await service.update_product(db,product_id, data)
+    return await service.update_product(db, product_id, data)
 
 
 # DELETE PRODUCT
@@ -124,7 +121,7 @@ async def update_product(
     "/{product_id}",
     dependencies=[Depends(require_roles("admin"))],
     summary="Delete a product",
-    description="Deletes a product using its ID."
+    description="Deletes a product using its ID.",
 )
 async def delete_product(
     db: Annotated[AsyncSession, Depends(get_db)],
@@ -132,7 +129,7 @@ async def delete_product(
     service: ProductServiceDependency,
 ):
 
-    return await service.delete_product(db,product_id)
+    return await service.delete_product(db, product_id)
 
 
 # DELETED PRODUCTS
@@ -141,11 +138,10 @@ async def delete_product(
     response_model=list[ProductResponse],
     dependencies=[Depends(require_roles("admin"))],
     summary="Get deleted prodcts",
-    description="Retrieves all deleted products"
+    description="Retrieves all deleted products",
 )
 async def get_deleted_products(
-    db:Annotated[AsyncSession,Depends(get_db)],
-    service:ProductServiceDependency
+    db: Annotated[AsyncSession, Depends(get_db)], service: ProductServiceDependency
 ):
     return await service.get_deleted_products(db)
 
@@ -155,15 +151,11 @@ async def get_deleted_products(
     "/admin/restore/{product_id}",
     dependencies=[Depends(require_roles("admin"))],
     summary="Restore Product",
-    description="Restore Deleted Product based on Product ID"
+    description="Restore Deleted Product based on Product ID",
 )
 async def restore_product(
-    product_id:int,
-    db:Annotated[AsyncSession,Depends(get_db)],
-    service:ProductServiceDependency
+    product_id: int,
+    db: Annotated[AsyncSession, Depends(get_db)],
+    service: ProductServiceDependency,
 ):
-    return await service.restore_product(db,product_id)
-
-
-
-
+    return await service.restore_product(db, product_id)

@@ -11,21 +11,16 @@ from app.schemas.report_schema import ProductSalesResponse, SalesSummaryResponse
 
 
 class ReportRepository(ReportRepositoryInterface):
-    async def get_sales_summary(self,db: AsyncSession) -> SalesSummaryResponse:
-        total_orders = await db.scalar(
-            select(func.count(Order.order_id))
-        )
+    async def get_sales_summary(self, db: AsyncSession) -> SalesSummaryResponse:
+        total_orders = await db.scalar(select(func.count(Order.order_id)))
         paid_orders = await db.scalar(
-            select(func.count(Order.order_id))
-            .where(Order.order_status == "paid")
+            select(func.count(Order.order_id)).where(Order.order_status == "paid")
         )
         total_revenue = await db.scalar(
-            select(func.sum(Order.total_amount))
-            .where(Order.order_status == "paid")
+            select(func.sum(Order.total_amount)).where(Order.order_status == "paid")
         )
         pending_orders = await db.scalar(
-            select(func.count(Order.order_id))
-            .where(Order.order_status == "pending")
+            select(func.count(Order.order_id)).where(Order.order_status == "pending")
         )
         return SalesSummaryResponse(
             total_orders=total_orders or 0,
@@ -34,24 +29,18 @@ class ReportRepository(ReportRepositoryInterface):
             pending_orders=pending_orders or 0,
         )
 
-    async def get_product_sales(self,db: AsyncSession) -> list[ProductSalesResponse]:
+    async def get_product_sales(self, db: AsyncSession) -> list[ProductSalesResponse]:
         result = await db.execute(
             select(
                 Product.product_id,
                 Product.product_name,
                 func.sum(OrderItem.quantity).label("quantity_sold"),
-                func.sum(OrderItem.subtotal).label("total_sales")
+                func.sum(OrderItem.subtotal).label("total_sales"),
             )
-            .join(
-                OrderItem,OrderItem.product_id == Product.product_id
-            )
-            .join(
-                Order,Order.order_id == OrderItem.order_id
-            )
+            .join(OrderItem, OrderItem.product_id == Product.product_id)
+            .join(Order, Order.order_id == OrderItem.order_id)
             .where(Order.order_status == "paid")
-            .group_by(
-                Product.product_id,Product.product_name
-            )
+            .group_by(Product.product_id, Product.product_name)
             .order_by(func.sum(OrderItem.quantity).desc())
         )
 
@@ -61,7 +50,7 @@ class ReportRepository(ReportRepositoryInterface):
                 product_id=row.product_id,
                 product_name=row.product_name,
                 quantity_sold=row.quantity_sold,
-                total_sales=row.total_sales or Decimal("0.00")
+                total_sales=row.total_sales or Decimal("0.00"),
             )
             for row in rows
         ]

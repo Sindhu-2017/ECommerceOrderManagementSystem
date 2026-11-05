@@ -1,15 +1,14 @@
 import pytest
 
-from app.services.category_service import CategoryService
-from app.schemas.category_schema import CategoryCreate
 from app.core.exceptions import CategoryAlreadyExistsError
+from app.schemas.category_schema import CategoryCreate
+from app.services.category_service import CategoryService
+
 
 @pytest.mark.asyncio
-async def test_create_category( mock_db,mock_category_repository):
+async def test_create_category(mock_db, mock_category_repository):
     mock_category_repository.get_by_name.return_value = None
-    mock_category_repository.create.side_effect = (
-        lambda db, category: category
-    )
+    mock_category_repository.create.side_effect = lambda db, category: category
     mock_db.refresh.side_effect = lambda category: None
 
     service = CategoryService(mock_category_repository)
@@ -26,7 +25,9 @@ async def test_create_category( mock_db,mock_category_repository):
 
 
 @pytest.mark.asyncio
-async def test_create_duplicate_category(mock_db,mock_category_repository,sample_category):
+async def test_create_duplicate_category(
+    mock_db, mock_category_repository, sample_category
+):
     mock_category_repository.get_by_name.return_value = sample_category
     service = CategoryService(mock_category_repository)
 

@@ -34,12 +34,14 @@ class RefreshTokenNotFoundError(AppError):
 class DatabaseOperationError(AppError):
     pass
 
+
 class CategoryNotFoundError(AppError):
     pass
 
 
 class CategoryAlreadyExistsError(AppError):
     pass
+
 
 class ProductNotFoundError(AppError):
     pass
@@ -63,6 +65,7 @@ class CustomerNotFoundError(Exception):
 
 class InvalidOrderOperationError(Exception):
     pass
+
 
 class ShippingInUseError(Exception):
     pass

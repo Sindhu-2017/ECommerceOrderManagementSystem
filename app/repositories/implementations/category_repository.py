@@ -6,39 +6,22 @@ from app.repositories.interfaces.category_repository import CategoryRepositoryIn
 
 
 class CategoryRepository(CategoryRepositoryInterface):
-
-    async def get_by_id(
-        self,
-        db: AsyncSession,
-        category_id: int
-    ) -> Category | None:
+    async def get_by_id(self, db: AsyncSession, category_id: int) -> Category | None:
         result = await db.execute(
-            select(Category).where(
-                Category.category_id == category_id
-            )
+            select(Category).where(Category.category_id == category_id)
         )
         return result.scalar_one_or_none()
-
 
     async def get_by_name(
-        self,
-        db: AsyncSession,
-        category_name: str
+        self, db: AsyncSession, category_name: str
     ) -> Category | None:
         result = await db.execute(
-            select(Category).where(
-                Category.category_name.ilike(category_name)
-            )
+            select(Category).where(Category.category_name.ilike(category_name))
         )
 
         return result.scalar_one_or_none()
 
-
-    async def get_all(
-        self,
-        db: AsyncSession
-    ) -> list[Category]:
-
+    async def get_all(self, db: AsyncSession) -> list[Category]:
         result = await db.execute(
             select(Category)
             .where(Category.is_active.is_(True))
@@ -46,16 +29,7 @@ class CategoryRepository(CategoryRepositoryInterface):
         )
         return list(result.scalars().all())
 
-
-    async def create(
-        self,
-        db: AsyncSession,
-        category: Category
-    ) -> Category:
-
-        # db.add(category)
-        # await db.flush()
-        # return category
+    async def create(self, db: AsyncSession, category: Category) -> Category:
         await db.execute(
             text("""
                 CALL insert_category(
@@ -64,30 +38,21 @@ class CategoryRepository(CategoryRepositoryInterface):
                 )
             """),
             {
-                "category_name":category.category_name,
-                "description": category.description
-            }
+                "category_name": category.category_name,
+                "description": category.description,
+            },
         )
 
         result = await db.execute(
-            select(Category).where(
-                Category.category_name == category.category_name
-            )
+            select(Category).where(Category.category_name == category.category_name)
         )
-
         return result.scalar_one()
 
-
-    async def update(
-        self,
-        db: AsyncSession,
-        category: Category
-    ) -> Category:
-
+    async def update(self, db: AsyncSession, category: Category) -> Category:
         await db.flush()
         return category
 
-    async def get_deleted_categories(self,db: AsyncSession) -> list[Category]:
+    async def get_deleted_categories(self, db: AsyncSession) -> list[Category]:
         result = await db.execute(
             select(Category)
             .where(Category.is_active.is_(False))
